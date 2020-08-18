@@ -24,8 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', v.index, name="index"),
     path('index.html', v.index, name="index"),
-    path('Python.html', v.Python, name="Python"),
+    path('directorypage.html', v.directorypage, name="directorypage"),
     path('team.html', v.Team, name="team"),
+    path('create', v.create, name="create"),
+    path('members',v.members,name="members"),
+    path('joined',v.joined,name="joined"),
+    path('joindirectory',v.joindirectory,name="joindirectory"),
     path('accounts/',include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('adduser/',v.simple_upload,name='simple_upload'),
@@ -33,5 +37,6 @@ urlpatterns = [
     
 ]
 
-urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+
+urlpatterns=urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 

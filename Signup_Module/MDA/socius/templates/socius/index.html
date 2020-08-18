@@ -62,6 +62,11 @@
 											<a class="dropdown-item" href="address.html", target="blank">Address</a>
 										  </div>
 										</li>
+										{% if user.is_superuser %}
+							
+										<li><a href="create">Create Directory</a></li>
+										
+										{% endif %}
 										   
 									
 									
@@ -287,11 +292,15 @@
 						<!-- Destination -->
 						{% for mem in mems %}
 						<div class="destination item">
+								<div class="destination_image">
+									<img src="{{mem.img.url}}" alt="">
+									
+								</div>
 							
 							<div class="destination_content">
-								<div class="destination_title"><a href="{{mem.name}}.html">{{mem.name}}</a></div>
+								<div class="destination_title"><a href="directorypage.html">{{mem.name}}</a></div>
 								<div class="destination_subtitle"><p>{{mem.desc}}</p></div>
-								<div class="destination_price">Size of {{mem.size}}</div>
+								<div class="destination_price">Size:{{mem.size}}</div><div class="description_join"><a href="joindirectory">Join</a></div>
 							</div>
 						</div>
 						{% endfor %}

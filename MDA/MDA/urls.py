@@ -29,6 +29,9 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('adduser/',v.simple_upload,name='simple_upload'),
     path('admin/', admin.site.urls),
-]
+] 
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

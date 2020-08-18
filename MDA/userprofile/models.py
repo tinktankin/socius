@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import datetime
+from multi_email_field.fields import MultiEmailField
 from PIL import Image
 
 class Profile(models.Model):
@@ -9,7 +11,6 @@ class Profile(models.Model):
     lastName = models.CharField(max_length=20,blank=True,default='')
     bio = models.TextField(default='', blank=True)
     tagLine = models.TextField(blank=True,default='')
-    #profileStatus = models.IntegerField(default=0) #to know how much profile does the user completed
     status = models.TextField(blank=True,default='')
     def __str__(self):
         return f'{self.user.username} Profile'

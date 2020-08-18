@@ -1,5 +1,8 @@
 from django import forms
-from multi_email_field.forms import MultiEmailField
-from django.contrib.auth.models import User
+from socius.models import memberdirectory
 
-
+class DirectoryCreationForm(forms.ModelForm):
+    class Meta:
+        model=memberdirectory
+        fields=('name','img','desc','size')
+        

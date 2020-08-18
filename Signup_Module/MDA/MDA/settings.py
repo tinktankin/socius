@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'multi_email_field',
     'widget_tweaks',
+    
 ]
 
 MIDDLEWARE = [
@@ -83,9 +84,9 @@ WSGI_APPLICATION = 'MDA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'socius1',
+        'NAME': 'socius2',
         'USER': 'postgres',
-        'PASSWORD': 'ganesh9553',
+        'PASSWORD': 'saidhoni888',
         'HOST': 'localhost',
     }
 }

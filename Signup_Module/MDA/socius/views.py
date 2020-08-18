@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Destination
-from .models import UserList , memberdirectory
+from .models import UserList , memberdirectory,DirectoryMembers
 from .resources import UserListResource
 from django.contrib import messages
 from tablib import Dataset 
@@ -16,6 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 from django.core import mail
+from .forms import DirectoryCreationForm
 #import uuid 
 #from .models import MemberProfile,Phone,Address,Speciality,KeySKills,Certificates,Testimonial,Document,AcademicDetails,Event
 from django.contrib.auth.models import User
@@ -61,8 +62,9 @@ def Team(request):
     return render(request, "socius/team.html")
 
 @login_required(login_url='login')
-def Python(request):
-    return render(request, "socius/Python.html")
+def directorypage(request):
+    admin=User.objects.filter(is_superuser='True').first()
+    return render(request, "socius/directorypage.html",{'admin':admin})
 
 
 
@@ -162,3 +164,38 @@ def active(request, uidb64, token):
         return HttpResponse('Invitation link is invalid!')
 
 
+def create(request,*args,**kwargs):
+    if request.method=='POST':
+        form=DirectoryCreationForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('index.html')
+    else:
+        form=DirectoryCreationForm()
+    return render(request,'socius/createdir.html',{'form':form})
+
+def members(response):
+   Members=DirectoryMembers.objects.all()
+   return render(response, "socius/Members.html",{'Members':Members})
+@login_required
+def joindirectory(request):
+    return render(request,'socius/joindirectory.html')
+
+def joined(request):
+    if request.method=='POST':
+        Name=request.POST['Name']
+        Email=request.POST['email']
+        Bio=request.POST['bio']
+        if DirectoryMembers.objects.filter(Email=Email).exists():
+            messages.info(request, 'The email is already registered')
+            return redirect('joined')
+        else:
+            obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio)
+            obj2.save()
+            direcory1=memberdirectory.objects.all()
+            return render(request,'socius/directorypage.html')
+    else:
+        return render(request,'socius/joindirectory.html')
+
+
+   

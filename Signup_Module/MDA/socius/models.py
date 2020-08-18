@@ -21,6 +21,14 @@ class UserList(models.Model):
 
 class memberdirectory(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
+    img = models.ImageField(upload_to='pics',default='')
     desc = models.TextField(default='Defualt Value')
     size = models.IntegerField(default=0)
 
+class DirectoryMembers(models.Model):
+    #Directory=models.OneToOneField(DirectoryCreation,on_delete=models.CASCADE,default='')
+    Name=models.CharField(max_length=100)
+    Email=models.EmailField(max_length=250,blank=True)
+    Bio=models.TextField(max_length=250,blank=True,null=True)
+    #def __str__(self):
+     #  return self.Directory.DirectoryName

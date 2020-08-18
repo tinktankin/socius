@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Skills & specialities</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                    <form action="{% url 'skills' %}" class="form-horizontal" role="form" method="POST">
+                        {% csrf_token %}
+                        <!--input type="submit" value="Skills"/-->
+                        <div class="form-group">
+                        <label for="">Add your skills here</label>
+                        <input type="text" class="form-control" id="SKills" placeholder="Ex:Html,Css,C/C++" name="Skills">
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="">Add your specialities  here</label>
+                            <input type="text" class="form-control" id="speciality" name="speciality">
+                        </div>
+                        <button type="submit" class="btn btn-primary" value="Skills">Submit</button>
+                    </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</body>
+</html>

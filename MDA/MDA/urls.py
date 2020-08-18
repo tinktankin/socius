@@ -15,8 +15,19 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from socius import views as v
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',include('UserModule.urls')),
+    path('',include('userprofile.urls')),
+    path('', v.index, name="index"),
+    path('index.html', v.index, name="index"),
+    path('team.html', v.Team, name="team"),
+    path('accounts/',include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('adduser/',v.simple_upload,name='simple_upload'),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)

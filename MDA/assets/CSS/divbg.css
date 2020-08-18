@@ -1,0 +1,8 @@
+.container {
+    background-color:rgb(230, 243, 241);
+  }
+  .center {
+      margin: auto;
+      width: 40%;
+      padding: 10px;
+    }

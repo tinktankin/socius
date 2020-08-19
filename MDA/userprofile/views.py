@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ProfileUpdateForm, ContactForm, SkillsForm
+from .forms import UserUpdateForm, ProfileUpdateForm, ContactForm, SkillsForm,AddressForm,CertificateForm,TestimonialForm,EducationForm
 from .models import Profile, Skills, ContactInfo , Address,Certificate, Testimonial, Education
 
 @login_required
@@ -32,10 +32,10 @@ def skills(request,*args):
     if request.method == 'POST':
         s_form = SkillsForm(request.POST,instance=request.user)
         if s_form.is_valid():
-            user = User.objects.filter().first()
+            userSkills = User.objects.filter().first()
             skill = request.POST['skill']
             speciality = request.POST['speciality']
-            obj = Skills(skill=skill,speciality=speciality,user=user)
+            obj = Skills(skill=skill,speciality=speciality,userSkills=userSkills)
             obj.save()
             messages.success(request, f'Your skills has been updated!')
             return redirect('skills')
@@ -95,3 +95,81 @@ def address(request,*args):
         'a_form': a_form,
     }
     return render(request, 'contact.html', context)
+
+
+@login_required
+def certificate(request,*args):
+    if request.method == 'POST':
+        cer_form =CertificateForm(request.POST,instance=request.user)
+        if cer_form.is_valid():
+            userCertificate = User.objects.filter().first()
+            name = request.POST['name']
+            issuingOrg = request.POST['issuingOrg']
+            issuedDate = request.POST['issuedDate']
+            expiryDate = request.POST['expiryDate']
+            credentialId = request.POST['credentialId']
+            credentialUrl = request.POST['credentialUrl']
+            description = request.POST['description']
+            obj = Certificate(name=name,issuingOrg=issuingOrg,issuedDate=issuedDate,expiryDate=expiryDate,credentialId=credentialId,credentialUrl=credentialUrl,description=description,userCertificate=userCertificate)
+            obj.save()
+            messages.success(request, f'Your contact details has been updated!')
+            return redirect('contact')
+
+    else:
+        cer_form =CertificateForm (instance=request.user)
+    context = {
+        'cer_form': cer_form,
+    }
+    return render(request, 'contact.html', context)
+
+
+
+@login_required
+def testimonial(request,*args):
+    if request.method == 'POST':
+        t_form = TestimonialForm(request.POST,instance=request.user)
+        if t_form.is_valid():
+            userTestimonial = User.objects.filter().first()
+            attestant = request.POST['attestant']
+            issuedDate = request.POST['issuedDate']
+            services = request.POST['services']
+            designation = request.POST['designation']
+            location = request.POST['location']
+            description = request.POST['description']
+            obj = Testimonial(attestant=attestant, issuedDate=issuedDate, services=services,designation=designation,location=location,description=description,userTestimonial=userTestimonial)
+            obj.save()
+            messages.success(request, f'Your Testimonials has been updated!')
+            return redirect('contact')
+
+    else:
+        t_form = TestimonialForm(instance=request.user)
+    context = {
+        't_form': t_form,
+    }
+    return render(request, 'contact.html', context)
+
+
+@login_required
+def education(request,*args):
+    if request.method == 'POST':
+        e_form = EducationForm(request.POST,instance=request.user)
+        if e_form.is_valid():
+            userEducation = User.objects.filter().first()
+            institute = request.POST['institute']
+            degree = request.POST['degree']
+            branch = request.POST['branch']
+            grade = request.POST['grade']
+            startDate = request.POST['startDate']
+            endDate = request.POST['endDate']
+            description = request.POST['description']
+            obj = Education(institute=institute,degree=degree,branch=branch,grade=grade,startDate=startDate,endDate=endDate,description=description,userEducation=userEducation)
+            obj.save()
+            messages.success(request, f'Your education details has been updated!')
+            return redirect('education')
+
+    else:
+        e_form = EducationForm(instance=request.user)
+    context = {
+        'e_form': e_form,
+    }
+    return render(request, 'education.html', context)

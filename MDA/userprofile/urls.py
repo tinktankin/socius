@@ -4,5 +4,6 @@ from userprofile import views as uv
 urlpatterns = [
         path('profile', uv.profile, name="profile"),
         path('contact',uv.contact,name='contact'),
-        path('skills',uv.skills,name='skills')
+        path('skills',uv.skills,name='skills'),
+        path('education',uv.education,name='education'),
 ]

@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm, ContactForm, SkillsForm
-from .models import Skills, ContactInfo
+from .models import Profile, Skills, ContactInfo , Address,Certificate, Testimonial, Education
 
 @login_required
 def profile(request):
@@ -54,10 +54,10 @@ def contact(request,*args):
     if request.method == 'POST':
         c_form = ContactForm(request.POST,instance=request.user)
         if c_form.is_valid():
-            user = User.objects.filter().first()
+            userContact = User.objects.filter().first()
             email = request.POST['email']
             phone = request.POST['phone']
-            obj = ContactInfo(email=email,phone=phone,user1=user)
+            obj = ContactInfo(email=email,phone=phone,userContact=userContact)
             obj.save()
             messages.success(request, f'Your contact details has been updated!')
             return redirect('contact')
@@ -66,5 +66,32 @@ def contact(request,*args):
         c_form = ContactForm(instance=request.user)
     context = {
         'c_form': c_form,
+    }
+    return render(request, 'contact.html', context)
+
+
+
+
+@login_required
+def address(request,*args):
+    if request.method == 'POST':
+        a_form = AddressForm(request.POST,instance=request.user)
+        if a_form.is_valid():
+            userAddress = User.objects.filter().first()
+            flatNo = request.POST['flatNo']
+            street = request.POST['street']
+            city = request.POST['city']
+            state = request.POST['state']
+            country = request.POST['country']
+            pinCode = request.POST['pinCode']
+            obj = Address(flatNo=flatNo,street=street,city=city,state=state,country=country,pinCode=pinCode,userAddress=userAddress)
+            obj.save()
+            messages.success(request, f'Your contact details has been updated!')
+            return redirect('contact')
+
+    else:
+        a_form = AddressForm(instance=request.user)
+    context = {
+        'a_form': a_form,
     }
     return render(request, 'contact.html', context)

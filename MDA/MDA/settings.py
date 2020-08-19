@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'socius.apps.SociusConfig',
     'import_export',
     'accounts.apps.AccountsConfig',
+    'phonenumber_field',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [

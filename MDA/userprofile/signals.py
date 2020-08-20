@@ -13,11 +13,14 @@ def create_profile(sender, instance, created, **kwargs):
 def save_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-@receiver(post_save, sender=User)
+
+'''
+@receiver(post_save, sender=Skills)
 def create_skills(sender, instance, created, **kwargs):
     if created:
         Skills.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_profile(sender, instance, **kwargs):
+@receiver(post_save, sender=Skills)
+def save_skills(sender, instance, **kwargs):
     instance.skills.save()
+'''

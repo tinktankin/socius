@@ -1,25 +1,137 @@
-{% load crispy_forms_tags %}
-{% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
+{% load widget_tweaks %}
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>User Profile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row my-2">
+            <div class="col-lg-8 order-lg-2">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                        <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#education" data-toggle="tab" class="nav-link">Education</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#skills" data-toggle="tab" class="nav-link">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#certifications" data-toggle="tab" class="nav-link">Certifications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" data-target="#testimonials" data-toggle="tab" class="nav-link">Testimonials</a>
+                    </li>
+                </ul>
+                <div class="tab-content py-4">
+                    <div class="tab-pane active" id="profile">
+                        <h5 class="mb-3">{{user.username}} Profile</h5>
+
+
+                        Your profile will be displayed here!!!
+                    </div>
+
+
+                    <div class="tab-pane" id="education">
+                        Education details will be displayed here!!!
+                        
+                    </div>
+                    <div class="tab-pane" id="skills">
+                        Skills will be displayed here!!
+                        {{ s_data}}
+                        {% for s in s_data %}
+                            {{ s.skill }}
+                            {{ s.speciality }}
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane" id="certifications">
+                        Certifications will be displayed here!!
+                        
+                    </div>
+                    <div class="tab-pane" id="testimonials">
+                        Testimonials will be displayed here!!
+                        
+                    </div>  
+                </div>
+            </div>
+            <div class="col-lg-4 order-lg-1 text-center">
+                <img src="{{ user.profile.image.url }}" class="mx-auto img-fluid img-circle d-block" alt="avatar" style="border-radius: 100%;height:200px;width:200px;">
+                <h6 class="mt-2">Upload a different photo</h6>
+                <label class="custom-file">
+                    <input type="file" id="file" class="custom-file-input">
+                    <span class="custom-file-control">Choose file</span>
+                </label>
+            </div>
         </div>
-      </div>
     </div>
-    <div>
-      <form method="POST" enctype="multipart/form-data">
-          {% csrf_token %}
-          <fieldset class="form-group">
-              <legend class="border-bottom mb-4">Profile Info</legend>
-              {{ u_form|crispy }}
-              {{ p_form|crispy }}
-          </fieldset>
-          <div class="form-group">
-              <button class="btn btn-outline-info" type="submit">Update</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="container">
+  <h2>Let's try collapse bar here!!!</h2>
+  <p>Use the .col class on a specified number of elements and Bootstrap will recognize how many elements there are (and create equal-width columns). In the example below, we use three col elements, which gets a width of 33.33% each.</p>
+  <div class="row">
+    <div class="col bg-success">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+        <div id="demo" class="collapse">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </div>
-      </form>
     </div>
-{% endblock content %}
+    <div class="col bg-warning">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+        <div id="demo" class="collapse">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </div>
+
+    </div>
+    <div class="col bg-success">
+        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
+        <div id="demo" class="collapse">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </div>
+    </div>
+  </div>
+</div>
+  
+-->
+</body>
+</html>

@@ -15,7 +15,13 @@ class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image','firstName','lastName','bio','tagLine','status']
-
+        '''
+        widget = {
+            'bio': forms.TextInput(attrs ={'class':'form-control'}),
+            'tagLine': forms.TextInput(attrs = {'class':'form-control'})
+        }
+        
+        '''
 class ContactForm(forms.ModelForm):
     class Meta:
         model = ContactInfo

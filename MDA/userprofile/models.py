@@ -16,7 +16,7 @@ class Profile(models.Model):
     status = models.TextField(max_length=100 ,blank=True,default='')
     def __str__(self):
         return f'{self.user.username} Profile'
-
+    '''
     def save(self):
         super().save()
 
@@ -26,7 +26,7 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
+    '''
 #Foreign Key Tables
 
 class Skills(models.Model):

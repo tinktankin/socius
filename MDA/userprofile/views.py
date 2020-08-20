@@ -5,8 +5,12 @@ from django.contrib.auth.decorators import login_required
 from .forms import UserUpdateForm, ProfileUpdateForm, ContactForm, SkillsForm,AddressForm,CertificateForm,TestimonialForm,EducationForm
 from .models import Profile, Skills, ContactInfo , Address,Certificate, Testimonial, Education
 
+def onlineprofile(request):
+    return render(request,'onlineprofile.html')
+
 @login_required
 def profile(request):
+    print("Entered profile function")
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -29,8 +33,9 @@ def profile(request):
 
 @login_required
 def skills(request,*args):
+    print("Entered skills function")
     if request.method == 'POST':
-        s_form = SkillsForm(request.POST,instance=request.user)
+        s_form = SkillsForm(request.POST,instance=request.user.skills)
         if s_form.is_valid():
             userSkills = User.objects.filter().first()
             skill = request.POST['skill']
@@ -38,14 +43,16 @@ def skills(request,*args):
             obj = Skills(skill=skill,speciality=speciality,userSkills=userSkills)
             obj.save()
             messages.success(request, f'Your skills has been updated!')
-            return redirect('skills')
+            return redirect('profile')
 
     else:
-        s_form = SkillsForm(instance=request.user)
+        s_form = SkillsForm(instance=request.user.skills)
+    s_data = Skills.objects.all().select_related('userSkills')
     context = {
         's_form': s_form,
+        's_data': s_data
     }
-    return render(request, 'skills.html', context)
+    return render(request, 'profile.html', context)
 
 
 
@@ -60,14 +67,14 @@ def contact(request,*args):
             obj = ContactInfo(email=email,phone=phone,userContact=userContact)
             obj.save()
             messages.success(request, f'Your contact details has been updated!')
-            return redirect('contact')
+            return redirect('profile')
 
     else:
         c_form = ContactForm(instance=request.user)
     context = {
         'c_form': c_form,
     }
-    return render(request, 'contact.html', context)
+    return render(request, 'profile.html', context)
 
 
 
@@ -87,14 +94,14 @@ def address(request,*args):
             obj = Address(flatNo=flatNo,street=street,city=city,state=state,country=country,pinCode=pinCode,userAddress=userAddress)
             obj.save()
             messages.success(request, f'Your contact details has been updated!')
-            return redirect('contact')
+            return redirect('profile')
 
     else:
         a_form = AddressForm(instance=request.user)
     context = {
         'a_form': a_form,
     }
-    return render(request, 'contact.html', context)
+    return render(request, 'profile.html', context)
 
 
 @login_required
@@ -113,14 +120,14 @@ def certificate(request,*args):
             obj = Certificate(name=name,issuingOrg=issuingOrg,issuedDate=issuedDate,expiryDate=expiryDate,credentialId=credentialId,credentialUrl=credentialUrl,description=description,userCertificate=userCertificate)
             obj.save()
             messages.success(request, f'Your contact details has been updated!')
-            return redirect('contact')
+            return redirect('profile')
 
     else:
         cer_form =CertificateForm (instance=request.user)
     context = {
         'cer_form': cer_form,
     }
-    return render(request, 'contact.html', context)
+    return render(request, 'profile.html', context)
 
 
 
@@ -139,14 +146,14 @@ def testimonial(request,*args):
             obj = Testimonial(attestant=attestant, issuedDate=issuedDate, services=services,designation=designation,location=location,description=description,userTestimonial=userTestimonial)
             obj.save()
             messages.success(request, f'Your Testimonials has been updated!')
-            return redirect('contact')
+            return redirect('profile')
 
     else:
         t_form = TestimonialForm(instance=request.user)
     context = {
         't_form': t_form,
     }
-    return render(request, 'contact.html', context)
+    return render(request, 'profile.html', context)
 
 
 @login_required
@@ -165,11 +172,11 @@ def education(request,*args):
             obj = Education(institute=institute,degree=degree,branch=branch,grade=grade,startDate=startDate,endDate=endDate,description=description,userEducation=userEducation)
             obj.save()
             messages.success(request, f'Your education details has been updated!')
-            return redirect('education')
+            return redirect('profile')
 
     else:
         e_form = EducationForm(instance=request.user)
     context = {
         'e_form': e_form,
     }
-    return render(request, 'education.html', context)
+    return render(request, 'profile.html', context)

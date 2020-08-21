@@ -14,7 +14,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['firstName','lastName','aboutMe','tagLine','status']
+        fields = ['image','firstName','lastName','aboutMe','tagLine','status']
         '''
         widget = {
             'bio': forms.TextInput(attrs ={'class':'form-control'}),

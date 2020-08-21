@@ -30,18 +30,18 @@ class Profile(models.Model):
 #Foreign Key Tables
 
 class Skills(models.Model):
-    userSkills = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userSkills',default='',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userSkills',default='',null=True)
     skill = models.TextField(null=True,blank=True,max_length=100)
     speciality = models.TextField(null=True,blank=True,max_length=100)
 
 class ContactInfo(models.Model):
-    userContact = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userContact',default='',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userContact',default='',null=True)
     email = models.EmailField(default='')
     phone = PhoneNumberField(blank=True)
     #phone = models.TextField(default='',blank=True)
 
 class Address(models.Model):
-    userAddress = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userAddress',default='',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userAddress',default='',null=True)
     flatNo = models.CharField(max_length=20,blank=True,default='')
     street = models.TextField(max_length=100,blank=True,default='')
     city = models.TextField(max_length=30,blank=True,default='')
@@ -51,7 +51,7 @@ class Address(models.Model):
 
 
 class Certificate(models.Model):
-    userCertificate = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userCertificate',default='',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userCertificate',default='',null=True)
     name = models.TextField(blank=True,default='')
     issuingOrg = models.TextField(blank=True,default='')
     issuedDate = models.DateField(null=True)
@@ -62,7 +62,7 @@ class Certificate(models.Model):
 
 
 class Testimonial(models.Model):
-    userTestimonial = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userTestimonial',default='',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userTestimonial',default='',null=True)
     attestant = models.TextField(blank=True,default='') #the one who gives testimonial
     issuedDate = models.DateField(null=True) #should not be a future date---->need to be validated
     services = models.TextField(blank=True,default='') #product/services
@@ -72,7 +72,7 @@ class Testimonial(models.Model):
     description = models.TextField(blank=True,default='')
 
 class Education(models.Model):
-    userEducation = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userEducation',default='',null=True)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userEducation',default='',null=True)
     institute = models.TextField(blank=True,default='')
     degree = models.CharField(max_length=50,blank=True,default='')
     branch = models.TextField(blank=True,default='')

@@ -11,10 +11,10 @@ class UserUpdateForm(forms.ModelForm):
         fields = ['username', 'email']
 
 
-class ProfileUpdateForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image','firstName','lastName','bio','tagLine','status']
+        fields = ['firstName','lastName','aboutMe','tagLine','status']
         '''
         widget = {
             'bio': forms.TextInput(attrs ={'class':'form-control'}),

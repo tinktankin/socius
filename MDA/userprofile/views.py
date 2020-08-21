@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import UserUpdateForm, ProfileUpdateForm, ContactForm, SkillsForm,AddressForm,CertificateForm,TestimonialForm,EducationForm
+from .forms import UserUpdateForm, ProfileForm, ContactForm, SkillsForm,AddressForm,CertificateForm,TestimonialForm,EducationForm
 from .models import Profile, Skills, ContactInfo , Address,Certificate, Testimonial, Education
 
 def onlineprofile(request):
     return render(request,'onlineprofile.html')
-
+'''
+This is with signals
 @login_required
 def profile(request):
     print("Entered profile function")
@@ -30,12 +31,39 @@ def profile(request):
         'p_form': p_form,
     }
     return render(request, 'profile.html', context)
+'''
+
+@login_required
+def profile(request,*args):
+    if request.method == 'POST':
+        p_form = ProfileForm(request.POST,request.FILES,instance=request.user) 
+  
+        if p_form.is_valid():
+            user = User.objects.filter().first()
+            #image = request.POST['image']
+            firstName = request.POST['firstName']
+            lastName = request.POST['lastName']
+            aboutMe = request.POST['aboutMe']
+            tagLine = request.POST['tagLine']
+            status = request.POST['status']
+            obj = Profile(firstName=firstName, lastName=lastName,aboutMe=aboutMe,tagLine=tagLine,status=status,user=user)
+            obj.save()
+            messages.success(request, f'Your skills has been updated!')
+            return redirect('profile')
+    else:
+        p_form = ProfileForm(instance=request.user)
+    #s_data = Skills.objects.all().select_related('userSkills')
+    context = {
+        'p_form': p_form,
+    }
+    return render(request, 'profile.html', context)
+
 
 @login_required
 def skills(request,*args):
     print("Entered skills function")
     if request.method == 'POST':
-        s_form = SkillsForm(request.POST,instance=request.user.skills)
+        s_form = SkillsForm(request.POST,instance=request.user)
         if s_form.is_valid():
             userSkills = User.objects.filter().first()
             skill = request.POST['skill']
@@ -43,16 +71,16 @@ def skills(request,*args):
             obj = Skills(skill=skill,speciality=speciality,userSkills=userSkills)
             obj.save()
             messages.success(request, f'Your skills has been updated!')
-            return redirect('profile')
+            return redirect('skills')
 
     else:
-        s_form = SkillsForm(instance=request.user.skills)
+        s_form = SkillsForm(instance=request.user)
     s_data = Skills.objects.all().select_related('userSkills')
     context = {
         's_form': s_form,
         's_data': s_data
     }
-    return render(request, 'profile.html', context)
+    return render(request, 'skills.html', context)
 
 
 

@@ -36,9 +36,20 @@
                 <div class="tab-content py-4">
                     <div class="tab-pane active" id="profile">
                         <h5 class="mb-3">{{user.username}} Profile</h5>
-
-
-                        Your profile will be displayed here!!!
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="container">
+                                <div class="d-flex justify-content-center bg-secondary mb-3"></div>
+            
+                                <fieldset class="form-group">
+                                  {{ p_form.as_p }}
+                              </fieldset>
+                              <div class="form-group">
+                                <center><button class="btn btn-outline-info" type="submit">Update</button></center>
+                              </div>
+                              </div>
+                            </div>
+                        </form>
                     </div>
 
 

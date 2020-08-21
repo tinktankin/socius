@@ -11,7 +11,7 @@ class Profile(models.Model):
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
     firstName = models.CharField(max_length=20,blank=True,default='')
     lastName = models.CharField(max_length=20,blank=True,default='')
-    bio = models.TextField(max_length=200, default='', blank=True)
+    aboutMe = models.TextField(max_length=200, default='', blank=True)
     tagLine = models.TextField(max_length=100, blank=True,default='')
     status = models.TextField(max_length=100 ,blank=True,default='')
     def __str__(self):

@@ -35,43 +35,346 @@
                 </ul>
                 <div class="tab-content py-4">
                     <div class="tab-pane active" id="profile">
-                        <h5 class="mb-3">{{user.username}} Profile</h5>
-                        <form method="POST" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <div class="container">
-                                <div class="d-flex justify-content-center bg-secondary mb-3"></div>
-            
-                                <fieldset class="form-group">
-                                  {{ p_form.as_p }}
-                              </fieldset>
-                              <div class="form-group">
-                                <center><button class="btn btn-outline-info" type="submit">Update</button></center>
+                          <div class="container">
+                              <!-- Trigger the modal with a button -->
+                              <button type="button" class="btn btn-info btn-lg float-right" data-toggle="modal" data-target="#profileModal">Update</button>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="profileModal" role="dialog">
+                                <div class="modal-dialog modal-lg">
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h4 class="modal-title">Modal Header</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <h4 class="modal-title">Hello {{user.username}} update your profile</h4>
+                                        <form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+                                            <div class="container">
+                                                <fieldset class="form-group">
+                                                  {{ p_form.as_p }}
+                                                </fieldset>
+                                                <div class="form-group">
+                                                  <center><button class="btn btn-outline-info" type="submit" name="profile_form">Update</button></center>
+                                                </div>
+                                            </div>
+                                        </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                    </div>                                
+                                </div>
                               </div>
-                              </div>
-                            </div>
-                        </form>
+                          </div>
+                          {% for p in p_data %}
+                                <div class="container">
+                                  <label>First Name   :</label>
+                                  <label>{{ p.firstName }}</label>
+                                </div>
+                                <div class="container">
+                                  <label>Last Name   :</label>
+                                  <label>{{ p.lastName }}</label>
+                                </div>
+                                <div class="container">
+                                  <label>Tag Line  :</label>
+                                  <label>{{ p.tagLine}}</label>
+                                </div>
+                                <div class="container">
+                                  <label>status   :</label>
+                                  <label>{{ p.status }}</label>
+                                </div>
+                                <div class="container">
+                                  <label>About Me   :</label>
+                                  <label>{{ p.status }}</label>
+                                </div>
+                          {% endfor%}
                     </div>
+                    <hr>
+
 
 
                     <div class="tab-pane" id="education">
-                        Education details will be displayed here!!!
-                        
-                    </div>
+                        <div class="container">
+                            <!-- Trigger the modal with a button -->
+                            <button type="button" class="btn btn-info btn-lg float-right" data-toggle="modal" data-target="#eduModal">Add</button>
+        
+                            <!-- Modal -->
+                            <div class="modal fade" id="eduModal" role="dialog">
+                              <div class="modal-dialog modal-lg">
+                              
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h4 class="modal-title">Education</h4>
+                                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                              <h4 class="modal-title">Hello {{user.username}} add your education details here!!!</h4>
+                                              <form method="POST" enctype="multipart/form-data">
+                                                  {% csrf_token %}
+                                                  <div class="container">
+                                                      <fieldset class="form-group">
+                                                          {{ e_form.as_p }}
+                                                      </fieldset>
+                                          
+                                                      <div class="form-group">
+                                                          <center><button class="btn btn-outline-info" type="submit" name="edu_form">Update</button></center>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                              </div>
+                            </div>
+                        </div>  
+
+                        {% for e in e_data%}
+                        <div class="container">
+                          <label>Institue    :</label>
+                          <label>{{ e.institute  }}</label>
+                        </div>
+                        <div class="container">
+                          <label>Degree   :</label>
+                          <label>{{ e.degree }}</label>
+                        </div>
+                        <div class="container">
+                          <label>Branch :</label>
+                          <label>{{ e.branch}}</label>
+                        </div>
+                        <div class="container">
+                          <label>grade   :</label>
+                          <label>{{ e.grade }}</label>
+                        </div>
+                        <div class="container">
+                          
+                            <label>Start Date    :</label>  {{e.startDate}}<br>
+                            <label>End Date      :</label>  {{e.endDate}}
+                    
+                        </div>
+                        <div class="container">
+                            <label>Description   :</label>    {{e.description}}
+                        </div>
+                        <hr>
+                        {% endfor%}
+
+                  </div>
+
+
+
+
+
+
                     <div class="tab-pane" id="skills">
-                        Skills will be displayed here!!
-                        {{ s_data}}
+                        <div class="container">
+                          <!-- Trigger the modal with a button -->
+                          <button type="button" class="btn btn-info btn-lg float-right" data-toggle="modal" data-target="#skillsModal">Add</button>
+      
+                          <!-- Modal -->
+                          <div class="modal fade" id="skillsModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                            
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h4 class="modal-title">Skills</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      </div>
+                                      <div class="modal-body">
+                                            <h4 class="modal-title">Hello {{user.username}} add your skills here!!!</h4>
+                                            <form method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="container">
+                                                    <fieldset class="form-group">
+                                                        {{ s_form.as_p }}
+                                                    </fieldset>
+                                        
+                                                    <div class="form-group">
+                                                        <center><button class="btn btn-outline-info" type="submit" name="skills_form">Update</button></center>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                  </div>
+                            </div>
+                          </div>
+                      </div>  
+                      <label>Skills</label>:
                         {% for s in s_data %}
-                            {{ s.skill }}
-                            {{ s.speciality }}
-                        {% endfor %}
+                          {{s.skill}}
+                        {% endfor%}
+                      <hr>
+                      <label>specialities</label>:
+                      {% for s in s_data %}   
+                         {{s.speciality}}
+                      {% endfor%}
+
+
+
+
                     </div>
+
+
+
+
                     <div class="tab-pane" id="certifications">
-                        Certifications will be displayed here!!
+                        <div class="container">
+                          <!-- Trigger the modal with a button -->
+                          <button type="button" class="btn btn-info btn-lg float-right" data-toggle="modal" data-target="#certModal">Add</button>
+      
+                          <!-- Modal -->
+                          <div class="modal fade" id="certModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                            
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h4 class="modal-title">Certifications</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      </div>
+                                      <div class="modal-body">
+                                            <h4 class="modal-title">Hello {{user.username}} add your certifications here!!!</h4>
+                                            <form method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="container">
+                                                    <fieldset class="form-group">
+                                                        {{ cer_form.as_p }}
+                                                    </fieldset>
+                                        
+                                                    <div class="form-group">
+                                                        <center><button class="btn btn-outline-info" type="submit" name="cert_form">Update</button></center>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                  </div>
+                            </div>
+                          </div>
+                      </div>  
+
+                      {% for c in cer_data%}
+                        <div class="container">
+                          <label>Name :</label>
+                          <label>{{ c.name }}</label>
+                        </div>
+                        <div class="container">
+                          <label>Issuging Organization  :</label>
+                          <label>{{ c.issuingOrg }}</label>
+                        </div>
+                        <div class="container">
+                          <label>Issued On  :</label>
+                          <label>{{ c.issuedDate }}</label>
+                        </div>
+                        <div class="container">
+                          <label>Expiration date :</label>
+                          <label>{{ c.expiryDate }}</label>
+                        </div>
+
+                        <div class="container">
+                          <label>Credential Id :</label>
+                          <label>{{ c.credentialId }}</label>
+                        </div>
+
+                        <div class="container">
+                          <label>Credential URL :</label>
+                          <label>{{ c.credentialUrl }}</label>
+                        </div>
                         
+                        <div class="container">
+                            <label>Description   :</label>    {{e.description}}
+                        </div>
+                        <hr>
+                      {% endfor%}  
+
+
+
                     </div>
+
+
+
+
                     <div class="tab-pane" id="testimonials">
-                        Testimonials will be displayed here!!
+
+                        <div class="container">
+                          <!-- Trigger the modal with a button -->
+                          <button type="button" class="btn btn-info btn-lg float-right" data-toggle="modal" data-target="#testModal">Add</button>
+      
+                          <!-- Modal -->
+                          <div class="modal fade" id="testModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                            
+                                  <!-- Modal content-->
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h4 class="modal-title">Testimonials</h4>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      </div>
+                                      <div class="modal-body">
+                                            <h4 class="modal-title">Hello {{user.username}} add your Testimonials here!!!</h4>
+                                            <form method="POST" enctype="multipart/form-data">
+                                                {% csrf_token %}
+                                                <div class="container">
+                                                    <fieldset class="form-group">
+                                                        {{ t_form.as_p }}
+                                                    </fieldset>
+                                        
+                                                    <div class="form-group">
+                                                        <center><button class="btn btn-outline-info" type="submit" name="test_form">Update</button></center>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>
+                                  </div>
+                            </div>
+                          </div>
+                      </div>  
+
+
+                      {% for t in t_data%}
+                        <div class="container">
+                          <label>attestant  :</label>
+                          <label>{{ t.attestant  }}</label>
+                        </div>
+                
+                        <div class="container">
+                          <label>Issued On  :</label>
+                          <label>{{ t.issuedDate }}</label>
+                        </div>
+                        <div class="container">
+                          <label>Services :</label>
+                          <label>{{ t.services }}</label>
+                        </div>
+
+                        <div class="container">
+                          <label>Designation</label>
+                          <label>{{ t.designation }}</label>
+                        </div>
+
+                        <div class="container">
+                          <label>location</label>
+                          <label>{{ c.location }}</label>
+                        </div>
                         
+                        <div class="container">
+                            <label>Description   :</label>    {{e.description}}
+                        </div>
+                        <hr>
+                      {% endfor%}  
+
                     </div>  
                 </div>
             </div>
@@ -85,64 +388,5 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<div class="container">
-  <h2>Let's try collapse bar here!!!</h2>
-  <p>Use the .col class on a specified number of elements and Bootstrap will recognize how many elements there are (and create equal-width columns). In the example below, we use three col elements, which gets a width of 33.33% each.</p>
-  <div class="row">
-    <div class="col bg-success">
-        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-        <div id="demo" class="collapse">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </div>
-    </div>
-    <div class="col bg-warning">
-        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-        <div id="demo" class="collapse">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </div>
-
-    </div>
-    <div class="col bg-success">
-        <button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">Simple collapsible</button>
-        <div id="demo" class="collapse">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-          </div>
-    </div>
-  </div>
-</div>
-  
--->
 </body>
 </html>

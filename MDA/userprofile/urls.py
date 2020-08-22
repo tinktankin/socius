@@ -3,5 +3,5 @@ from userprofile import views as uv
 
 urlpatterns = [
         path('profile', uv.profile, name="profile"),
-        path('skills',uv.skills,name='skills')
+        path('Beforeprofile',uv.Beforeprofile,name="Beforeprofile")
 ]

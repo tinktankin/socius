@@ -120,16 +120,33 @@ body {
 <div class="navbar">
   <a href="adduser">Upload User</a>
   <a href="members">Team Mates</a>
-  
+  <!--Dropdown primary-->
+<div class="dropdown">
+
+  <!--Trigger-->
+  <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">Material dropdown</a>
+
+
+  <!--Menu-->
+  <div class="dropdown-menu dropdown-primary">
+    {% for mem in Members %}
+    <a class="dropdown-item" href="#">{{mem.Name}}</a>
+    {% endfor %}
+  </div>
 </div>
+<!--/Dropdown primary-->
+</div>
+
 <nav id="nav">
   <div class="innertube">
       <div class="dropdown">
-        <span>Admin</span>
+        <span>SuperUser</span>
         <div class="dropdown-content">
-        <p>{{admin}}</p>
+        <p>{{SuperUser}}</p>
+        </div>
       </div>
-    </div>
+  </div>
       
     
   </div>

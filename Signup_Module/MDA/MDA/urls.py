@@ -22,8 +22,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', v.index, name="index"),
-    path('index.html', v.index, name="index"),
+    path('', v.index1, name="index1"),
+    path('index1.html', v.index1, name="index1"),
+    path('loggedin.html', v.loggedin, name="loggedin"),
+    path('user.html', v.user, name="user"),
+    path('dashboard.html', v.dashboard, name="dashboard"),
+    path('dummy.html', v.dummy, name="dummy"),
     path('directorypage.html', v.directorypage, name="directorypage"),
     path('team.html', v.Team, name="team"),
     path('create', v.create, name="create"),

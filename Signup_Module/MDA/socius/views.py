@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Destination
+from .models import *
 from .models import UserList , memberdirectory,DirectoryMembers
 from .resources import UserListResource
 from django.contrib import messages
@@ -27,7 +27,7 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
 
-def index(response):
+def index1(response):
     
     '''dest1 = Destination()
     dest1.name = 'Mumbai'
@@ -56,15 +56,33 @@ def index(response):
 
     mems = memberdirectory.objects.all()
 
-    return render(response, "socius/index.html", {'mems': mems})
+    return render(response, "socius/index1.html", {'mems': mems})
+
+'''def index(request):
+    return render(request, "socius/index.html")'''
+
+def loggedin(request):
+    mems = memberdirectory.objects.all()
+    return render(request,"socius/dashboard.html", {'mems': mems})
+
+def user(request):
+    return render(request,"socius/user.html")
+
+def dashboard(request):
+    mems = memberdirectory.objects.all()
+    return render(request,"socius/dashboard.html", {'mems': mems})
 
 def Team(request):
     return render(request, "socius/team.html")
 
 @login_required(login_url='login')
 def directorypage(request):
-    admin=User.objects.filter(is_superuser='True').first()
-    return render(request, "socius/directorypage.html",{'admin':admin})
+    SuperUser=User.objects.filter(is_staff='True').first()
+    #DirectoryId = memberdirectory.objects.filter()
+    Members=DirectoryMembers.objects.all()
+    #SuperUser=[]
+    #SuperUser.append(staff.values('username'))
+    return render(request, "socius/directorypage.html",{'SuperUser':SuperUser,'Members':Members})
 
 
 
@@ -168,15 +186,28 @@ def create(request,*args,**kwargs):
     if request.method=='POST':
         form=DirectoryCreationForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('index.html')
+            #form.save()
+            user= User.objects.filter(is_superuser='True').first()
+            DirectoryName=request.POST['DirectoryName']
+            Description=request.POST['Description']
+            img=request.FILES['img']
+            MemberLimit=request.POST['MemberLimit']
+            obj1=memberdirectory(DirectoryName=DirectoryName,Description=Description,MemberLimit=MemberLimit,img=img,user=user)
+            obj1.save()
+            return redirect('loggedin.html')
     else:
         form=DirectoryCreationForm()
     return render(request,'socius/createdir.html',{'form':form})
 
 def members(response):
-   Members=DirectoryMembers.objects.all()
-   return render(response, "socius/Members.html",{'Members':Members})
+    Members=DirectoryMembers.objects.filter()
+    return render(response, "socius/Members.html",{'Members':Members})
+
+def dummy(response):
+    DirectoryId = DirectorymembersDirectory.objects.filter(memberdirectory_id=9)
+    print(DirectoryId)
+
+
 @login_required
 def joindirectory(request):
     return render(request,'socius/joindirectory.html')
@@ -186,13 +217,14 @@ def joined(request):
         Name=request.POST['Name']
         Email=request.POST['email']
         Bio=request.POST['bio']
+        memberdirectory_id = memberdirectory.objects.filter(id=8).first() 
         if DirectoryMembers.objects.filter(Email=Email).exists():
             messages.info(request, 'The email is already registered')
             return redirect('joined')
         else:
-            obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio)
+            obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,memberdirectory_id=memberdirectory_id)
             obj2.save()
-            direcory1=memberdirectory.objects.all()
+            #obj2.memberdirectory.add(obj1)
             return render(request,'socius/directorypage.html')
     else:
         return render(request,'socius/joindirectory.html')

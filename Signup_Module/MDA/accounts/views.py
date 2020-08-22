@@ -24,7 +24,7 @@ def login(request):
 
         if user is not None:
             auth.login(request, user)
-            return redirect("/")
+            return redirect("loggedin")
         else:
             messages.info(request,'Invalid Credentials')
             return redirect('login')

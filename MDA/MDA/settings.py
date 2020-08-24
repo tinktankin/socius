@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'userprofile.apps.UserprofileConfig',
+    'directory.apps.DirectoryConfig',
     'bootstrap4',
     'multi_email_field',
     'django.contrib.admin',

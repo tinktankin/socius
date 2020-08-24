@@ -22,13 +22,24 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('',include('userprofile.urls')),
-    path('', v.index, name="index"),
-    path('index.html', v.index, name="index"),
+    path('profile.html',uv.profile,name="profile"),
+    path('admin/', admin.site.urls),
+    path('', v.index1, name="index1"),
+    path('index1.html', v.index1, name="index1"),
+    path('loggedin.html', v.loggedin, name="loggedin"),
+    path('user.html', v.user, name="user"),
+    path('dashboard.html', v.dashboard, name="dashboard"),
+    path('dummy.html', v.dummy, name="dummy"),
+    path('directorypage.html', v.directorypage, name="directorypage"),
     path('team.html', v.Team, name="team"),
+    path('create', v.create, name="create"),
+    path('members',v.members,name="members"),
+    path('joined',v.joined,name="joined"),
+    path('joindirectory',v.joindirectory,name="joindirectory"),
     path('accounts/',include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('adduser/',v.simple_upload,name='simple_upload'),
-    path('admin/', admin.site.urls),
+    path('active/<uidb64>/<token>/',v.active, name='active'),
 ] 
 
 if settings.DEBUG:

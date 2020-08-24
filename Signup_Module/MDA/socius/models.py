@@ -22,17 +22,17 @@ class UserList(models.Model):
 class memberdirectory(models.Model):
     #user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user',default='',null=True)
-    
+    directorymember = models.ManyToManyField('DirectoryMembers',through='DirectoryMemberTable')
     DirectoryName = models.CharField(max_length=100, blank=True, null=True)
     img = models.ImageField(upload_to='pics',default='')
-    Description = models.TextField(default='Defualt Value')
+    Description = models.CharField(max_length=300, blank=True, null=True,default='Defualt Value')
     MemberLimit = models.IntegerField(default=0)
 
     #def __str__(self):
         #return self.user.username  
 
 class DirectoryMembers(models.Model):
-    Directory=models.ManyToManyField(memberdirectory)
+    Directory=models.ManyToManyField('memberdirectory',through='DirectoryMemberTable')
     memberdirectory_id = models.ForeignKey(memberdirectory,on_delete=models.CASCADE,related_name='memberdirectory_id',default='',null=True)
     Name=models.CharField(max_length=100)
     Email=models.EmailField(max_length=250,blank=True)
@@ -40,3 +40,7 @@ class DirectoryMembers(models.Model):
     #def __str__(self):
      #  return self.Directory.DirectoryName
 
+class DirectoryMemberTable(models.Model):
+    memdirectory = models.ForeignKey(memberdirectory,on_delete=models.CASCADE)
+    directorymems = models.ForeignKey(DirectoryMembers,on_delete=models.CASCADE)
+    loggedinuser = models.ForeignKey(User,on_delete=models.CASCADE,related_name='loggedinuser',default='',null=True) 

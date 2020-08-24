@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from socius import views as v
+from Coupons import views as vc
 from directory import views as vd
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,12 +31,16 @@ urlpatterns = [
     path('dashboard.html', v.dashboard, name="dashboard"),
     path('dummy.html', v.dummy, name="dummy"),
     path('directorypage.html', v.directorypage, name="directorypage"),
-    path('team.html', v.Team, name="team"),
+    path('team', v.Team, name="team"),
+    path('about', v.About, name="About"),
+    path('contact', v.contact, name="contact"),
     path('create', v.create, name="create"),
+    #path('coupons/superuser_couponcode/create', v.create, name="create"),
     path('members',v.members,name="members"),
     path('joined',v.joined,name="joined"),
     path('joindirectory',v.joindirectory,name="joindirectory"),
     path('accounts/',include('accounts.urls')),
+    path('coupons/',include('Coupons.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('adduser/',v.simple_upload,name='simple_upload'),
     path('active/<uidb64>/<token>/',v.active, name='active'),

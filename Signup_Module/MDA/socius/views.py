@@ -75,6 +75,12 @@ def dashboard(request):
 def Team(request):
     return render(request, "socius/team.html")
 
+def About(request):
+    return render(request,"socius/about.html")
+
+def contact(request):
+    return render(request,"socius/contact.html")
+
 @login_required(login_url='login')
 def directorypage(request):
     SuperUser=User.objects.filter(is_staff='True').first()
@@ -197,7 +203,7 @@ def create(request,*args,**kwargs):
             return redirect('loggedin.html')
     else:
         form=DirectoryCreationForm()
-    return render(request,'socius/createdir.html',{'form':form})
+    return render(request,'socius/createdir1.html',{'form':form})
 
 def members(response):
     Members=DirectoryMembers.objects.filter()
@@ -217,13 +223,16 @@ def joined(request):
         Name=request.POST['Name']
         Email=request.POST['email']
         Bio=request.POST['bio']
-        memberdirectory_id = memberdirectory.objects.filter(id=8).first() 
+        user = request.user 
+        memberdirectory_id = memberdirectory.objects.filter(id=1).first() 
         if DirectoryMembers.objects.filter(Email=Email).exists():
             messages.info(request, 'The email is already registered')
             return redirect('joined')
         else:
             obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,memberdirectory_id=memberdirectory_id)
+            obj3=DirectoryMemberTable(memdirectory=memberdirectory_id,directorymems=user)
             obj2.save()
+            obj3.save()
             #obj2.memberdirectory.add(obj1)
             return render(request,'socius/directorypage.html')
     else:

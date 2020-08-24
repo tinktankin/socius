@@ -112,6 +112,13 @@ The above copyright notice and this permission notice shall be included in all c
           <div class="navbar-wrapper">
             <a class="navbar-brand" href="javascript:;">Manage Coupons</a>
           </div>
+          <div class="content">
+            <div class="container-fluid">
+              <div class="row">
+                <button class="btn btn-primary btn-round" onclick="location.href='{% url 'SUCoupon_table' %}'">Back</button>
+              </div>
+            </div>
+          </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
             <span class="navbar-toggler-icon icon-bar"></span>
@@ -178,7 +185,7 @@ The above copyright notice and this permission notice shall be included in all c
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Coupon Generator</h4>
+                  <h4 class="card-title">Update Coupon</h4>
                   <p class="card-category">{{ user.get_username }}</p>
                 </div>
                 <div class="card-body">
@@ -186,13 +193,12 @@ The above copyright notice and this permission notice shall be included in all c
                     {% csrf_token %}
                     <div class="row">
                       <div class="column col-md-4 mb-0">
-                        {{ form_su.category|as_crispy_field }}
-                        <br>{{ form_su.code|as_crispy_field }}
-                        <button type="button" class="btn btn-primary" onclick="generate()">Generate</button> 
+                        {{ form.category|as_crispy_field }}
+                        <br>{{ form.code|as_crispy_field }} 
                       </div>
                        <div class="column col-md-4 mb-0" style="float: right; left: 110px">
-                          <br><br>{{ form_su.valid_from|as_crispy_field }}
-                          <br><br>{{ form_su.valid_till|as_crispy_field }}
+                          <br><br>{{ form.valid_from|as_crispy_field }}
+                          <br><br>{{ form.valid_till|as_crispy_field }}
                           <br><div id="div_id_Directory" class="form-group">
                             <label for="id_Directory" class=" requiredField">
                                 Directory<span class="asteriskField">*</span>
@@ -214,22 +220,22 @@ The above copyright notice and this permission notice shall be included in all c
                   
                   <div class="form-row">
                     <div class="form-group col-md-5 mb-0">
-                      {{ form_su.description|as_crispy_field }}
+                      {{ form.description|as_crispy_field }}
                     </div>
                    
                     
                   </div>
                   <div class="form-group col-md-2 mb-0">
-                     {{ form_su.active }}
+                     {{ form.active }}
                      <label for="id_active" class="form-check-label">
                       Active
                     </label>
                   </div>
-                  <button class="btn btn-primary" type="submit">Save</button>
+                  <button class="btn btn-primary" type="submit">Update</button>
                     <!-- <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          {{ form_su.category|as_crispy_field }}
+                          
                         </div>
                       </div>
                       <div class="col-md-3">
@@ -320,7 +326,7 @@ The above copyright notice and this permission notice shall be included in all c
                   <a href="javascript:;" class="btn btn-primary btn-round">Follow</a>
                 </div> -->
               <!-- </div> -->
-              <button class="btn btn-primary btn-round" onclick="location.href='{% url 'SUCoupon_table' %}'">View Coupons</button>
+              
             </div>
           </div>
         </div>
@@ -644,29 +650,6 @@ The above copyright notice and this permission notice shall be included in all c
       });
     });
   </script>
-  <script>
-      function generate(){
-        var code_chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var code_10 = '';
-        var code_8 = '';
-
-        if (document.getElementById("id_category").value == 'Admin'){
-          for(var i=0;i<10;i++){
-          var slice_start = Math.floor(Math.random() * 35) + 1;
-          code_10 += code_chars.slice(slice_start, slice_start + 1);
-        }
-        document.querySelector("#id_code").value = code_10;
-        }
-
-        else if (document.getElementById("id_category").value == 'Member'){
-          for(var i=0;i<8;i++){
-          var slice_start = Math.floor(Math.random() * 35) + 1;
-          code_8 += code_chars.slice(slice_start, slice_start + 1);
-        }
-        document.querySelector("#id_code").value = code_8;
-        }
-      }
-    </script>
 </body>
 
 </html>

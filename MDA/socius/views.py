@@ -187,7 +187,7 @@ def create(request,*args,**kwargs):
         form=DirectoryCreationForm(request.POST,request.FILES)
         if form.is_valid():
             #form.save()
-            user= User.objects.filter(is_superuser='True').first()
+            user= request.user
             DirectoryName=request.POST['DirectoryName']
             Description=request.POST['Description']
             img=request.FILES['img']

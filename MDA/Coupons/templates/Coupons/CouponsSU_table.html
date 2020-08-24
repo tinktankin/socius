@@ -193,23 +193,25 @@ The above copyright notice and this permission notice shall be included in all c
                   <div class="table-responsive">
                     <table class="table table-hover">
                       <tr>                      
-                      <th>Coupon</th>
+                        <th>Coupon</th>
+                        <th>Directory</th>
                         <th>Category</th>
                         <th>Active</th>
                         <th>Created On</th>
                         <th>Valid From</th>
                         <th>Valid Till</th>
-                    </tr>
+                      </tr>
                     {% for coupon in coupons%}
                       <tr>
-                          <td>{{ coupon.code }}</td>
+                          <td><a href="{% url 'SuCoupon_update' coupon.id  %}">{{ coupon.code }}</a></td>
+                          <td>{{ coupon.Directory }}</td>
                           <td>{{ coupon.category }}</td>
                           <td>{{ coupon.active }}</td>
                           <td>{{ coupon.created_at }}</td>
                           <td>{{ coupon.valid_from }}</td>
                           <td>{{ coupon.valid_till }}</td>
                       </tr>    
-        {% endfor %}
+                    {% endfor %}
          </tr>
                         
                     </table>

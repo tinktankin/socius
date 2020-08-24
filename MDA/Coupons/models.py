@@ -1,6 +1,5 @@
 from django.db import models
 import random, datetime
-from socius.models import UserList
 from django.contrib.auth.models import User
 
 
@@ -13,6 +12,7 @@ class Coupon_SU(models.Model):
 
     Name = models.CharField(max_length=10, null=True)
     category = models.CharField(max_length=100, null=True, choices=CATEGORY)
+    Directory = models.CharField(max_length=100, null=True)
     code = models.CharField(max_length=10, unique=True, null=False)
     description = models.TextField(default=None, blank=True, null=True)
     valid_from = models.DateField(default=datetime.date.today)

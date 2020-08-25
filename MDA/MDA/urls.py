@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from socius import views as v
-from userprofile import views as uv
+from userprofile1 import views as uv
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',include('userprofile.urls')),
+    path('',include('userprofile1.urls')),
     path('profile.html',uv.profile,name="profile"),
     path('admin/', admin.site.urls),
     path('', v.index1, name="index1"),

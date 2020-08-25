@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'userprofile.apps.UserprofileConfig',
+    #'userprofile.apps.UserprofileConfig',
+    'userprofile1.apps.Userprofile1Config',
     'directory.apps.DirectoryConfig',
     'bootstrap4',
     'multi_email_field',

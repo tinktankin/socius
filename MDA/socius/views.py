@@ -229,5 +229,4 @@ def joined(request):
     else:
         return render(request,'socius/joindirectory.html')
 
-
    

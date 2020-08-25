@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from socius import views as v
+from userprofile import views
 from directory import views as vd
 from django.conf import settings
 from django.conf.urls.static import static
@@ -39,6 +40,9 @@ urlpatterns = [
     path('adduser/',v.simple_upload,name='simple_upload'),
     path('active/<uidb64>/<token>/',v.active, name='active'),
     path('',include('Coupons.urls')),
+
+    path('createEvent/', views.createEvent ,name="createEvent"),
+
     
 ]
 

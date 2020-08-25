@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'userprofile',
     'crispy_forms',
     'socius.apps.SociusConfig',
     'import_export',
@@ -85,9 +86,9 @@ WSGI_APPLICATION = 'MDA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'socius1',
+        'NAME': 'socius50',
         'USER': 'postgres',
-        'PASSWORD': 'rajneesh94',
+        'PASSWORD': 'sanskar123',
         'HOST': 'localhost',
     }
 }

@@ -28,6 +28,11 @@ The above copyright notice and this permission notice shall be included in all c
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <!-- CSS Files -->
   <link href="{% static 'css/material-dashboard.css' %}" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -202,6 +207,9 @@ The above copyright notice and this permission notice shall be included in all c
                         <a href="" data-target="#skills" data-toggle="tab" class="nav-link">Skills</a>
                       </li>
                       <li class="nav-item">
+                        <a href="" data-target="#speciality" data-toggle="tab" class="nav-link">Specialities</a>
+                      </li>
+                      <li class="nav-item">
                         <a href="" data-target="#certifications" data-toggle="tab" class="nav-link">Certifications</a>
                       </li>
                       <li class="nav-item">
@@ -218,41 +226,533 @@ The above copyright notice and this permission notice shall be included in all c
 
                     <div class="tab-pane active" id="profile">
                       <div class="container">
-                        Profile details
+                        {% for p in p_data%}
+                        <a href="{% url 'profileUpdate' p.id  %}" class="float-right"><button>Edit</button></a>
+                        {% endfor %}
+                        <br><br>
+                        {% for p in p_data%}
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>First Name </label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.firstName}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Last Name </label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.lastName}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.email}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label> Alternate Email</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.altEmail}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.phone}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Alternate Phone</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.altPhone}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>About Me</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.aboutMe}}
+                            </div>
+                          </div>
+                          <hr>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label style="font-weight: bold;">Address Details</label>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Address </label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.address}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>City</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.city}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>State</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.state}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Country</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.country}}
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-4">
+                              <label>Postal Code</label>
+                            </div>
+                            <div class="col-md-6">
+                              {{p.postalCode}}
+                            </div>
+                          </div>
+                        </div>
 
-
-
-
-
-
-
-                        
+                          
+                         
+                          
+                        {% endfor %}
                       </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <div class="tab-pane" id="education">
                       <div class="container">
-                        Education details
+                          Education details
+                          <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduModal">Add</button>
+                          <div class="modal fade" id="eduModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                              <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Education</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                        <fieldset class="form-group">
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ e_form.institute|as_crispy_field}}
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ e_form.degree|as_crispy_field}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ e_form.branch|as_crispy_field}}
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ e_form.grade|as_crispy_field }}
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ e_form.startDate|as_crispy_field }}
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ e_form.endDate|as_crispy_field }}
+                                                </div>
+                                              </div>
+                                          </div>   
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                <div class="form-group">
+                                                  <div class="form-group">
+                                                    {{ e_form.description|as_crispy_field  }}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                          <center><button class="btn btn-primary float-right" type="submit" name="education_form">ADD</button></center>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          <br><br>
+                          <div class="container mt-3">
+                            {% for e in e_data%}
+                            <div class="media border p-3">
+                              <div class="media">
+                                <div class="media-left">
+                                    <i class='fas fa-school' style='font-size:50px'></i>
+                                </div> 
+                                <div class="media-body">
+                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right">&#9998;</a></h6>
+                                    <h5 class="media-heading">{{e.institute}}</h5> 
+                                    <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
+                                    <h6>{{e.startDate}} - {{e.endDate}}</h6>   
+                                    <h6>{{e.description}}</h6>            
+                                </div>
+                              </div>
+                            </div>
+                            <br>
+                            {% endfor%}
+                          </div>
+
+                        </div>
                       </div>
-                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                     <div class="tab-pane" id="skills">
                       <div class="container">
-                        Skills
+                          <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#skillsModal">Add</button>
+                          <div class="modal fade" id="skillsModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                              <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Skills</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                        <fieldset class="form-group">
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ s_form.skill|as_crispy_field}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                          <center><button class="btn btn-primary float-right" type="submit" name="skills_form">ADD</button></center>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          <br><br>
+
+
+
+                          <div class="container mt-3">
+                            {% for s in s_data%}
+                            <div class="media border p-3">
+                              <div class="media-body">
+                                <p><a href="{% url 'skillsUpdate' s.id  %}">&#9998;</a></p>
+                                <h4>{{s.skill}}</h4>
+                              </div>
+                            </div>
+                            {% endfor%}
+                          </div>
                       </div>
                     </div>
+
+
+
+
+
+                    <div class="tab-pane" id="speciality">
+                      <div class="container">
+                          Specailaity
+                          <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#specialityModal">Add</button>
+                          <div class="modal fade" id="specialityModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                              <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Speciality</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                        <fieldset class="form-group">
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ spcl_form.speciality|as_crispy_field}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                          <center><button class="btn btn-primary float-right" type="submit" name="speciality_form">ADD</button></center>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="container mt-3">
+                            {% for s in spcl_data%}
+                            <div class="media border p-3">
+                              <div class="media-body">
+                                <p><a href="{% url 'specialityUpdate' s.id  %}">&#9998;</a></p>
+                                <h4>{{s.speciality}}</h4>
+                              </div>
+                            </div>
+                            {% endfor%}
+                          </div>
+                      </div>
+                    </div>
+
+
+
 
                     <div class="tab-pane" id="certifications">
                       <div class="container">
                         Certifications here!!!
+                        <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#cerModal">Add</button>
+                          <div class="modal fade" id="cerModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                              <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Certificate</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <div class="modal-body">
+                        
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                        <fieldset class="form-group">
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ c_form.name|as_crispy_field}}
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ c_form.issuingOrg|as_crispy_field}}
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ c_form.issuedDate|as_crispy_field}}
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ c_form.expiryDate|as_crispy_field }}
+                                                </div>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ c_form.credentialId|as_crispy_field }}
+                                                </div>
+                                              </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ c_form.credentialUrl|as_crispy_field }}
+                                                </div>
+                                              </div>
+                                          </div>   
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                <div class="form-group">
+                                                  <div class="form-group">
+                                                    {{ c_form.description|as_crispy_field  }}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                          <center><button class="btn btn-primary float-right" type="submit" name="certificate_form">ADD</button></center>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+
+                          <div class="container mt-3">
+                            {% for c in c_data%}
+                            <div class="media border p-3">
+                              <div class="media">
+                                <div class="media-left">
+                                  <i class="fa fa-certificate" style="font-size:36px"></i>
+                                </div>  
+                                <div class="media-body">
+                                  <a href="{% url 'certificateUpdate' c.id  %}" class="float-right">&#9998;</a>
+                                  <h5 class="media-heading">{{c.name}}</h5>
+                                  <h6>{{ c.issuingOrg}}</h6>
+                                  <p>Issued {{c.issuedDate}} - Expiration {{c.expiryDate}}</p> 
+                                  <p>{{c.credentialId}}</p>    
+                                  <p>{{ c.credentialUrl}}</p> 
+                                </div>
+                              </div>
+                            </div>
+                            <br>
+                            {% endfor%}
+                          </div>
+
+
                       </div>
                     </div>
+
+
+
 
                     <div class="tab-pane" id="testimonials">
                       <div class="container">
                         Testimonials here!!!
+                        <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#tModal">Add</button>
+                          <div class="modal fade" id="tModal" role="dialog">
+                            <div class="modal-dialog modal-lg">
+                              <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Certificate</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form method="POST">
+                                      {% csrf_token %}
+                                        <fieldset class="form-group">
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ t_form.attestant|as_crispy_field}}
+                                              </div>
+                                            </div>    
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ t_form.designation|as_crispy_field}}
+                                              </div>
+                                            </div>                            
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ t_form.services|as_crispy_field }}
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                {{ t_form.location|as_crispy_field }}
+                                              </div>
+                                            </div>
+                                          </div>   
+                                          <div class="row">
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                  {{ t_form.issuedDate|as_crispy_field}}
+                                                </div>
+                                              </div>
+                                          </div>
+                                      
+                                          <div class="row">
+                                              <div class="col-md-12">
+                                                <div class="form-group">
+                                                  <div class="form-group">
+                                                    {{ t_form.description|as_crispy_field  }}
+                                                  </div>
+                                                </div>
+                                              </div>
+                                          </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                          <center><button class="btn btn-primary float-right" type="submit" name="test_form">ADD</button></center>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+
+                          <br>
+                          <div class="container mt-3">
+                            {% for t in t_data%}
+                            <a href="{% url 'testimonialUpdate' t.id  %}" class="float-right">&#9998;</a>
+                              <div class="media border p-3">
+                                <div class="media-body">
+                                  <h4>{{t.attestant}}<small><i>   Posted on {{t.issuedDate}}</i></small></h4>
+                                  <i>{{t.designation}}</i><br>
+                                  <i>{{t.location}}</i><br>
+                                  <i>Product/Services    : {{t.services}}</i><br>
+                                  <p>{{t.description}}</p>      
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+
                       </div>
                     </div>
+
+
+
                   </div> 
                   <!--Table content end here-->
                 </div>

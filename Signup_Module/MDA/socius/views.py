@@ -62,14 +62,16 @@ def index1(response):
     return render(request, "socius/index.html")'''
 
 def loggedin(request):
-    mems = memberdirectory.objects.all()
+    user = request.user 
+    mems=memberdirectory.objects.filter(user_id=user)
     return render(request,"socius/dashboard.html", {'mems': mems})
 
 def user(request):
     return render(request,"socius/user.html")
 
 def dashboard(request):
-    mems = memberdirectory.objects.all()
+    user = request.user 
+    mems=memberdirectory.objects.filter(user_id=user)
     return render(request,"socius/dashboard.html", {'mems': mems})
 
 def Team(request):
@@ -203,7 +205,7 @@ def create(request,*args,**kwargs):
             return redirect('loggedin.html')
     else:
         form=DirectoryCreationForm()
-    return render(request,'socius/createdir1.html',{'form':form})
+    return render(request,'socius/createdir.html',{'form':form})
 
 def members(response):
     Members=DirectoryMembers.objects.filter()
@@ -216,27 +218,30 @@ def dummy(response):
 
 @login_required
 def joindirectory(request):
-    return render(request,'socius/joindirectory.html')
+    return render(request,'socius/joindirectory1.html')
 
 def joined(request):
     if request.method=='POST':
         Name=request.POST['Name']
         Email=request.POST['email']
         Bio=request.POST['bio']
-        user = request.user 
+        #user = request.user 
         memberdirectory_id = memberdirectory.objects.filter(id=1).first() 
         if DirectoryMembers.objects.filter(Email=Email).exists():
             messages.info(request, 'The email is already registered')
             return redirect('joined')
         else:
             obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,memberdirectory_id=memberdirectory_id)
-            obj3=DirectoryMemberTable(memdirectory=memberdirectory_id,directorymems=user)
+            #obj3=DirectoryMemberTable(memdirectory=memberdirectory_id,directorymems=user)
             obj2.save()
-            obj3.save()
+            #obj3.save()
             #obj2.memberdirectory.add(obj1)
             return render(request,'socius/directorypage.html')
     else:
         return render(request,'socius/joindirectory.html')
 
-
+def alldirectories(request):
+    user1 = request.user 
+    mems=memberdirectory.objects.exclude(user_id=user1)
+    return render(request,'socius/alldirectories.html', {'mems': mems})
    

@@ -21,6 +21,7 @@ from directory import views as vd
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
+from events import views as ve 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +36,7 @@ urlpatterns = [
     path('about', v.About, name="About"),
     path('contact', v.contact, name="contact"),
     path('create', v.create, name="create"),
+    path('alldirectories', v.alldirectories, name="alldirectories"),
     #path('coupons/superuser_couponcode/create', v.create, name="create"),
     path('members',v.members,name="members"),
     path('joined',v.joined,name="joined"),
@@ -44,6 +46,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('adduser/',v.simple_upload,name='simple_upload'),
     path('active/<uidb64>/<token>/',v.active, name='active'),
+
+    path('createEvent/', ve.createEvent ,name="createEvent"),
     
 ]
 

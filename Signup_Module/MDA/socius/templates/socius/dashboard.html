@@ -20,7 +20,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard by Creative Tim
+    Dashboard
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -41,8 +41,11 @@ The above copyright notice and this permission notice shall be included in all c
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo"><a href="#" class="simple-text logo-normal">
-        Hello, {{user.first_name}}
+        Socius
         </a></div>
+        <div class="logo" align="Center">
+          Hello, {{ user.get_username }}
+        </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item active  ">
@@ -59,14 +62,8 @@ The above copyright notice and this permission notice shall be included in all c
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="./create">
-              <i class="material-icons">content_paste</i>
+              <i class="material-icons">create_new_folder</i>
               <p>Create Directory</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
             </a>
           </li>
           <li class="nav-item ">
@@ -76,27 +73,21 @@ The above copyright notice and this permission notice shall be included in all c
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
+            <a class="nav-link" href="{% url 'alldirectories' %}">
+              <i class="material-icons">create_new_folder</i>
+              <p>All Directories</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'createEvent' %}">
+              <i class="material-icons">today</i>
+              <p>Events</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>Notifications</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rtl.html">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
-              <i class="material-icons">unarchive</i>
-              <p>Upgrade to PRO</p>
+            <a class="nav-link" href="#">
+              <i class="material-icons">call_split</i>
+              <p>Document Sharing</p>
             </a>
           </li>
         </ul>
@@ -107,7 +98,7 @@ The above copyright notice and this permission notice shall be included in all c
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Dashboard</a>
+            <a class="navbar-brand" href="javascript:;">ALL Directories</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -253,7 +244,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <!--<p class="card-category">
                       <span class="text-success"><i class="fa fa-long-arrow-up"></i> 55% </span> increase in today sales.</p> -->
                       <p>{{dest.Description}}!</p>
-                      <p>Created By :{{dest.user_id}}</p>
+                      <p>Created By :{{dest.user}}</p>
                   </div>
                   <div class="card-footer">
                     <div class="stats">

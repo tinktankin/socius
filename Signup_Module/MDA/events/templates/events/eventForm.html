@@ -16,7 +16,7 @@
               <p>User Profile</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="{% url 'create' %}">
               <i class="material-icons">create_new_folder</i>
               <p>Create Directory</p>
@@ -30,11 +30,11 @@
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'alldirectories' %}">
-              <i class="material-icons">create_new_folder</i>
+              <i class="material-icons">content_paste</i>
               <p>All Directories</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="{% url 'createEvent' %}">
               <i class="material-icons">today</i>
               <p>Events</p>
@@ -64,35 +64,39 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header card-header-primary">
-            <h4 class="card-title">Create Directory</h4>
+            <h4 class="card-title">Event</h4>
             <p class="card-category">{{ user.get_username }}</p>
           </div>
           <div class="card-body">
-            <form action='create' method="POST"enctype="multipart/form-data"> 
-            
+            <form method="POST">
               {% csrf_token %}
               <div class="row">
                 <div class="column col-md-4 mb-0">
-                <br/>{{ form.DirectoryName|as_crispy_field }}
+                <br/>{{ event_form.event_title|as_crispy_field }}
                 <br/>
-                {{ form.Description|as_crispy_field }}
+                {{ event_form.event_description|as_crispy_field }}
                 </div>
                 <div class="column col-md-4 mb-0" style="float: right; left: 110px">
-                    <br/>{{ form.img|as_crispy_field }}
+                    <br/>{{ event_form.event_date|as_crispy_field }}
                     <br><br>
-                    {{ form.MemberLimit|as_crispy_field }}
+                    {{ event_form.event_location|as_crispy_field }}
 
                     <!-- <input type="hidden" id="Name" name="Name" value="{{ user.get_username }}" readonly><br> -->
                 </div>
                 
-              </div>
+            </div>
             
-              <button class="btn btn-primary" type="submit">Save</button>
+            <button class="btn btn-primary" type="submit">Save</button>
             </form>
           </div>
         </div>
       </div>
       
+    </div>
+    <div class="row">
+        
+
+
     </div>
   </div>
     

@@ -22,7 +22,7 @@ def login(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None:
+        if user is not None and user.is_active==True:
             auth.login(request, user)
             return redirect("loggedin")
         else:
@@ -56,6 +56,7 @@ def register(request):
                 return redirect('register')
             else:
                 user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name)
+                user.is_active=False
                 group = Group.objects.get(name='admin')
                 user.groups.add(group)
                 user.save()

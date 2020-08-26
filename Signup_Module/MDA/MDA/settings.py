@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'multi_email_field',
     'widget_tweaks',
     'Coupons.apps.CouponsConfig',
+    'events.apps.EventsConfig',
     
 ]
 

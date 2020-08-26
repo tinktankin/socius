@@ -181,17 +181,13 @@ The above copyright notice and this permission notice shall be included in all c
 
 
 
-
-
-
-
       <!-- End Navbar -->
+
+
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
-
-
-
             <div class="col-md-8">
               <div class="card">
                 <!--Card Header Here!!!!-->
@@ -227,9 +223,10 @@ The above copyright notice and this permission notice shall be included in all c
                     <div class="tab-pane active" id="profile">
                       <div class="container">
                         {% for p in p_data%}
-                        <a href="{% url 'profileUpdate' p.id  %}" class="float-right"><button>Edit</button></a>
+                        <!--a href="{% url 'profileUpdate' p.id  %}" class="float-right"><button>Edit</button></a-->
+                        <a href="{% url 'profileUpdate' p.id  %}"> <button class="btn btn-primary float-right"> Edit</button></a>
                         {% endfor %}
-                        <br><br>
+                        <br><br><br>
                         {% for p in p_data%}
                         <div class="container">
                           <div class="row">
@@ -335,10 +332,6 @@ The above copyright notice and this permission notice shall be included in all c
                             </div>
                           </div>
                         </div>
-
-                          
-                         
-                          
                         {% endfor %}
                       </div>
                     </div>
@@ -348,18 +341,8 @@ The above copyright notice and this permission notice shall be included in all c
 
 
 
-
-
-
-
-
-
-
-
-
                     <div class="tab-pane" id="education">
                       <div class="container">
-                          Education details
                           <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduModal">Add</button>
                           <div class="modal fade" id="eduModal" role="dialog">
                             <div class="modal-dialog modal-lg">
@@ -420,24 +403,26 @@ The above copyright notice and this permission notice shall be included in all c
                                           </div>
                                         </fieldset>
                                         <div class="form-group">
-                                          <center><button class="btn btn-primary float-right" type="submit" name="education_form">ADD</button></center>
+                                          <center><button class="btn btn-primary float-left" type="submit" name="education_form">ADD</button></center>
                                         </div>
                                     </form>
                                   </div>
-                                </div>
+                                  <!-- Modal footer -->
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                  </div>
+                                </div>         
                               </div>
                           </div>
                           <br><br>
+                        
                           <div class="container mt-3">
                             {% for e in e_data%}
-                            <div class="media border p-3">
+                            <div style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;">
                               <div class="media">
-                                <div class="media-left">
-                                    <i class='fas fa-school' style='font-size:50px'></i>
-                                </div> 
-                                <div class="media-body">
-                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right">&#9998;</a></h6>
-                                    <h5 class="media-heading">{{e.institute}}</h5> 
+                                <div class="media-body" style="text-align:center;">
+                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:28px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6>
+                                    <h5 class="media-heading" style="font-weight: bold;">{{e.institute}}</h5> 
                                     <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
                                     <h6>{{e.startDate}} - {{e.endDate}}</h6>   
                                     <h6>{{e.description}}</h6>            
@@ -504,7 +489,7 @@ The above copyright notice and this permission notice shall be included in all c
                             {% for s in s_data%}
                             <div class="media border p-3">
                               <div class="media-body">
-                                <p><a href="{% url 'skillsUpdate' s.id  %}">&#9998;</a></p>
+                                <p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p>
                                 <h4>{{s.skill}}</h4>
                               </div>
                             </div>
@@ -519,7 +504,6 @@ The above copyright notice and this permission notice shall be included in all c
 
                     <div class="tab-pane" id="speciality">
                       <div class="container">
-                          Specailaity
                           <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#specialityModal">Add</button>
                           <div class="modal fade" id="specialityModal" role="dialog">
                             <div class="modal-dialog modal-lg">
@@ -553,7 +537,7 @@ The above copyright notice and this permission notice shall be included in all c
                             {% for s in spcl_data%}
                             <div class="media border p-3">
                               <div class="media-body">
-                                <p><a href="{% url 'specialityUpdate' s.id  %}">&#9998;</a></p>
+                                <p><a href="{% url 'specialityUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit"> &#9998;</a></p>
                                 <h4>{{s.speciality}}</h4>
                               </div>
                             </div>
@@ -567,7 +551,6 @@ The above copyright notice and this permission notice shall be included in all c
 
                     <div class="tab-pane" id="certifications">
                       <div class="container">
-                        Certifications here!!!
                         <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#cerModal">Add</button>
                           <div class="modal fade" id="cerModal" role="dialog">
                             <div class="modal-dialog modal-lg">
@@ -636,21 +619,25 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                               </div>
                           </div>
+                          <br><br><br>
 
                           <div class="container mt-3">
                             {% for c in c_data%}
-                            <div class="media border p-3">
+                            <div  style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;" >
                               <div class="media">
-                                <div class="media-left">
-                                  <i class="fa fa-certificate" style="font-size:36px"></i>
-                                </div>  
-                                <div class="media-body">
-                                  <a href="{% url 'certificateUpdate' c.id  %}" class="float-right">&#9998;</a>
-                                  <h5 class="media-heading">{{c.name}}</h5>
-                                  <h6>{{ c.issuingOrg}}</h6>
-                                  <p>Issued {{c.issuedDate}} - Expiration {{c.expiryDate}}</p> 
-                                  <p>{{c.credentialId}}</p>    
-                                  <p>{{ c.credentialUrl}}</p> 
+                                <div class="media-body" style="text-align: center">
+                                  <a href="{% url 'certificateUpdate' c.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                                  <h5 class="media-heading" style="font-weight: bold;">{{c.name}}</h5>
+                                  <h5 style="font-weight: bold;">Issued By : {{ c.issuingOrg}}</h5>
+                                  {% if c.issuedDate and c.expiryDate%}
+                                    <h6>Issued on {{c.issuedDate}} - Expiration {{c.expiryDate}}</h6> 
+                                  {% endif %}
+                                  {% if c.credentialId%}
+                                    <h6>Credential Id : {{c.credentialId}}</h6>    
+                                  {% endif%}
+                                  {% if c.credentialUrl%}
+                                    <h6> Credentail Url: {{ c.credentialUrl}}</h6> 
+                                  {% endif %}
                                 </div>
                               </div>
                             </div>
@@ -667,7 +654,6 @@ The above copyright notice and this permission notice shall be included in all c
 
                     <div class="tab-pane" id="testimonials">
                       <div class="container">
-                        Testimonials here!!!
                         <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#tModal">Add</button>
                           <div class="modal fade" id="tModal" role="dialog">
                             <div class="modal-dialog modal-lg">
@@ -732,32 +718,32 @@ The above copyright notice and this permission notice shall be included in all c
                               </div>
                           </div>
 
-                          <br>
+                          <br><br><br>
                           <div class="container mt-3">
                             {% for t in t_data%}
-                            <a href="{% url 'testimonialUpdate' t.id  %}" class="float-right">&#9998;</a>
-                              <div class="media border p-3">
-                                <div class="media-body">
-                                  <h4>{{t.attestant}}<small><i>   Posted on {{t.issuedDate}}</i></small></h4>
-                                  <i>{{t.designation}}</i><br>
-                                  <i>{{t.location}}</i><br>
-                                  <i>Product/Services    : {{t.services}}</i><br>
-                                  <p>{{t.description}}</p>      
+                            <div  style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;" >
+                              <div class="media">
+                                <div class="media-body" style="padding:10px;color:black">
+                                  <a href="{% url 'testimonialUpdate' t.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                                  <h4>{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
+                                  <p>
+                                    Designation :{{t.designation}}<br>
+                                    Location: {{t.location}}<br>
+                                    Product/Services : {{t.services}}
+                                    {{t.description}}
+                                  </p>
                                 </div>
                               </div>
-                            {% endfor %}
+                            </div>
+                            <br>
+                            {% endfor%}
                           </div>
-
                       </div>
                     </div>
-
-
-
                   </div> 
                   <!--Table content end here-->
                 </div>
                 <!--Card Body end Here-->
-
               </div>
             </div>
 

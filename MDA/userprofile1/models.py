@@ -32,7 +32,7 @@ class Profile(models.Model):
 class profilePic(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default.jpg', upload_to='profile_pics')
-    status = models.CharField(max_length=100 ,blank=True,default='')
+    status = models.CharField(max_length=200 ,blank=True,default='')
     tagLine = models.CharField(max_length=100, blank=True,default='')
 
 
@@ -51,7 +51,7 @@ class Certificate(models.Model):
     issuingOrg = models.CharField(max_length=100,default='')
     issuedDate = models.DateField(null=True,blank=True)
     expiryDate = models.DateField(null=True,blank=True)
-    credentialId = models.CharField(max_length=50,blank=True,default='')
+    credentialId = models.CharField(max_length=100,blank=True,default='')
     credentialUrl = models.URLField(blank=True,default='')
     description = models.TextField(blank=True,default='')
 
@@ -59,7 +59,7 @@ class Certificate(models.Model):
 class Testimonial(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userTestimonial',default='',null=True)
     attestant = models.CharField(max_length=30,blank=True,default='')
-    issuedDate = models.DateField(null=True) #should not be a future date---->need to be validated
+    issuedDate = models.DateField(null=True,blank=True) #should not be a future date---->need to be validated
     services = models.CharField(max_length=150,blank=True,default='') #product/services
     designation = models.CharField(max_length=50,blank=True,default='') 
     location = models.CharField(max_length=150,blank=True,default='')
@@ -67,10 +67,10 @@ class Testimonial(models.Model):
 
 class Education(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='userEducation',default='',null=True)
-    institute = models.CharField(max_length=150,blank=True,default='')
+    institute = models.CharField(max_length=150,default='')
     degree = models.CharField(max_length=50,blank=True,default='')
     branch = models.CharField(max_length=30,blank=True,default='')
-    grade = models.FloatField()
+    grade = models.FloatField(blank=True)
     startDate = models.DateField(null=True,blank=True)
     endDate = models.DateField(null=True,blank=True)
     description = models.TextField(blank=True,default='')

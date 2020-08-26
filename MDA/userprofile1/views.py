@@ -12,6 +12,7 @@ def dummy(request):
 def profile(request,*args):
     context = {}
     p_form = ProfileForm(request.POST,instance=request.user)
+    pic_form = ProfilePicForm(request.POST,request.FILES,instance=request.user)
     e_form = EducationForm(request.POST,instance=request.user)
     s_form = SkillsForm(request.POST,instance=request.user)
     spcl_form = SpecialityForm(request.POST,instance=request.user)
@@ -35,6 +36,16 @@ def profile(request,*args):
             obj = Profile(firstName=firstName, lastName=lastName,email=email,altEmail=altEmail,phone=phone,altPhone=altPhone,address=address,city=city,state=state,country=country,postalCode=postalCode,aboutMe=aboutMe,user=user)
             obj.save()
             messages.success(request, 'Profile saved Successfully!!!')
+            return redirect('profile') 
+
+        if 'ppic_form' in request.POST and pic_form.is_valid():
+            user = request.user
+            image = request.FILES['image']
+            status = request.POST['status']
+            tagLine = request.POST['tagLine']
+            obj = profilePic(image=image,status=status,tagLine=tagLine,user=user)
+            obj.save()
+            messages.success(request, 'Profile pic saved Successfully!!!')
             return redirect('profile') 
 
         if 'skills_form' in request.POST and s_form.is_valid():
@@ -103,7 +114,9 @@ def profile(request,*args):
         spcl_form = SpecialityForm(instance=request.user)
         c_form = CertificateForm(instance=request.user)
         t_form = TestimonialForm(instance=request.user)
+        pic_form = ProfilePicForm(instance=request.user)
     p_data = Profile.objects.all().filter(user_id=request.user.id)
+    pic_data = profilePic.objects.all().filter(user_id=request.user.id)
     e_data = Education.objects.all().filter(user_id=request.user.id)
     s_data = Skills.objects.all().filter(user_id=request.user.id)
     spcl_data = Speciality.objects.all().filter(user_id=request.user.id)
@@ -111,6 +124,7 @@ def profile(request,*args):
     t_data = Testimonial.objects.all().filter(user_id=request.user.id)
     context = {
         'p_form': p_form,
+        'pic_form': pic_form,
         'e_form': e_form,
         's_form': s_form,
         'spcl_form': spcl_form,
@@ -119,6 +133,7 @@ def profile(request,*args):
         'p_data':p_data,
         'e_data':e_data,
         'p_data': p_data,
+        'pic_data':pic_data,
         'e_data': e_data,
         's_data': s_data,
         'spcl_data':spcl_data,

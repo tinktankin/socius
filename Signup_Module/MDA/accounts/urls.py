@@ -8,7 +8,7 @@ urlpatterns=[
     path('login', views.login, name="login"),
     path('activate/<uidb64>/<token>/',views.activate, name='activate'),
     path('login/login', views.login, name="index"),
-    path('logout', views.logout, name="logout"),
+    path('logout/', views.logout, name="logout"),
     path('reset_password/',
      auth_views.PasswordResetView.as_view(template_name="accounts/password_reset.html"),
      name="reset_password"),

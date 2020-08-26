@@ -48,6 +48,8 @@ urlpatterns = [
     path('active/<uidb64>/<token>/',v.active, name='active'),
 
     path('createEvent/', ve.createEvent ,name="createEvent"),
+    path('eventTable/', ve.events_table, name="eventTable"),
+
     
 ]
 

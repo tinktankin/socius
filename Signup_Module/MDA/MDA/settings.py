@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'MDA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'socius2',
+        'NAME': 'socius_51',
         'USER': 'postgres',
-        'PASSWORD': 'ganesh9553',
+        'PASSWORD': 'sanskar123',
         'HOST': 'localhost',
     }
 }

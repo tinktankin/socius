@@ -38,7 +38,12 @@ def createEvent(request):
     
     
     
-    
+def events_table(request):
+    context = {}
+    user = request.user
+    events = Event.objects.filter(user=user)
+    context['events'] = events
+    return render(request, 'events/event_table.html', context)
     
     
     

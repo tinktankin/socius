@@ -66,8 +66,8 @@ def loggedin(request):
     mems=memberdirectory.objects.filter(user_id=user)
     return render(request,"socius/dashboard.html", {'mems': mems})
 
-def user(request):
-    return render(request,"socius/user.html")
+'''def user(request):
+    return render(request,"socius/user.html")'''
 
 def dashboard(request):
     user = request.user 

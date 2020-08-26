@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'Coupons.apps.CouponsConfig',
     'events.apps.EventsConfig',
+    'userprofile.apps.UserprofileConfig',
+    'phonenumber_field',
     
 ]
 
@@ -86,9 +88,9 @@ WSGI_APPLICATION = 'MDA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'socius_51',
+        'NAME': 'socius2',
         'USER': 'postgres',
-        'PASSWORD': 'sanskar123',
+        'PASSWORD': 'ganesh9553',
         'HOST': 'localhost',
     }
 }

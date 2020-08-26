@@ -21,14 +21,15 @@ from directory import views as vd
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import url
-from events import views as ve 
+from events import views as ve
+from userprofile import views as vu
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', v.index1, name="index1"),
     path('index1.html', v.index1, name="index1"),
     path('loggedin.html', v.loggedin, name="loggedin"),
-    path('user.html', v.user, name="user"),
+    path('user.html', vu.profile, name="profile"),
     path('dashboard.html', v.dashboard, name="dashboard"),
     path('dummy.html', v.dummy, name="dummy"),
     path('directorypage.html', v.directorypage, name="directorypage"),
@@ -50,7 +51,8 @@ urlpatterns = [
     path('createEvent/', ve.createEvent ,name="createEvent"),
     path('eventTable/', ve.events_table, name="eventTable"),
 
-    
+    path('',include('userprofile.urls')),
+    path('user.html',vu.profile,name="profile")
 ]
 
 

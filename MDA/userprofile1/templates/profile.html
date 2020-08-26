@@ -409,7 +409,7 @@ The above copyright notice and this permission notice shall be included in all c
                                   </div>
                                   <!-- Modal footer -->
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                   </div>
                                 </div>         
                               </div>
@@ -749,14 +749,12 @@ The above copyright notice and this permission notice shall be included in all c
 
 
 
-
-
             <div class="col-md-4">
+              {% for p in pic_data%}
               <div class="card card-profile">
                 <div class="card-avatar">
                   <a href="javascript:;">
-                    <!--img class="img" src="{% static 'img/faces/marc.jpg' %}" /-->
-                    <img class="img" src="{{ user.profile.image.url }}">
+                    <img class="img" src="{% static 'img/faces/marc.jpg' %}" />
                   </a>
                 </div>
                 <div class="card-body">
@@ -769,6 +767,7 @@ The above copyright notice and this permission notice shall be included in all c
                   <a href="javascript:;" class="btn btn-primary btn-round">Follow</a>
                 </div>
               </div>
+              {% endfor %}
             </div>
           </div>
         </div>

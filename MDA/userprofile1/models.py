@@ -31,7 +31,7 @@ class Profile(models.Model):
 
 class profilePic(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg',upload_to='profile_pics') #upload_to='profile_pics'
     status = models.CharField(max_length=200 ,blank=True,default='')
     tagLine = models.CharField(max_length=100, blank=True,default='')
 

@@ -143,6 +143,16 @@ def profile(request,*args):
     return render(request, 'profile.html', context)
 
 
+def profilePicUpdate(request, id): 
+    context ={} 
+    obj = get_object_or_404(profilePic, id = id) 
+    form = ProfilePicForm(request.POST or None, instance = obj) 
+    if form.is_valid(): 
+        form.save() 
+        return HttpResponseRedirect("/"+id+"/profilePicUpdate") 
+    context["form"] = form  
+    return render(request, "profilePicUpdate.html", context) 
+
 def profileUpdate(request, id): 
     context ={} 
     obj = get_object_or_404(Profile, id = id) 

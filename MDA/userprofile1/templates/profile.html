@@ -487,17 +487,19 @@ The above copyright notice and this permission notice shall be included in all c
                         
                           <div class="container mt-3">
                             {% for e in e_data%}
-                            <div style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;">
                               <div class="media">
-                                <div class="media-body" style="text-align:center;">
-                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:28px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6>
-                                    <h5 class="media-heading" style="font-weight: bold;">{{e.institute}}</h5> 
-                                    <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
-                                    <h6>{{e.startDate}} - {{e.endDate}}</h6>   
-                                    <h6>{{e.description}}</h6>            
+                              <div class="media-left">
+                                <img src="/media/edu.png" height="80" width="80">
+                              </div>
+                              <div class="media-body">
+                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6>
+                                  <h5 class="media-heading" style="font-weight: bold;">{{e.institute}}</h5> 
+                                  <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
+                                  <h6>{{e.startDate}} - {{e.endDate}}</h6>   
+                                  <h6>{{e.description}}</h6>            
                                 </div>
                               </div>
-                            </div>
+                              <hr>
                             <br>
                             {% endfor%}
                           </div>
@@ -550,20 +552,22 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                               </div>
                           </div>
-                          <br><br>
-
 
 
                           <div class="container mt-3">
-                            {% for s in s_data%}
-                            <div class="media border p-3">
-                              <div class="media-body">
-                                <p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p>
-                                <h4>{{s.skill}}</h4>
+                            <div class="media-body">
+                              <div class="row">
+                              {% for s in s_data%}
+                                  <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
+
+                                  <h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3>
+                                  <pre>   </pre>
+                              {% endfor%}
                               </div>
                             </div>
-                            {% endfor%}
                           </div>
+
+
                       </div>
                     </div>
 
@@ -602,15 +606,18 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                               </div>
                           </div>
+
                           <div class="container mt-3">
-                            {% for s in spcl_data%}
-                            <div class="media border p-3">
-                              <div class="media-body">
-                                <p><a href="{% url 'specialityUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit"> &#9998;</a></p>
-                                <h4>{{s.speciality}}</h4>
+                            <div class="media-body">
+                              <div class="row">
+                              {% for s in spcl_data%}
+                                  <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
+
+                                  <h3><span class="badge badge-pill badge-secondary">{{s.speciality}}<a href="{% url 'specialityUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3>
+                                  <pre>   </pre>
+                              {% endfor%}
                               </div>
                             </div>
-                            {% endfor%}
                           </div>
                       </div>
                     </div>
@@ -692,9 +699,11 @@ The above copyright notice and this permission notice shall be included in all c
 
                           <div class="container mt-3">
                             {% for c in c_data%}
-                            <div  style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;" >
-                              <div class="media">
-                                <div class="media-body" style="text-align: center">
+                             <div class="media">
+                                <div class="media-left">
+                                  <img src="/media/certificate.png" height="80" width="80">
+                                </div>
+                                <div class="media-body">
                                   <a href="{% url 'certificateUpdate' c.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
                                   <h5 class="media-heading" style="font-weight: bold;">{{c.name}}</h5>
                                   <h5 style="font-weight: bold;">Issued By : {{ c.issuingOrg}}</h5>
@@ -707,10 +716,9 @@ The above copyright notice and this permission notice shall be included in all c
                                   {% if c.credentialUrl%}
                                     <h6> Credentail Url: {{ c.credentialUrl}}</h6> 
                                   {% endif %}
+                                  <hr>
                                 </div>
-                              </div>
-                            </div>
-                            <br>
+                             </div>
                             {% endfor%}
                           </div>
 
@@ -790,21 +798,19 @@ The above copyright notice and this permission notice shall be included in all c
                           <br><br><br>
                           <div class="container mt-3">
                             {% for t in t_data%}
-                            <div  style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;" >
                               <div class="media">
-                                <div class="media-body" style="padding:10px;color:black">
+                                <div class="media-body">
                                   <a href="{% url 'testimonialUpdate' t.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
-                                  <h4>{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
-                                  <p>
+                                  <h4 style="font-weight: bold;">{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
+                                  <h6>
                                     Designation :{{t.designation}}<br>
                                     Location: {{t.location}}<br>
                                     Product/Services : {{t.services}}
                                     {{t.description}}
-                                  </p>
+                                  </h6>
                                 </div>
                               </div>
-                            </div>
-                            <br>
+                            <hr>
                             {% endfor%}
                           </div>
                       </div>
@@ -815,23 +821,85 @@ The above copyright notice and this permission notice shall be included in all c
                 <!--Card Body end Here-->
               </div>
             </div>
-            
+
             <div class="col-md-4">
+              {% if not pic_data%}
+                <div class="card card-profile">
+                  <div class="card-avatar">
+                    <a href="javascript:;">
+                      <!--img class="img" src="{% static 'img/faces/marc.jpg' %}" /-->
+                      <img src="/media/default.jpg" class="img"/>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <!--a href="javascript:;" class="btn btn-primary btn-round">Follow</a-->
+                    <button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#profilePicModal">Add</button>
+                    <div class="modal fade" id="profilePicModal" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Update profile picture</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                              <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                  <fieldset class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ pic_form.image|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ pic_form.status|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ pic_form.tagLine|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </fieldset>
+                                  <div class="form-group">
+                                    <center><button class="btn btn-primary float-right" type="submit" name="ppic_form">ADD</button></center>
+                                  </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+
               {% for p in pic_data%}
-              <div class="card card-profile">
-                <div class="card-avatar">
-                    <img class="img" src="{{ baseUrl }}/{{ abhiram.jpg }}" />
+                <div class="card card-profile">
+                  <div class="card-avatar">
+                    <a href="javascript:;">
+                      <!--img class="img" src="{% static 'img/faces/marc.jpg' %}" /-->
+                      <img class="img" src="/media/{{p.image}}"/>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-category text-gray">{{p.status}}</h6>
+                    <h4 class="card-title">{% for i in p_data%} {{i.firstName}} {{i.lastName}}   {%endfor%}</h4>
+                    <h4 class="card-title"></h4>
+                    <p class="card-description">
+                      {{p.tagLine}}
+                    </p>
+                    <!--a href="javascript:;" class="btn btn-primary btn-round">Follow</a-->
+                    <a href="{% url 'profilePicUpdate' p.id  %}"> <button class="btn btn-primary btn-round">Edit</button></a>
+                  </div>
                 </div>
-                <div class="card-body">
-                  <h6 class="card-category text-gray">{{p.status}}</h6>
-                  <!--h4 class="card-title">Alec Thompson</h4-->
-                  <h4 class="card-title"></h4>
-                  <p class="card-description">
-                    {{p.tagLine}}
-                  </p>
-                  <a href="{% url 'profilePicUpdate' p.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
-                </div>
-              </div>
               {% endfor %}
             </div>
           </div>

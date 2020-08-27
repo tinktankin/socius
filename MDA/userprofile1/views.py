@@ -91,8 +91,6 @@ def profile(request,*args):
             obj.save()
             messages.success(request, 'Certifications saved Successfully!!!')
             return redirect('profile') 
-            
-
 
         if 'test_form' in request.POST and t_form.is_valid():
             userTestimonial = request.user 
@@ -146,11 +144,11 @@ def profile(request,*args):
 def profilePicUpdate(request, id): 
     context ={} 
     obj = get_object_or_404(profilePic, id = id) 
-    form = ProfilePicForm(request.POST or None, instance = obj) 
+    form = ProfilePicForm(request.POST or None, request.FILES or None,instance = obj) 
     if form.is_valid(): 
         form.save() 
         return HttpResponseRedirect("/"+id+"/profilePicUpdate") 
-    context["form"] = form  
+    context["form"] = form 
     return render(request, "profilePicUpdate.html", context) 
 
 def profileUpdate(request, id): 

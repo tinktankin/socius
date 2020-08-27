@@ -4,5 +4,5 @@ from socius.models import memberdirectory
 class DirectoryCreationForm(forms.ModelForm):
     class Meta:
         model=memberdirectory
-        fields=('DirectoryName','img','Description','MemberLimit')
+        fields=('DirectoryName','img','Description','MemberLimit','DirectoryId')
         

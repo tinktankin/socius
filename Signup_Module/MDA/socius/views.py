@@ -62,17 +62,89 @@ def index1(response):
     return render(request, "socius/index.html")'''
 
 def loggedin(request):
-    user = request.user 
-    mems=memberdirectory.objects.filter(user_id=user)
-    return render(request,"socius/dashboard.html", {'mems': mems})
+    id=request.user.id
+    user1=memberdirectory.objects.filter(user_id=id).first()
+    user2=DirectoryMembers.objects.filter(user_id=id).first()
+    if(user1 is not None)and(user2 is None):
+        l=[]
+        id=request.user.id
+        dir=memberdirectory.objects.filter(user_id=id).all()
+        mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
+        for i in mydir1:
+            l.append(i['DirectoryId'])
+        print(l)
+        for j in l:
+            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
+        return render(request,'socius/dashboard.html',{'dir':dir})
+    elif (user1 is None)and(user2 is not None):
+        l=[]
+        id=request.user.id
+        dir=memberdirectory.objects.filter(user_id=id).all()
+        mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
+        for i in mydir1:
+            l.append(i['DirectoryId'])
+        print(l)
+        for j in l:
+            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
+        return render(request,'socius/dashboard.html',{'mydir':mydir})
+    elif (user1 is not None)and(user2 is not None):
+        l=[]
+        id=request.user.id
+        dir=memberdirectory.objects.filter(user_id=id).all()
+        mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
+        for i in mydir1:
+            l.append(i['DirectoryId'])
+        print(l)
+        for j in l:
+            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
+        return render(request,'socius/dashboard.html',{'mydir':mydir,'dir':dir})
+
+    else:
+        return render(request,'socius/dashboard1.html')
 
 '''def user(request):
     return render(request,"socius/user.html")'''
 
 def dashboard(request):
-    user = request.user 
-    mems=memberdirectory.objects.filter(user_id=user)
-    return render(request,"socius/dashboard.html", {'mems': mems})
+    id=request.user.id
+    user1=memberdirectory.objects.filter(user_id=id).first()
+    user2=DirectoryMembers.objects.filter(user_id=id).first()
+    if(user1 is not None)and(user2 is None):
+        l=[]
+        id=request.user.id
+        dir=memberdirectory.objects.filter(user_id=id).all()
+        mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
+        for i in mydir1:
+            l.append(i['DirectoryId'])
+        print(l)
+        for j in l:
+            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
+        return render(request,'socius/dashboard.html',{'dir':dir})
+    elif (user1 is None)and(user2 is not None):
+        l=[]
+        id=request.user.id
+        dir=memberdirectory.objects.filter(user_id=id).all()
+        mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
+        for i in mydir1:
+            l.append(i['DirectoryId'])
+        print(l)
+        for j in l:
+            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
+        return render(request,'socius/dashboard.html',{'mydir':mydir})
+    elif (user1 is not None)and(user2 is not None):
+        l=[]
+        id=request.user.id
+        dir=memberdirectory.objects.filter(user_id=id).all()
+        mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
+        for i in mydir1:
+            l.append(i['DirectoryId'])
+        print(l)
+        for j in l:
+            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
+        return render(request,'socius/dashboard.html',{'mydir':mydir,'dir':dir})
+
+    else:
+        return render(request,'socius/dashboard1.html')
 
 def Team(request):
     return render(request, "socius/team.html")
@@ -85,12 +157,15 @@ def contact(request):
 
 @login_required(login_url='login')
 def directorypage(request):
-    SuperUser=User.objects.filter(is_staff='True').first()
-    #DirectoryId = memberdirectory.objects.filter()
-    Members=DirectoryMembers.objects.all()
-    #SuperUser=[]
-    #SuperUser.append(staff.values('username'))
-    return render(request, "socius/directorypage.html",{'SuperUser':SuperUser,'Members':Members})
+    if request.method=='POST':
+        SuperUser=User.objects.filter(is_staff=True).first
+        directoryid=request.POST['DirectoryId']
+        members=DirectoryMembers.objects.filter(DirectoryId=directoryid)
+        
+        #admin=User.objects.filter(is_superuser='True').first()
+        return render(request,'socius/directorypage.html',{'members':members,'SuperUser':SuperUser})
+    else:
+        return redirect('dashboard')
 
 
 
@@ -194,15 +269,16 @@ def create(request,*args,**kwargs):
     if request.method=='POST':
         form=DirectoryCreationForm(request.POST,request.FILES)
         if form.is_valid():
-            #form.save()
-            user= User.objects.filter(is_superuser='True').first()
+            id=request.user.id
+            user=User.objects.filter(id=id).first()
             DirectoryName=request.POST['DirectoryName']
             Description=request.POST['Description']
             img=request.FILES['img']
+            DirectoryId=request.POST['DirectoryId']
             MemberLimit=request.POST['MemberLimit']
-            obj1=memberdirectory(DirectoryName=DirectoryName,Description=Description,MemberLimit=MemberLimit,img=img,user=user)
+            obj1=memberdirectory(DirectoryName=DirectoryName,Description=Description,DirectoryId=DirectoryId,MemberLimit=MemberLimit,img=img,user=user)
             obj1.save()
-            return redirect('loggedin.html')
+            return redirect('dashboard')
     else:
         form=DirectoryCreationForm()
     return render(request,'socius/createdir.html',{'form':form})
@@ -222,21 +298,22 @@ def joindirectory(request):
 
 def joined(request):
     if request.method=='POST':
+        user=request.user.id
         Name=request.POST['Name']
         Email=request.POST['email']
         Bio=request.POST['bio']
         #user = request.user 
-        memberdirectory_id = memberdirectory.objects.filter(id=1).first() 
+        DirectoryId=request.POST['DirectoryId']
         if DirectoryMembers.objects.filter(Email=Email).exists():
             messages.info(request, 'The email is already registered')
             return redirect('joined')
         else:
-            obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,memberdirectory_id=memberdirectory_id)
+            obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,DirectoryId=DirectoryId,user_id=user)
             #obj3=DirectoryMemberTable(memdirectory=memberdirectory_id,directorymems=user)
             obj2.save()
             #obj3.save()
             #obj2.memberdirectory.add(obj1)
-            return render(request,'socius/directorypage.html')
+            return render(request,'socius/dashboard.html')
     else:
         return render(request,'socius/joindirectory.html')
 

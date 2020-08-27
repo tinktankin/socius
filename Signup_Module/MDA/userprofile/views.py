@@ -203,3 +203,13 @@ def testimonialUpdate(request, id):
         return HttpResponseRedirect("/"+id+"/testimonialUpdate") 
     context["form"] = form  
     return render(request, "testimonialUpdate.html", context) 
+
+def profilePicUpdate(request, id): 
+    context ={} 
+    obj = get_object_or_404(profilePic, id = id) 
+    form = ProfilePicForm(request.POST or None, request.FILES or None,instance = obj) 
+    if form.is_valid(): 
+        form.save() 
+        return HttpResponseRedirect("/"+id+"/profilePicUpdate") 
+    context["form"] = form 
+    return render(request, "profilePicUpdate.html", context) 

@@ -20,7 +20,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="icon" type="image/png" href="{%static 'img/favicon.png' %}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Material Dashboard by Creative Tim
+    Socius User Profile
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -50,7 +50,7 @@ The above copyright notice and this permission notice shall be included in all c
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="nav-item  ">
-            <a class="nav-link" href="./dashboard.html">
+            <a class="nav-link" href="{% url 'dashboard' %}">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
@@ -152,8 +152,7 @@ The above copyright notice and this permission notice shall be included in all c
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="#">Profile</a>
-                  <a class="dropdown-item" href="team.html">Team</a>
-                  <a class="dropdown-item" href="create">Create Directory</a>
+                  <a class="dropdown-item" href="#">Team</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="accounts/logout">Log out</a>
                 </div>
@@ -212,108 +211,168 @@ The above copyright notice and this permission notice shall be included in all c
                         <a href="{% url 'profileUpdate' p.id  %}"> <button class="btn btn-primary float-right"> Edit</button></a>
                         {% endfor %}
                         <br><br><br>
+
+                        {%if not p_data%}
+                          <form method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                              <div class="col-md-6">
+                              <div class="form-group">
+                                {{ p_form.firstName|as_crispy_field}}
+                              </div>
+                              </div>
+                              <div class="col-md-6">
+                              <div class="form-group">
+                                {{ p_form.lastName|as_crispy_field}}
+                              </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <div class="form-group">
+                                  {{ p_form.email|as_crispy_field}}
+                                </div>
+                                </div>
+                              <div class="col-md-6">
+                              <div class="form-group">
+                                {{ p_form.altEmail|as_crispy_field}}
+                              </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  {{ p_form.phone|as_crispy_field}}
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  {{ p_form.altPhone|as_crispy_field}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  {{ p_form.address|as_crispy_field}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-3">
+                              <div class="form-group">
+                                {{ p_form.city|as_crispy_field}}
+                              </div>
+                              </div>
+                              <div class="col-md-3">
+                              <div class="form-group">
+                                {{ p_form.state|as_crispy_field}}
+                              </div>
+                              </div>
+                              <div class="col-md-3">
+                              <div class="form-group">
+                                {{ p_form.country|as_crispy_field}}
+                              </div>
+                              </div>
+                              <div class="col-md-3">
+                              <div class="form-group">
+                                {{ p_form.postalCode|as_crispy_field}}
+                              </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                              <div class="form-group">
+                                <div class="form-group">
+                                {{ p_form.aboutMe|as_crispy_field}}
+                                </div>
+                              </div>
+                              </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" value="Update" name="profile_form">Update</button>
+                            <div class="clearfix"></div>
+                            </form>
+                        {%endif%}
+
                         {% for p in p_data%}
                         <div class="container">
                           <div class="row">
-                            <div class="col-md-4">
-                              <label>First Name </label>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">First Name</label>
+                                <input type="email" class="form-control" value="{{p.firstName}}" disabled>
+                              </div>
                             </div>
                             <div class="col-md-6">
-                              {{p.firstName}}
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Last Name</label>
+                                <input type="email" class="form-control" value="{{p.lastName}}" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Email</label>
+                                <input type="text" class="form-control" value="{{p.email}}" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Alternate Email</label>
+                                <input type="text" class="form-control" value="{{p.altEmail}}" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Phoner Number</label>
+                                <input type="text" class="form-control" value="{{p.phone}}" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Alternate Phone Number</label>
+                                <input type="text" class="form-control" value="{{p.altPhone}}" disabled>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Address</label>
+                                <input type="text" class="form-control" value="{{p.address}}" disabled>
+                              </div>
                             </div>
                           </div>
                           <div class="row">
                             <div class="col-md-4">
-                              <label>Last Name </label>
+                              <div class="form-group">
+                                <label class="bmd-label-floating">City</label>
+                                <input type="text" class="form-control" value="{{p.city}}" disabled>
+                              </div>
                             </div>
-                            <div class="col-md-6">
-                              {{p.lastName}}
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Country</label>
+                                <input type="text" class="form-control" value="{{p.country}}" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group">
+                                <label class="bmd-label-floating">Postal Code</label>
+                                <input type="text" class="form-control" value="{{p.postalCode}}" disabled>
+                              </div>
                             </div>
                           </div>
                           <div class="row">
-                            <div class="col-md-4">
-                              <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.email}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label> Alternate Email</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.altEmail}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.phone}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>Alternate Phone</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.altPhone}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>About Me</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.aboutMe}}
-                            </div>
-                          </div>
-                          <hr>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label style="font-weight: bold;">Address Details</label>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>Address </label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.address}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>City</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.city}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>State</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.state}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>Country</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.country}}
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-md-4">
-                              <label>Postal Code</label>
-                            </div>
-                            <div class="col-md-6">
-                              {{p.postalCode}}
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label>About Me</label>
+                                <p style="font-family:Tahoma;">{{p.aboutMe}}</p>
+                                <!--input type="text" class="form-control" value=""disabled-->
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -403,17 +462,19 @@ The above copyright notice and this permission notice shall be included in all c
                         
                           <div class="container mt-3">
                             {% for e in e_data%}
-                            <div style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;">
                               <div class="media">
-                                <div class="media-body" style="text-align:center;">
-                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:28px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6>
-                                    <h5 class="media-heading" style="font-weight: bold;">{{e.institute}}</h5> 
-                                    <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
-                                    <h6>{{e.startDate}} - {{e.endDate}}</h6>   
-                                    <h6>{{e.description}}</h6>            
+                              <div class="media-left">
+                                <img src="/media/edu.png" height="80" width="80">
+                              </div>
+                              <div class="media-body">
+                                  <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6>
+                                  <h5 class="media-heading" style="font-weight: bold;">{{e.institute}}</h5> 
+                                  <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
+                                  <h6>{{e.startDate}} - {{e.endDate}}</h6>   
+                                  <h6>{{e.description}}</h6>            
                                 </div>
                               </div>
-                            </div>
+                              <hr>
                             <br>
                             {% endfor%}
                           </div>
@@ -466,20 +527,22 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                               </div>
                           </div>
-                          <br><br>
-
 
 
                           <div class="container mt-3">
-                            {% for s in s_data%}
-                            <div class="media border p-3">
-                              <div class="media-body">
-                                <p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p>
-                                <h4>{{s.skill}}</h4>
+                            <div class="media-body">
+                              <div class="row">
+                              {% for s in s_data%}
+                                  <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
+
+                                  <h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3>
+                                  <pre>   </pre>
+                              {% endfor%}
                               </div>
                             </div>
-                            {% endfor%}
                           </div>
+
+
                       </div>
                     </div>
 
@@ -518,15 +581,18 @@ The above copyright notice and this permission notice shall be included in all c
                                 </div>
                               </div>
                           </div>
+
                           <div class="container mt-3">
-                            {% for s in spcl_data%}
-                            <div class="media border p-3">
-                              <div class="media-body">
-                                <p><a href="{% url 'specialityUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit"> &#9998;</a></p>
-                                <h4>{{s.speciality}}</h4>
+                            <div class="media-body">
+                              <div class="row">
+                              {% for s in spcl_data%}
+                                  <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
+
+                                  <h3><span class="badge badge-pill badge-secondary">{{s.speciality}}<a href="{% url 'specialityUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3>
+                                  <pre>   </pre>
+                              {% endfor%}
                               </div>
                             </div>
-                            {% endfor%}
                           </div>
                       </div>
                     </div>
@@ -608,9 +674,11 @@ The above copyright notice and this permission notice shall be included in all c
 
                           <div class="container mt-3">
                             {% for c in c_data%}
-                            <div  style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;" >
-                              <div class="media">
-                                <div class="media-body" style="text-align: center">
+                             <div class="media">
+                                <div class="media-left">
+                                  <img src="/media/certificate.png" height="80" width="80">
+                                </div>
+                                <div class="media-body">
                                   <a href="{% url 'certificateUpdate' c.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
                                   <h5 class="media-heading" style="font-weight: bold;">{{c.name}}</h5>
                                   <h5 style="font-weight: bold;">Issued By : {{ c.issuingOrg}}</h5>
@@ -623,10 +691,9 @@ The above copyright notice and this permission notice shall be included in all c
                                   {% if c.credentialUrl%}
                                     <h6> Credentail Url: {{ c.credentialUrl}}</h6> 
                                   {% endif %}
+                                  <hr>
                                 </div>
-                              </div>
-                            </div>
-                            <br>
+                             </div>
                             {% endfor%}
                           </div>
 
@@ -706,21 +773,19 @@ The above copyright notice and this permission notice shall be included in all c
                           <br><br><br>
                           <div class="container mt-3">
                             {% for t in t_data%}
-                            <div  style="border-style:solid;border-width:1px 6px;color:rgb(150, 17, 150);border-radius: 25px;" >
                               <div class="media">
-                                <div class="media-body" style="padding:10px;color:black">
+                                <div class="media-body">
                                   <a href="{% url 'testimonialUpdate' t.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
-                                  <h4>{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
-                                  <p>
+                                  <h4 style="font-weight: bold;">{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
+                                  <h6>
                                     Designation :{{t.designation}}<br>
                                     Location: {{t.location}}<br>
-                                    Product/Services : {{t.services}}
+                                    Product/Services : {{t.services}}<br>
                                     {{t.description}}
-                                  </p>
+                                  </h6>
                                 </div>
                               </div>
-                            </div>
-                            <br>
+                            <hr>
                             {% endfor%}
                           </div>
                       </div>
@@ -732,26 +797,84 @@ The above copyright notice and this permission notice shall be included in all c
               </div>
             </div>
 
-
-
             <div class="col-md-4">
+              {% if not pic_data%}
+                <div class="card card-profile">
+                  <div class="card-avatar">
+                    <a href="javascript:;">
+                      <!--img class="img" src="{% static 'img/faces/marc.jpg' %}" /-->
+                      <img src="/media/default.jpg" class="img"/>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <!--a href="javascript:;" class="btn btn-primary btn-round">Follow</a-->
+                    <button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#profilePicModal">Add</button>
+                    <div class="modal fade" id="profilePicModal" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Update profile picture</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                              <form method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                  <fieldset class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ pic_form.image|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ pic_form.status|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ pic_form.tagLine|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </fieldset>
+                                  <div class="form-group">
+                                    <center><button class="btn btn-primary float-right" type="submit" name="ppic_form">ADD</button></center>
+                                  </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+
+
               {% for p in pic_data%}
-              <div class="card card-profile">
-                <div class="card-avatar">
-                  <a href="javascript:;">
-                    <img class="img" src="{% static 'img/faces/marc.jpg' %}" />
-                  </a>
+                <div class="card card-profile">
+                  <div class="card-avatar">
+                    <a href="javascript:;">
+                      <!--img class="img" src="{% static 'img/faces/marc.jpg' %}" /-->
+                      <img class="img" src="/media/{{p.image}}"/>
+                    </a>
+                  </div>
+                  <div class="card-body">
+                    <h6 class="card-category text-gray">{{p.status}}</h6>
+                    <h4 class="card-title">{% for i in p_data%} {{i.firstName}} {{i.lastName}}   {%endfor%}</h4>
+                    <h4 class="card-title"></h4>
+                    <p class="card-description">
+                      {{p.tagLine}}
+                    </p>
+                    <!--a href="javascript:;" class="btn btn-primary btn-round">Follow</a-->
+                    <a href="{% url 'profilePicUpdate' p.id  %}"> <button class="btn btn-primary btn-round">Edit</button></a>
+                  </div>
                 </div>
-                <div class="card-body">
-                  <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-                  <!--h4 class="card-title">Alec Thompson</h4-->
-                  <h4 class="card-title"></h4>
-                  <p class="card-description">
-                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-                  </p>
-                  <a href="javascript:;" class="btn btn-primary btn-round">Follow</a>
-                </div>
-              </div>
               {% endfor %}
             </div>
           </div>

@@ -129,12 +129,24 @@ body {
 
 
   <!--Menu-->
-  <div class="dropdown-menu dropdown-primary">
+  <!--<div class="dropdown-menu dropdown-primary">
     {% for mem in Members %}
     <a class="dropdown-item" href="#">{{mem.Name}}</a>
     {% endfor %}
-  </div>
-</div>
+  </div>-->
+  <nav id="nav">
+    <div class="innertube">
+      <div class="dropdown">
+        <span>Members</span>
+        <div class="dropdown-content">
+          {% for i in members %}
+            <h3>{{i.Name}}</h3>
+          {% endfor %}
+    
+        </div>
+      </div>
+    </div>
+  </nav>
 <!--/Dropdown primary-->
 </div>
 

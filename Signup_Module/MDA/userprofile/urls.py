@@ -3,7 +3,8 @@ from django.contrib import admin
 from . import views as v
   
 urlpatterns = [ 
-    path('user.html', v.profile, name="profile"), 
+    path('user.html', v.profile, name="profile"),
+    path('<id>/profilePicUpdate', v.profilePicUpdate,name="profilePicUpdate" ),
     path('<id>/profileUpdate', v.profileUpdate,name="profileUpdate" ), 
     path('<id>/skillsUpdate', v.skillsUpdate,name="skillsUpdate" ), 
     path('<id>/specialityUpdate', v.specialityUpdate,name="specialityUpdate" ), 

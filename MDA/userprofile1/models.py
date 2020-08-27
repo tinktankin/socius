@@ -70,7 +70,7 @@ class Education(models.Model):
     institute = models.CharField(max_length=150,default='')
     degree = models.CharField(max_length=50,blank=True,default='')
     branch = models.CharField(max_length=30,blank=True,default='')
-    grade = models.FloatField(blank=True)
+    grade = models.FloatField(blank=True,default=0.0)
     startDate = models.DateField(null=True,blank=True)
     endDate = models.DateField(null=True,blank=True)
     description = models.TextField(blank=True,default='')

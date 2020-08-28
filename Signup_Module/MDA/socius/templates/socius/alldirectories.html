@@ -49,6 +49,7 @@
               <p>User Profile</p>
             </a>
           </li>
+          {% if user.is_superuser  %}
           <li class="nav-item ">
             <a class="nav-link" href="./create">
               <i class="material-icons">create_new_folder</i>
@@ -61,6 +62,7 @@
               <p>Manage Coupons</p>
             </a>
           </li>
+          {% endif %}
           <li class="nav-item active">
             <a class="nav-link" href="{% url 'alldirectories' %}">
               <i class="material-icons">create_new_folder</i>

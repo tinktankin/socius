@@ -58,6 +58,7 @@ The above copyright notice and this permission notice shall be included in all c
               <p>User Profile</p>
             </a>
           </li>
+          {% if user.is_superuser  %}
           <li class="nav-item ">
             <a class="nav-link" href="./create">
               <i class="material-icons">create_new_folder</i>
@@ -70,6 +71,7 @@ The above copyright notice and this permission notice shall be included in all c
               <p>Manage Coupons</p>
             </a>
           </li>
+          {% endif %}
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'alldirectories' %}">
               <i class="material-icons">create_new_folder</i>

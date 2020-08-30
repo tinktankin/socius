@@ -1,0 +1,154 @@
+{% load static %}
+{% static "images" as baseUrl%}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Team</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<style>
+
+	html {
+		zoom: 1.0;
+		-moz-transform: scale(1.0);
+		-webkit-transform: scale(1.0);
+		transform: scale(1.0);
+	}
+	body {
+		background: #e8cbc0;
+		background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+		background: linear-gradient(to right, #e8cbc0, #636fa4);
+		min-height: 100vh;
+	}
+	
+	.social-link {
+		width: 30px;
+		height: 30px;
+		border: 1px solid #ddd;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #666;
+		border-radius: 50%;
+		transition: all 0.3s;
+		font-size: 0.9rem;
+	}
+	
+	.social-link:hover, .social-link:focus {
+		background: #ddd;
+		text-decoration: none;
+		color: #555;
+	}
+	p {
+		padding: 1px;
+		text-align: justify/left/right/center;
+		text-justify: inter-word;
+	}
+</style>
+</head>
+<body>
+	<div class="container py-5">
+		<div class="row text-center text-white">
+			<div class="col-lg-8 mx-auto">
+				<h1 class="display-4">Socius Team</h1>
+				<!--<p class="lead mb-0">Using Bootstrap 4 grid and utilities, create a nice team page.</p>
+				<p class="lead">Snippet by<a href="https://bootstrapious.com/snippets" class="text-white">
+					<u>Bootstrapious</u></a>
+				</p> -->
+			</div>
+		</div>
+	</div><!-- End -->
+	
+	
+	<div class="container">
+		<div class="row text-center">
+	
+			<!-- Team item -->
+			<div class="col-xl-4 col-sm-6 mb-5">
+				<div class="bg-white rounded shadow-sm py-5 px-4"><img src="{% static 'images/abhiram90.jpg' %}" alt="" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+					<h5 class="mb-0">Singuru Abhiram</h5><span class="small text-uppercase text-muted">FullStack Developer | Python</span>
+					<p>Vizag | B-Tech ECE | 2021</p>
+					<p>Gayatri Vidya Parishad College of Engineering (Autonomous)</p>
+					<p allign="Justify">I worked as a Full Stack Developer. I start my work from designing databases then coding and modifying applications, from layout to function with my team mates.</p>
+					<ul class="social mb-0 list-inline mt-3">
+						<!--<li class="list-inline-item"><a href="https://www.linkedin.com/in/singuru-abhiram-4610b2190" class="social-link"><i class="fa fa-facebook-f"></i></a></li>
+						<li class="list-inline-item"><a href="https://twitter.com/AbhiramSinguru?s=09" class="social-link"><i class="fa fa-twitter"></i></a></li>
+						<li class="list-inline-item"><a href="https://www.instagram.com/abhiram_singuru/" class="social-link"><i class="fa fa-instagram"></i></a></li> -->
+						<li class="list-inline-item"><a href="https://www.linkedin.com/in/singuru-abhiram-4610b2190" class="social-link"><i class="fa fa-linkedin"></i></a></li> 
+						<!--<li class="list-inline-item"><a href="abhiramsinguru@ieee.org" class="social-link"><i class="fa fa-envelope"></i></a></li>-->
+					</ul>
+					
+					
+				</div>
+			</div><!-- End -->
+	
+			<!-- Team item -->
+			<div class="col-xl-4 col-sm-6 mb-5">
+				<div class="bg-white rounded shadow-sm py-5 px-4"><img src="{% static 'images/saikumar.jpg' %}" alt="" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+					<h5 class="mb-0">SAIKUMAR AR</h5><span class="small text-uppercase text-muted">FullStack Developer | Python</span>
+					<p>Chennai | B-Tech IT | 2021</p>
+					<p>Jeppiaar engineering college (affiliated to Anna University)</p>
+					<P></P>
+					<p>I worked as Full stack developer.I did myself best to both frontend and backend from designing to WorkingModel</p>
+					<ul class="social mb-0 list-inline mt-3">
+						<li class="list-inline-item"><a href="https://www.linkedin.com/in/saikumar-ar-342a19191" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div><!-- End -->
+
+			<!-- Team item -->
+			<div class="col-xl-4 col-sm-6 mb-5">
+				<div class="bg-white rounded shadow-sm py-5 px-4"><img src="{% static 'images/vandana1.jpg' %}" alt="" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+					<h5 class="mb-0">Giduturi Vandana</h5><span class="small text-uppercase text-muted">FullStack Developer | Python</span>
+					<p>Vizag | B-Tech CSE | 2021</p>
+					<p>Gayatri Vidya Parishad College of Engineering (Autonomous)</p>
+					<p></p>
+					<p>I worked as a full stack developer. 
+						This project helped in putting my theoritical knowledge into practice. 
+						I worked on user profile module.</p>
+					<ul class="social mb-0 list-inline mt-3">
+						<li  class="list-inline-item"><a href="https://www.linkedin.com/in/giduturi-vandana-39705b193" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div><!-- End -->
+	
+			<!-- Team item -->
+			<div class="col-xl-4 col-sm-6 mb-5">
+				<div class="bg-white rounded shadow-sm py-5 px-4"><img src="{% static 'images/rajneesh2.jpeg' %}" alt="" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+					<h5 class="mb-0">Rajneesh Khare</h5><span class="small text-uppercase text-muted">FullStack Developer | Python</span>
+					<p>Bangalore | B.E CSE | 2023</p>
+					<p>CMR Institute of Technology (CMRIT)</p>
+					
+					<p>I enjoyed working on various aspects of this project as I was able to apply my knowledge to a real world project. In this endeavor, 
+						I learned new phenomenons of professional working from my mentor and colleagues.</p>
+					<!--<p>This was the best way to kick start my career with such an amazing project, an intellectual mentor and this highly dedicated team. 
+						I enjoyed working on various aspects of this project as I was able to apply my past knowledge to a real world project such as this. 
+						I actively took part in discussions and contributed through my suggestions wherever I could. In the course of my endeavor, 
+						I learned many new phenomenons and attributes of professional working myself and from my colleagues.</p>-->
+						<ul class="social mb-0 list-inline mt-3">
+							<li class="list-inline-item"><a href="https://www.linkedin.com/in/rajneesh-khare-555a881b4/" class="social-link"><i  class="fa fa-linkedin" ></i></a></li>
+						</ul>
+				</div>
+			</div><!-- End -->
+	
+			<!-- Team item -->
+			<div class="col-xl-4 col-sm-6 mb-5">
+				<div class="bg-white rounded shadow-sm py-5 px-4"><img src="{% static 'images/sanskar.jpg' %}" alt="" width="150" class="img-fluid rounded-circle mb-3 img-thumbnail shadow-sm">
+					<h5 class="mb-0">Sanskar Gupta</h5><span class="small text-uppercase text-muted">FullStack Developer | Python</span>
+					<p>Jabalpur | B-Tech CSE | 2021</p>
+					<p>Hitkarini College of Engineering and Technology</p>
+					<p>I worked as a Back-End Developer and made a different kind of apps for this project, 
+						I also worked for the structure and design of the project accordingly with my team members.</p>
+					<ul class="social mb-0 list-inline mt-3">
+						<li class="list-inline-item"><a href="https://www.linkedin.com/in/sanskar-gupta-a34920172/" class="social-link"><i class="fa fa-linkedin"></i></a></li>
+					</ul>
+				</div>
+			</div><!-- End -->
+		</div>
+	</div>
+	<script src="{% static 'js/jquery-3.3.1.slim.min.js' %}"></script>
+	<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>

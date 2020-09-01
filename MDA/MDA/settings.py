@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Coupons.apps.CouponsConfig',
     'events.apps.EventsConfig',
     'userprofile.apps.UserprofileConfig',
+    'documents.apps.DocumentsConfig',
     'phonenumber_field',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

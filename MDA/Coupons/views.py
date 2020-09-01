@@ -22,7 +22,7 @@ def create_SU_coupon_(request):
 
     context['form_su'] = form_su
     context['directories'] = directories
-
+ 
     return render(request, 'Coupons/CouponSUGeneration.html', context)
 
 

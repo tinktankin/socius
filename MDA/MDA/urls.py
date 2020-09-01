@@ -24,6 +24,8 @@ from django.conf.urls import url
 from events import views as ve
 from userprofile import views as vu
 
+from documents import views as vd
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', v.index1, name="index1"),
@@ -52,7 +54,12 @@ urlpatterns = [
     path('eventTable/', ve.events_table, name="eventTable"),
 
     path('',include('userprofile.urls')),
-    path('user.html',vu.profile,name="profile")
+    path('',include('documents.urls')),
+    path('user.html',vu.profile,name="profile"),
+
+
+
+    path('upload.html/',vd.upload,name="upload"),
 ]
 
 

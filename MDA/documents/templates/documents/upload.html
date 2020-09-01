@@ -1,0 +1,165 @@
+{% extends "socius/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block navbar %}
+  <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'dashboard' %}">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="/user.html">
+              <i class="material-icons">person</i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          {% if user.is_superuser  %}
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'create' %}">
+              <i class="material-icons">create_new_folder</i>
+              <p>Create Directory</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'SuCoupon' %}">
+              <i class="material-icons">dynamic_feed</i>
+              <p>Manage Coupons</p>
+            </a>
+          </li>
+          {% endif %}
+
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'alldirectories' %}">
+              <i class="material-icons">create_new_folder</i>
+              <p>All Directories</p>
+            </a>
+          </li>
+          
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'createEvent' %}">
+              <i class="material-icons">today</i>
+              <p>Events</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{%url 'upload' %}">
+              <i class="material-icons">call_split</i>
+              <p>Document Sharing</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <a class="navbar-brand" href="{% url 'upload' %}">Documents</a>
+          </div>
+{% endblock navbar %}
+
+
+
+{% block content %}
+<div class="content">
+	<div class="container-fluid">
+	  <div class="row">
+		  <div class="col-md-8">
+		    <div class="card">
+			    <div class="card-header card-header-primary">
+			      <h4 class="card-title">Documents</h4>
+			      <p class="card-category">Upload your documents here</p>
+			    </div>
+		    	<div class="card-body">
+            <div class="container">
+              <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#docModal">Add</button>
+              <div class="modal fade" id="docModal" role="dialog">
+                <div class="modal-dialog modal-lg">
+                  <!-- Modal content-->
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Document</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                      <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                          <fieldset class="form-group">
+                            <div class="row">
+                              <div class="col-md-6">
+                                  <div class="form-group">
+                                    {{ form.fileName|as_crispy_field}}
+                                  </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  {{ form.uploadFile|as_crispy_field}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
+                                    {{ form.description|as_crispy_field}}
+                                  </div>
+                              </div>
+                            </div>                      
+                          </fieldset>
+                          <div class="form-group">
+                            <center><button class="btn btn-primary float-left" type="submit">ADD</button></center>
+                          </div>
+                          <div class="clearfix"></div>
+                      </form>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div> 
+                </div>         
+              </div>
+            </div>
+            <br><br> 
+            
+            
+            <div class="container mt-3">
+              {% for file in data%}
+                <div class="media">
+                  <div class="media-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        
+                        <a href="#demo{{file}}" data-toggle="collapse" style="font-weight:bold">{{file.fileName}}</a>
+                        <div id="demo{{file}}" class="collapse">
+                          {{file.description}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <a href="{{file.uploadFile.url}}" class="btn btn-primary btn-sm" target="_blank" >download</a>
+                      </div>
+                      <!--a href="/media/{{file.uploadFile}}">Uploaded_file</a-->
+                    </div>
+                  </div>
+                </div>
+                <hr>
+              <br>
+              {% endfor%}
+            </div>
+        
+        
+          </div>
+        </div>
+			</div>
+    </div>
+  </div>
+</div>
+{%endblock%}
+
+
+
+
+

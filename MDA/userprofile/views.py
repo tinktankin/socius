@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Profile,profilePic,Skills,Speciality,Certificate,Testimonial,Education
 from .forms import ProfileForm,ProfilePicForm,SkillsForm,SpecialityForm,CertificateForm,TestimonialForm,EducationForm
 
+
 def dummy(request):
     return render(request,'dummy.html')
 

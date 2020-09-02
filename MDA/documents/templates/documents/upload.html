@@ -39,13 +39,13 @@
             </a>
           </li>
           
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="{% url 'createEvent' %}">
               <i class="material-icons">today</i>
               <p>Events</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item active">
             <a class="nav-link" href="{%url 'upload' %}">
               <i class="material-icons">call_split</i>
               <p>Document Sharing</p>
@@ -130,10 +130,31 @@
               {% for file in data%}
                 <div class="media">
                   <div class="media-body">
+                    <!--{{extension}}-->
+
                     <div class="row">
                       <div class="col-md-6">
+                        {%if file.fileExtension in pdf_ext%}
+                          <i class="fa fa-file-pdf-o fa-2x"></i>
+
+                        <!--word documents icon-->
+                        {% elif file.fileExtension in word_ext %}
+                        <i class="fa fa-file-word-o fa-2x"></i>
+
+                        <!--ppt files-->
+                        {% elif file.fileExtension in ppt_ext %}
+                        <i class="fa fa-file-powerpoint-o fa-2x"></i>
+
+                        <!--excel sheets-->
                         
-                        <a href="#demo{{file}}" data-toggle="collapse" style="font-weight:bold">{{file.fileName}}</a>
+                        {% elif file.fileExtension in excel_ext %}
+                        <i class="fa fa-file-excel-o fa-2x"></i>
+                        
+                        {%else%}
+                        <i class="fa fa-file-text-o fa-2x"></i>
+                        {%endif%}
+
+                        <a href="#demo{{file}}" data-toggle="collapse" style="font-weight:bold;font-family:Tahoma;">{{file.fileName}}</a>
                         <div id="demo{{file}}" class="collapse">
                           {{file.description}}
                         </div>
@@ -148,9 +169,7 @@
                 <hr>
               <br>
               {% endfor%}
-            </div>
-        
-        
+            </div>    
           </div>
         </div>
 			</div>

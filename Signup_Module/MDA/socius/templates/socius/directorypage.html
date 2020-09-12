@@ -1,198 +1,336 @@
+
+{% load static %}
+{% static "images" as baseUrl%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Python Directory</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {
-  box-sizing: border-box;
-}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Directory Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.css" rel="stylesheet" />
+    <style>
+    	@import url('https://fonts.googleapis.com/css?family=Roboto');
 
-/* Style the body */
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-}
+        body{
+          font-family: 'Roboto', sans-serif;
+        }
+        * {
+          margin: 0;
+          padding: 0;
+        }
+        i {
+          margin-right: 10px;
+        }
+        /*----------multi-level-accordian-menu------------*/
+        .navbar-logo{
+          padding: 15px;
+          color: #fff;
+        }
+        .navbar-mainbg{
+          background-color: #5161ce;
+          padding: 0px;
+        }
+        #navbarSupportedContent{
+          overflow: hidden;
+          position: relative;
+        }
+        #navbarSupportedContent ul{
+          padding: 0px;
+          margin: 0px;
+        }
+        #navbarSupportedContent ul li a i{
+          margin-right: 10px;
+        }
+        #navbarSupportedContent li {
+          list-style-type: none;
+          float: left;
+        }
+        #navbarSupportedContent ul li a{
+          color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            font-size: 15px;
+            display: block;
+            padding: 20px 20px;
+            transition-duration:0.6s;
+          transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+        #navbarSupportedContent>ul>li.active>a{
+          color: #5161ce;
+          background-color: transparent;
+          transition: all 0.7s;
+        }
+        #navbarSupportedContent a:not(:only-child):after {
+          content: "\f105";
+          position: absolute;
+          right: 20px;
+          top: 10px;
+          font-size: 14px;
+          font-family: "Font Awesome 5 Free";
+          display: inline-block;
+          padding-right: 3px;
+          vertical-align: middle;
+          font-weight: 900;
+          transition: 0.5s;
+        }
+        #navbarSupportedContent .active>a:not(:only-child):after {
+          transform: rotate(90deg);
+        }
+        .hori-selector{
+          display:inline-block;
+          position:absolute;
+          height: 100%;
+          top: 0px;
+          left: 0px;
+          transition-duration:0.6s;
+          transition-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+          background-color: #fff;
+          border-top-left-radius: 15px;
+          border-top-right-radius: 15px;
+          margin-top: 10px;
+        }
+        .hori-selector .right,
+        .hori-selector .left{
+          position: absolute;
+          width: 25px;
+          height: 25px;
+          background-color: #fff;
+          bottom: 10px;
+        }
+        .hori-selector .right{
+          right: -25px;
+        }
+        .hori-selector .left{
+          left: -25px;
+        }
+        .hori-selector .right:before,
+        .hori-selector .left:before{
+          content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #5161ce;
+        }
+        .hori-selector .right:before{
+          bottom: 0;
+            right: -25px;
+        }
+        .hori-selector .left:before{
+          bottom: 0;
+            left: -25px;
+        }
 
-/* Header/logo Title */
-.header {
-  padding: 80px;
-  text-align: center;
-  background: #1abc9c;
-  color: white;
-}
 
-/* Increase the font size of the heading */
-.header h1 {
-  font-size: 40px;
-}
 
-/* Style the top navigation bar */
-.navbar {
-  overflow: hidden;
-  background-color: #333;
-}
 
-/* Style the navigation bar links */
-.navbar a {
-  float: left;
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 20px;
-  text-decoration: none;
-}
-
-/* Right-aligned link */
-.navbar a.right {
-  float: right;
-}
-
-/* Change color on hover */
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-/* Column container */
-.row {  
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-}
-
-/* Create two unequal columns that sits next to each other */
-/* Sidebar/left column */
-.side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-/* Main column */
-.main {   
-  -ms-flex: 70%; /* IE10 */
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
-}
-
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
-/* Footer */
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-}
-
-/* Responsive layout - when the screen is less than 700px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 700px) {
-  .row {   
-    flex-direction: column;
-  }
-}
-
-/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
-@media screen and (max-width: 400px) {
-  .navbar a {
-    float: none;
-    width: 100%;
-  }
-}
-</style>
+        @media (max-width: 991px){
+          #navbarSupportedContent ul li a{
+            padding: 12px 30px;
+          }
+          .hori-selector{
+            margin-top: 0px;
+            margin-left: 10px;
+            border-radius: 0;
+            border-top-left-radius: 25px;
+            border-bottom-left-radius: 25px;
+          }
+          .hori-selector .left,
+          .hori-selector .right{
+            right: 10px;
+          }
+          .hori-selector .left{
+            top: -25px;
+            left: auto;
+          }
+          .hori-selector .right{
+            bottom: -25px;
+          }
+          .hori-selector .left:before{
+            left: -25px;
+            top: -25px;
+          }
+          .hori-selector .right:before{
+            bottom: -25px;
+            left: -25px;
+          }
+        }
+    </style>
 </head>
 <body>
-
-<div class="header">
-  <h1> Member Directory</h1>
-  <p>This Directory is for Universal Member Directory</p>
-</div>
-
-<div class="navbar">
-  <a href="adduser">Upload User</a>
-  <a href="members">Team Mates</a>
-  <!--Dropdown primary-->
-<div class="dropdown">
-
-  <!--Trigger-->
-  <a class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
-    aria-haspopup="true" aria-expanded="false">Material dropdown</a>
-
-
-  <!--Menu-->
-  <!--<div class="dropdown-menu dropdown-primary">
-    {% for mem in Members %}
-    <a class="dropdown-item" href="#">{{mem.Name}}</a>
-    {% endfor %}
-  </div>-->
-  <nav id="nav">
-    <div class="innertube">
-      <div class="dropdown">
-        <span>Members</span>
-        <div class="dropdown-content">
-          {% for i in members %}
-            <h3>{{i.Name}}</h3>
-          {% endfor %}
-    
-        </div>
-      </div>
-    </div>
-  </nav>
-<!--/Dropdown primary-->
-</div>
-
-<nav id="nav">
-  <div class="innertube">
-      <div class="dropdown">
-        <span>SuperUser</span>
-        <div class="dropdown-content">
-        <p>{{SuperUser}}</p>
-        </div>
-      </div>
-  </div>
+  <nav class="navbar navbar-expand-lg navbar-mainbg">
+    <a class="navbar-brand navbar-logo" href="{% url 'dashboard' %}">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       
-    
-  </div>
-</nav>	
-<div class="row">
-  <div class="side">
-    <h2>About Me</h2>
-    <h5>Photo of me:</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    <h3>More Text</h3>
-    <p>Lorem ipsum dolor sit ame.</p>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div>
-  </div>
-  <div class="main">
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Dec 7, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    <br>
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Sep 2, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-  </div>
-</div>
+        
+          <ul class="nav nav-tabs" class="navbar-nav ml-auto">
+              <div class="hori-selector"><div class="left"></div><div class="right"></div></div>
+              <li class="nav-item active">
+                  <a class="nav-link" data-target="#chatroom" data-toggle="tab" href=""><i class="fas fa-tachometer-alt"></i>Chat Room</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-target="#lists" data-toggle="tab" href=""><i class="far fa-address-book"></i>Members</a>
+              </li>
+              <li class="nav-item ">
+                  <a class="nav-link" href=""><i class="far fa-calendar-alt"></i>Calendar</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" data-target="#documents" data-toggle="tab"  href=""><i class="far fa-copy"></i>Documents</a>
+              </li>
+          </ul>
+        
+      
+    </div>
+</nav>
 
-<div class="footer">
-  <h2>Socius</h2>
-</div>
+<!--Card Body HERE-->
+<div class="card-body">
+  <!--Table Content Start Here-->
+      <div class="tab-content py-4">
+          <!-- Discussion Form Section Starts Here-->
+          <div class="tab-pane" id="chatroom">
+              <div class="container">
+                Discussion Form Section will be displayed here!!!
+              </div>
+          </div>
+          <!-- Discussion Section Ends Here-->
 
+
+          <!--Member Listing Section Starts Here -->
+          <div class="tab-pane" id="lists">
+              <div class="container">
+                <main role="main" class="container">
+                  <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded shadow-sm">
+                    <img class="mr-3" src="{% static 'images/abhiram90.jpg' %}" alt="" width="48" height="48"> 
+                    <div class="d-flex justify-content-between align-items-center w-100">
+                        {% if user != superuser %}
+                              <form action="remove" method="POST">{% csrf_token %}
+                                <input type="hidden" id="id" name="user_id" value="{{user1}}" ><br>
+                                <input type="hidden" id="id" name="directoryid" value="{{directoryid}}" ><br>
+                                <p><input type="submit" class="btn btn-primary custom-btn" value="Leave"></p>
+                              </form>
+                        {% endif %}
+                    
+                    
+                      <div class="lh-100">
+                        <h6 class="mb-0 text-white lh-100">Bootstrap</h6>
+                        <small>Since 2011</small>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <h6 class="border-bottom border-gray pb-2 mb-0">Super User</h6>
+                    <div class="media text-muted pt-3">
+                      <img class="mr-3" src="{{SuPic.url}}" alt="" width="48" height="48">
+                      <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <strong class="d-block text-gray-dark">{{SuperUser}}</strong>
+                        
+                      </p>
+                    </div>
+                    
+                    <small class="d-block text-right mt-3">
+                      <a href="#">All updates</a>
+                    </small>
+                  </div>
+                  
+                  <div class="my-3 p-3 bg-white rounded shadow-sm">
+                    <h6 class="border-bottom border-gray pb-2 mb-0">Members</h6>
+                    {% for i in members %}
+                    <div class="media text-muted pt-3">
+                      {% for pic in lp %}
+                      {% for dest in pic %}
+                      <img class="mr-3" src="{{dest.image.url}}" alt="" width="48" height="48">
+                      {% endfor %}
+                      {% endfor %}
+                      <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                          <strong class="text-gray-dark">{{i.Name}}</strong>
+                             
+                          {% if user == superuser %}
+                          <form action="remove" method="POST">{% csrf_token %}
+                            <input type="hidden" id="id" name="user_id" value="{{i.user_id}}" ><br>
+                            <input type="hidden" id="id" name="directoryid" value="{{directoryid}}" ><br>
+                            <p><input type="submit" class="btn btn-primary custom-btn" value="Remove"></p>
+                          </form>
+                          {% endif %}
+                        </div>
+                        <p>{{i.Bio}}</p>
+                        <!--<span class="d-block">@{{i.Name}}</span>-->
+                      </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <small class="d-block text-right mt-3">
+                      <a href="#">All suggestions</a>
+                    </small>
+                  </div>
+                </main>
+              </div>
+          </div>
+          <!--Member Listing Section Ends Here -->
+
+
+
+          <!--Documents Sharing Section Starts Here -->
+          <div class="tab-pane" id="documents">
+              <div class="container">   
+                  Documents will be displayed here!!!    
+              </div>
+          </div>
+          <!--Documents Sharing Section Ends Here -->
+
+      </div> 
+  <!--Table content end here-->
+  </div>
+
+
+     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+    	function test(){
+  var tabsNewAnim = $('#navbarSupportedContent');
+  var selectorNewAnim = $('#navbarSupportedContent').find('li').length;
+  var activeItemNewAnim = tabsNewAnim.find('.active');
+  var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+  var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+  var itemPosNewAnimTop = activeItemNewAnim.position();
+  var itemPosNewAnimLeft = activeItemNewAnim.position();
+  $(".hori-selector").css({
+    "top":itemPosNewAnimTop.top + "px", 
+    "left":itemPosNewAnimLeft.left + "px",
+    "height": activeWidthNewAnimHeight + "px",
+    "width": activeWidthNewAnimWidth + "px"
+  });
+  $("#navbarSupportedContent").on("click","li",function(e){
+    $('#navbarSupportedContent ul li').removeClass("active");
+    $(this).addClass('active');
+    var activeWidthNewAnimHeight = $(this).innerHeight();
+    var activeWidthNewAnimWidth = $(this).innerWidth();
+    var itemPosNewAnimTop = $(this).position();
+    var itemPosNewAnimLeft = $(this).position();
+    $(".hori-selector").css({
+      "top":itemPosNewAnimTop.top + "px", 
+      "left":itemPosNewAnimLeft.left + "px",
+      "height": activeWidthNewAnimHeight + "px",
+      "width": activeWidthNewAnimWidth + "px"
+    });
+  });
+}
+$(document).ready(function(){
+  setTimeout(function(){ test(); });
+});
+$(window).on('resize', function(){
+  setTimeout(function(){ test(); }, 500);
+});
+$(".navbar-toggler").click(function(){
+  setTimeout(function(){ test(); });
+});
+    </script>
 </body>
 </html>
+

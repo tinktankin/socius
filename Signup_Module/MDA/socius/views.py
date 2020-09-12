@@ -16,7 +16,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 from django.core import mail
-from .forms import DirectoryCreationForm
+from .forms import DirectoryCreationForm,DirectoryjoinForm
 #import uuid 
 #from .models import MemberProfile,Phone,Address,Speciality,KeySKills,Certificates,Testimonial,Document,AcademicDetails,Event
 from django.contrib.auth.models import User
@@ -24,9 +24,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .decorators import unauthenticated_user, allowed_users, admin_only
 
-
+from userprofile import models as m 
 # Create your views here.
-
+# for Html email stuff
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags 
 def index1(response):
     
     '''dest1 = Destination()
@@ -78,26 +80,110 @@ def loggedin(request):
         return render(request,'socius/dashboard.html',{'dir':dir})
     elif (user1 is None)and(user2 is not None):
         l=[]
+        k=[]
+        mydir={}
         id=request.user.id
-        dir=memberdirectory.objects.filter(user_id=id).all()
         mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
         for i in mydir1:
             l.append(i['DirectoryId'])
-        print(l)
-        for j in l:
-            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
-        return render(request,'socius/dashboard.html',{'mydir':mydir})
+        #print(l)
+        for j in range(len(l)):
+            mydir2=memberdirectory.objects.filter(DirectoryId=l[j])
+            mydir.setdefault('Directory', []).append(mydir2)
+        for i in range(len(l)):
+            k.append(mydir['Directory'][i])
+        print(k)
+        return render(request,'socius/dashboard.html',{'k':k})
     elif (user1 is not None)and(user2 is not None):
+        if request.method == 'POST':
+            #print('Enter outer IF Simple Upload')
+            if 'simple_upload' in request.POST:
+                user_list = UserListResource()
+                dataset = Dataset()
+                new_person = request.FILES['myfile']
+                #print('Enter inner IF Simple Upload')
+
+                if not new_person.name.endswith('xlsx'):
+                    messages.info(request, 'Wrong Format')
+                    return render(request, 'socius/upload.html')
+
+                imported_data = dataset.load(new_person.read(),format='xlsx')
+                #print(imported_data)
+                d=[]
+                for data in imported_data:
+                    #print(data[1])
+                    #UserListInvitation(data[2])
+                    d.append(data[2])
+                    '''send_mail(
+                        'MDA Invitation',
+                        'This is the Invitation of MDA applcation.',
+                        settings.EMAIL_HOST_USER,
+                        [data[2]],
+                        fail_silently=False,
+                    )'''
+
+                    value = UserList(
+                        data[0],
+                        data[1],
+                        data[2],
+                        data[3],
+                        data[4]
+                        )
+                    value.save()
+                l=d
+                user=User.objects.filter(is_superuser='True').first()
+                current_site = get_current_site(request)
+                mail_subject = 'Invite to Socius'
+                message = render_to_string('socius/invite.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                })
+                for i in l:
+                    #reciever_list.append(i['email'])
+                    to_email = i
+                    email = EmailMessage(
+                        mail_subject, message, to=[to_email]
+                    )
+                    email.send()
+                return redirect('dashboard')
+            if 'DirId' in request.POST:
+                #print('inside DirId request')
+                DirectoryId=request.POST['DirectoryId']
+                user = request.user.id
+                Email = request.user.email
+                Name = request.user.username  
+                if DirectoryMembers.objects.filter(Email=Email).exists():
+                    messages.info(request, 'The email is already registered')
+                    return redirect('dashboard')
+                else:
+                    obj3=DirectoryMembers(Name=Name,Email=Email,DirectoryId=DirectoryId,user_id=user)
+                    obj3.save()
+                    return redirect('dashboard')
         l=[]
+        k=[]
+        mydir={}
         id=request.user.id
         dir=memberdirectory.objects.filter(user_id=id).all()
+        print(dir)
         mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
         for i in mydir1:
             l.append(i['DirectoryId'])
         print(l)
-        for j in l:
-            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
-        return render(request,'socius/dashboard.html',{'mydir':mydir,'dir':dir})
+        for j in range(len(l)):
+            mydir2=memberdirectory.objects.filter(DirectoryId=l[j]).all()
+            mydir.setdefault('Directory', []).append(mydir2)
+            #print(mydir)
+        for i in range(len(l)):
+            k.append(mydir['Directory'][i])
+        print(k)
+        current_user = request.user 
+        current_user_id = current_user.id 
+        createddir = memberdirectory.objects.filter(user_id=current_user_id).all()
+        print(createddir) 
+        return render(request,'socius/dashboard.html',{'dir':dir,'k':k,'createddir':createddir})
+
 
     else:
         return render(request,'socius/dashboard1.html')
@@ -105,11 +191,77 @@ def loggedin(request):
 '''def user(request):
     return render(request,"socius/user.html")'''
 
-def dashboard(request):
+def dashboard(request,*args):
     id=request.user.id
     user1=memberdirectory.objects.filter(user_id=id).first()
     user2=DirectoryMembers.objects.filter(user_id=id).first()
     if(user1 is not None)and(user2 is None):
+        if request.method == 'POST':
+            #print('Enter outer IF Simple Upload')
+            if 'simple_upload' in request.POST:
+                user_list = UserListResource()
+                dataset = Dataset()
+                new_person = request.FILES['myfile']
+                #print('Enter inner IF Simple Upload')
+
+                if not new_person.name.endswith('xlsx'):
+                    messages.info(request, 'Wrong Format')
+                    return render(request, 'socius/upload.html')
+
+                imported_data = dataset.load(new_person.read(),format='xlsx')
+                #print(imported_data)
+                d=[]
+                c=[]
+                for data in imported_data:
+                    #print(data[1])
+                    #UserListInvitation(data[2])
+                    d.append(data[2])
+                    c.append(data[3])
+                    '''send_mail(
+                        'MDA Invitation',
+                        'This is the Invitation of MDA applcation.',
+                        settings.EMAIL_HOST_USER,
+                        [data[2]],
+                        fail_silently=False,
+                    )'''
+
+                    value = UserList(
+                        data[0],
+                        data[1],
+                        data[2],
+                        data[3],
+                        data[4]
+                        )
+                    value.save()
+                l=d
+                user=User.objects.filter(is_superuser='True').first()
+                current_site = get_current_site(request)
+                #mail_subject = 'Invite to Socius'
+                message = render_to_string('socius/invite.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                    
+                })
+                for i in range(len(l)):
+                    #reciever_list.append(i['email'])
+                    to_email = l[i]
+                    email = EmailMessage(
+                        'Invite to Socius'+":"+"DirectoryId "+c[i], message, to=[to_email]
+                    )
+                    email.send()
+                return redirect('dashboard')
+            if 'DirId' in request.POST:
+                #print('inside DirId request')
+                DirectoryId=request.POST['DirectoryId']
+                #print(DirectoryId,'checking') 
+                user = request.user.id
+                Email = request.user.email
+                Name = request.user.username  
+                obj3=DirectoryMembers(Name=Name,Email=Email,DirectoryId=DirectoryId,user_id=user)
+                obj3.save()
+                return redirect('dashboard')
         l=[]
         id=request.user.id
         dir=memberdirectory.objects.filter(user_id=id).all()
@@ -121,29 +273,190 @@ def dashboard(request):
             mydir=memberdirectory.objects.filter(DirectoryId=j).all()
         return render(request,'socius/dashboard.html',{'dir':dir})
     elif (user1 is None)and(user2 is not None):
+        if request.method == 'POST':
+            #print('Enter outer IF Simple Upload')
+            if 'simple_upload' in request.POST:
+                user_list = UserListResource()
+                dataset = Dataset()
+                new_person = request.FILES['myfile']
+                #print('Enter inner IF Simple Upload')
+
+                if not new_person.name.endswith('xlsx'):
+                    messages.info(request, 'Wrong Format')
+                    return render(request, 'socius/upload.html')
+
+                imported_data = dataset.load(new_person.read(),format='xlsx')
+                #print(imported_data)
+                d=[]
+                c=[]
+                for data in imported_data:
+                    #print(data[1])
+                    #UserListInvitation(data[2])
+                    d.append(data[2])
+                    c.append(data[3])
+                    '''send_mail(
+                        'MDA Invitation',
+                        'This is the Invitation of MDA applcation.',
+                        settings.EMAIL_HOST_USER,
+                        [data[2]],
+                        fail_silently=False,
+                    )'''
+
+                    value = UserList(
+                        data[0],
+                        data[1],
+                        data[2],
+                        data[3],
+                        data[4]
+                        )
+                    value.save()
+                l=d
+                user=User.objects.filter(is_superuser='True').first()
+                current_site = get_current_site(request)
+                #mail_subject = 'Invite to Socius'
+                message = render_to_string('socius/invite.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                    
+                })
+                for i in range(len(l)):
+                    #reciever_list.append(i['email'])
+                    to_email = l[i]
+                    email = EmailMessage(
+                        'Invite to Socius'+":"+"DirectoryId "+c[i], message, to=[to_email]
+                    )
+                    email.send()
+                return redirect('dashboard')
+            if 'DirId' in request.POST:
+                #print('inside DirId request')
+                DirectoryId=request.POST['DirectoryId']
+                #print(DirectoryId,'checking') 
+                user = request.user.id
+                Email = request.user.email
+                Name = request.user.username  
+                obj3=DirectoryMembers(Name=Name,Email=Email,DirectoryId=DirectoryId,user_id=user)
+                obj3.save()
+                return redirect('dashboard')
         l=[]
+        k=[]
+        mydir={}
         id=request.user.id
-        dir=memberdirectory.objects.filter(user_id=id).all()
         mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
         for i in mydir1:
             l.append(i['DirectoryId'])
-        print(l)
-        for j in l:
-            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
-        return render(request,'socius/dashboard.html',{'mydir':mydir})
+        #print(l)
+        for j in range(len(l)):
+            mydir2=memberdirectory.objects.filter(DirectoryId=l[j])
+            mydir.setdefault('Directory', []).append(mydir2)
+        for i in range(len(l)):
+            k.append(mydir['Directory'][i])
+        print(k)
+        return render(request,'socius/dashboard.html',{'k':k})
     elif (user1 is not None)and(user2 is not None):
+        if request.method == 'POST':
+            #print('Enter outer IF Simple Upload')
+            if 'simple_upload' in request.POST:
+                user_list = UserListResource()
+                dataset = Dataset()
+                new_person = request.FILES['myfile']
+                #print('Enter inner IF Simple Upload')
+
+                if not new_person.name.endswith('xlsx'):
+                    messages.info(request, 'Wrong Format')
+                    return render(request, 'socius/upload.html')
+
+                imported_data = dataset.load(new_person.read(),format='xlsx')
+                #print(imported_data)
+                d=[]
+                c=[]
+                for data in imported_data:
+                    #print(data[1])
+                    #UserListInvitation(data[2])
+                    d.append(data[2])
+                    c.append(data[3])
+                    '''send_mail(
+                        'MDA Invitation',
+                        'This is the Invitation of MDA applcation.',
+                        settings.EMAIL_HOST_USER,
+                        [data[2]],
+                        fail_silently=False,
+                    )'''
+
+                    value = UserList(
+                        data[0],
+                        data[1],
+                        data[2],
+                        data[3],
+                        data[4]
+                        )
+                    value.save()
+                l=d
+                user=User.objects.filter(is_superuser='True').first()
+                current_site = get_current_site(request)
+                #mail_subject = 'Invite to Socius'
+                message = render_to_string('socius/invite.html', {
+                    'user': user,
+                    'domain': current_site.domain,
+                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    'token': default_token_generator.make_token(user),
+                    
+                })
+                for i in range(len(l)):
+                    #reciever_list.append(i['email'])
+                    to_email = l[i]
+                    email = EmailMessage(
+                        'Invite to Socius'+":"+"DirectoryId "+c[i], message, to=[to_email]
+                    )
+                    email.send()
+                return redirect('dashboard')
+            if 'DirId' in request.POST:
+                #print('inside DirId request')
+                DirectoryId=request.POST['DirectoryId']
+                #print(DirectoryId,'checking') 
+                user = request.user.id
+                Email = request.user.email
+                Name = request.user.username  
+                obj3=DirectoryMembers(Name=Name,Email=Email,DirectoryId=DirectoryId,user_id=user)
+                obj3.save()
+                return redirect('dashboard')
         l=[]
+        k=[]
+        mydir={}
         id=request.user.id
         dir=memberdirectory.objects.filter(user_id=id).all()
+        print(dir)
         mydir1=DirectoryMembers.objects.filter(user_id=id).values('DirectoryId')
         for i in mydir1:
             l.append(i['DirectoryId'])
         print(l)
-        for j in l:
-            mydir=memberdirectory.objects.filter(DirectoryId=j).all()
-        return render(request,'socius/dashboard.html',{'mydir':mydir,'dir':dir})
+        for j in range(len(l)):
+            mydir2=memberdirectory.objects.filter(DirectoryId=l[j]).all()
+            mydir.setdefault('Directory', []).append(mydir2)
+            #print(mydir)
+        for i in range(len(l)):
+            k.append(mydir['Directory'][i])
+        print(k)
+        current_user = request.user 
+        current_user_id = current_user.id 
+        createddir = memberdirectory.objects.filter(user_id=current_user_id).all()
+        print(createddir) 
+        return render(request,'socius/dashboard.html',{'dir':dir,'k':k,'createddir':createddir})
+
 
     else:
+        if request.method == 'POST':
+            if 'DirId' in request.POST:
+                #print('inside DirId request')
+                DirectoryId=request.POST['DirectoryId']
+                #print(DirectoryId,'checking') 
+                user = request.user.id
+                Email = request.user.email
+                Name = request.user.username  
+                obj3=DirectoryMembers(Name=Name,Email=Email,DirectoryId=DirectoryId,user_id=user)
+                obj3.save()
+                return redirect('dashboard')
         return render(request,'socius/dashboard1.html')
 
 def Team(request):
@@ -158,19 +471,39 @@ def contact(request):
 @login_required(login_url='login')
 def directorypage(request):
     if request.method=='POST':
-        SuperUser=User.objects.filter(is_staff=True).first
         directoryid=request.POST['DirectoryId']
+        user1=request.user.id
+        superuser=memberdirectory.objects.get(DirectoryId=directoryid)
+        superuserId=superuser.user_id
+        Su=User.objects.get(id=superuserId)
+        SuperUser=Su.username 
+        #print(type(U),type(SuperUser))
+        userid1=memberdirectory.objects.filter(DirectoryId=directoryid).values('user_id').first()
+        userid=userid1['user_id']
+        superuser=User.objects.filter(id=userid).first()
+        superuserprofile = m.profilePic.objects.get(user_id=superuserId)
+        SuPic = superuserprofile.image
         members=DirectoryMembers.objects.filter(DirectoryId=directoryid)
-        
+        l=[]
+        mempic={}
+        for i in members:
+            l.append(i.user_id)
+        lp=[]
+        for i in l:
+            s=m.profilePic.objects.filter(user_id=i)
+            #mempic.setdefault('image',[]).append(s)
+            lp.append(s)
+        n=len(lp) 
         #admin=User.objects.filter(is_superuser='True').first()
-        return render(request,'socius/directorypage.html',{'members':members,'SuperUser':SuperUser})
+        context={'members':members,'SuperUser':SuperUser,'SuPic':SuPic,'lp':lp,'n':n,'superuser':superuser,'directoryid':directoryid,'user1':user1}
+        return render(request,'socius/directorypage.html',context)
     else:
         return redirect('dashboard')
 
 
 
 @allowed_users(allowed_roles=['admin','superuser'])
-def simple_upload(request):
+def simple_upload(request,*args):
     if request.method == 'POST':
         user_list = UserListResource()
         dataset = Dataset()
@@ -296,29 +629,80 @@ def dummy(response):
 def joindirectory(request):
     return render(request,'socius/joindirectory1.html')
 
+
+
 def joined(request):
     if request.method=='POST':
-        user=request.user.id
-        Name=request.POST['Name']
-        Email=request.POST['email']
-        Bio=request.POST['bio']
-        #user = request.user 
-        DirectoryId=request.POST['DirectoryId']
-        if DirectoryMembers.objects.filter(Email=Email).exists():
-            messages.info(request, 'The email is already registered')
-            return redirect('joined')
-        else:
-            obj2=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,DirectoryId=DirectoryId,user_id=user)
-            #obj3=DirectoryMemberTable(memdirectory=memberdirectory_id,directorymems=user)
-            obj2.save()
-            #obj3.save()
-            #obj2.memberdirectory.add(obj1)
-            return render(request,'socius/dashboard.html')
+        form=DirectoryjoinForm(request.POST)
+        if form.is_valid():
+            user=request.user.id
+            Name=request.POST['Name']
+            #Email=request.POST['email']
+            Email=request.user.email 
+            Bio=request.POST['Bio']
+            DirectoryId=request.POST['DirectoryId']
+            #user=User.objects.filter(is_superuser='True').first()
+            #Dirctory_id=DirectoryCreation.objects.filter('id',user_id=user.id)
+            if DirectoryMembers.objects.filter(Email=Email,DirectoryId=DirectoryId).exists():
+                messages.info(request, 'The email is already registered')
+                return redirect('joined')
+            else:
+                user=request.user.id
+                obj1=DirectoryMembers(Name=Name,Email=Email,Bio=Bio,DirectoryId=DirectoryId,user_id=user)
+                obj1.save()
+                #user=User.objects.filter(id=user2).first()
+                user1=request.user
+                superuser=memberdirectory.objects.get(DirectoryId=DirectoryId)
+                superuserId=superuser.user_id
+                Su=User.objects.get(id=superuserId)
+                Email_id=Su.email
+                sname=Su.username 
+                DirectoryName=memberdirectory.objects.filter(DirectoryId=DirectoryId).values('DirectoryName').first()
+                print(DirectoryName)
+                #print(Email_id)
+                #Email_id=Email_idd['email']
+                current_site = get_current_site(request)
+                to_email=[]
+                to_email.append(Email_id)
+                #mail_subject = 'New member joined to directory'
+                #message = render_to_string('socius/joinrequest.html', {
+                    #'user1': user1,
+                    #'domain': current_site.domain,
+                    #'sname':sname,
+                    #'DirectoryName':DirectoryName,
+                    #'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    #'token': default_token_generator.make_token(user),
+                #})
+                html_content = render_to_string("socius/joinrequest.html",{'sname':sname,'user1':user1,'DirectoryName':DirectoryName})
+                text_content = strip_tags(html_content)
+                email = EmailMultiAlternatives(
+                    'New member joined to directory',
+                    text_content,
+                    settings.EMAIL_HOST_USER,
+                    to_email
+                )
+                
+                #email = EmailMessage(
+                ##mail_subject, message, to=[to_email]
+                #)
+                email.send()
+                return redirect('dashboard')
     else:
-        return render(request,'socius/joindirectory.html')
+        form=DirectoryjoinForm()
+    return render(request,'socius/joindirectory1.html',{'form':form})
+
+
+def remove(request,*args,**kwargs):
+    if request.method=='POST':
+        id1=request.POST['user_id']
+        #print(id1)
+        directoryid=request.POST['directoryid']
+        member=DirectoryMembers.objects.filter(user_id=id1,DirectoryId=directoryid)
+        member.delete()
+        #return render(request,'socius/dashboard.html')
+        return redirect('dashboard')
 
 def alldirectories(request):
     user1 = request.user 
     mems=memberdirectory.objects.exclude(user_id=user1)
     return render(request,'socius/alldirectories.html', {'mems': mems})
-   

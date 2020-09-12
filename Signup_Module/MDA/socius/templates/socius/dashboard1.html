@@ -178,15 +178,42 @@
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">store</i>
+                    <i class="material-icons">create_new_folder</i>
                   </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
+                  <p class="card-category">Join Directory</p>
+                </div>
+                <div class="container">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joindir">
+                    join 
+                  </button>
+                  <div class="modal" id="joindir">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">New Direcory</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                         Enter Directory ID
+                          <form method="POST">
+                          {% csrf_token %}
+                          <label for="DirectoryId">DirectoryId:<span class="req"></span></label>
+                          <input type="text" id="DirectoryId" name="DirectoryId" placeholder="DirectoryId" required autocomplete="off">
+                          <button class="btn btn-primary" name="DirId" type="submit">submit</button>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Last 24 Hours
-                  </div>
+                  <!--<div class="stats">
+                    <i class="material-icons text-danger">warning</i>
+                    <a href="javascript:;">Get More Space...</a>
+                  </div>-->
                 </div>
               </div>
             </div>

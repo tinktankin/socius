@@ -142,7 +142,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
                   <a class="dropdown-item" href="loggedin">Profile</a>
-                  <a class="dropdown-item" href="#">settings</a>
+                  <a class="dropdown-item" href="adduser">settings</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
                 </div>
@@ -176,14 +176,14 @@
                         </div>
                         <div class="modal-body">
                          Upload Here
-                         <form method="post" enctype="multipart/form-data">
+                         <form method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
                           <input type="file" name="myfile">
-                          <button name=simple_upload type="submit">Upload</button>
-                        </form>
+                          <button class="btn btn-primary" value="upload" name="simple_upload" type="submit">Upload</button>
+                          </form>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>
@@ -201,15 +201,42 @@
               <div class="card card-stats">
                 <div class="card-header card-header-success card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">store</i>
+                    <i class="material-icons">create_new_folder</i>
                   </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
+                  <p class="card-category">Join Directory</p>
+                </div>
+                <div class="container">
+                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#joindir">
+                    join 
+                  </button>
+                  <div class="modal" id="joindir">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">New Direcory</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                         Enter Directory ID
+                          <form method="POST">
+                          {% csrf_token %}
+                          <label for="DirectoryId">DirectoryId:<span class="req"></span></label>
+                          <input type="text" id="DirectoryId" name="DirectoryId" placeholder="DirectoryId" required autocomplete="off">
+                          <button class="btn btn-primary" name="DirId" type="submit">submit</button>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Last 24 Hours
-                  </div>
+                  <!--<div class="stats">
+                    <i class="material-icons text-danger">warning</i>
+                    <a href="javascript:;">Get More Space...</a>
+                  </div>-->
                 </div>
               </div>
             </div>
@@ -217,10 +244,23 @@
               <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
                   <div class="card-icon">
-                    <i class="material-icons">info_outline</i>
+                    <i class="material-icons">create_new_folder</i>
                   </div>
-                  <p class="card-category">Fixed Issues</p>
-                  <h3 class="card-title">75</h3>
+                  <p class="card-category">All Directories</p>
+                  <table class="table table-hover">
+                    <thead class="text-warning">
+                      <th>Directory Name</th>
+                      <th>Directory ID</th>
+                    </thead>
+                    <tbody>
+                      {% for i in createddir%}
+                      <tr class="text-primary">
+                        <td>{{i.DirectoryName}}</td>
+                        <td>{{i.DirectoryId}}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
@@ -246,7 +286,7 @@
               </div>
             </div>
           </div>
-          
+          <h4>Created Directories</h4>
           <div class="row">
             {% for dest in dir %}
             <div class="col-md-4">
@@ -276,8 +316,9 @@
             </div>
             {% endfor %}
           </div>
-
+          <h4>Joined Directories</h4>
             <div class="row">
+              {% for mydir in k%}
               {% for dest in mydir %}
               <div class="col-md-4">
                 <div class="card card-chart">
@@ -304,6 +345,7 @@
                 </div>
               
               </div>
+              {% endfor %}
               {% endfor %}
             </div>
             

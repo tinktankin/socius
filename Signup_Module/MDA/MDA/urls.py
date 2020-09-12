@@ -33,11 +33,13 @@ urlpatterns = [
     path('dashboard.html', v.dashboard, name="dashboard"),
     path('dummy.html', v.dummy, name="dummy"),
     path('directorypage.html', v.directorypage, name="directorypage"),
+    #ath('dirmembers.html',v.dirmembers,name="dirmembers"),
     path('team', v.Team, name="team"),
     path('about', v.About, name="About"),
     path('contact', v.contact, name="contact"),
     path('create', v.create, name="create"),
     path('alldirectories', v.alldirectories, name="alldirectories"),
+    path('remove', v.remove, name="remove"),
     #path('coupons/superuser_couponcode/create', v.create, name="create"),
     path('members',v.members,name="members"),
     path('joined',v.joined,name="joined"),
@@ -53,6 +55,7 @@ urlpatterns = [
 
     path('',include('userprofile.urls')),
     path('user.html',vu.profile,name="profile")
+
 ]
 
 

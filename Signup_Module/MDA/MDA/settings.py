@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'events.apps.EventsConfig',
     'userprofile.apps.UserprofileConfig',
     'phonenumber_field',
+    'django_premailer',
     
 ]
 
@@ -133,7 +134,8 @@ CRISPY_TEMPLATE_PACK="bootstrap4"
 
 IMPORT_EXPORT_USE_TRANSACTIONS = True
 
-
+PREMAILER_OPTIONS = dict(base_url='http://example.com',
+                         remove_classes=False)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 

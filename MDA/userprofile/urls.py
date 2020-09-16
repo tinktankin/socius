@@ -4,6 +4,11 @@ from . import views as v
   
 urlpatterns = [ 
     path('user.html', v.profile, name="profile"),
+    path('<id>/skillsDel',v.skillsDel,name="skillsDel"),
+    path('<id>/specialityDel',v.specialityDel,name="specialityDel"),
+    path('<id>/educationDel',v.educationDel,name="educationDel"),
+    path('<id>/certicateDel',v.certicateDel,name="certicateDel"),
+    path('<id>/testimonialDel',v.testimonialDel,name="testimonialDel"),
     path('<id>/profilePicUpdate', v.profilePicUpdate,name="profilePicUpdate" ),
     path('<id>/profileUpdate', v.profileUpdate,name="profileUpdate" ), 
     path('<id>/skillsUpdate', v.skillsUpdate,name="skillsUpdate" ), 

@@ -10,4 +10,5 @@ class Document(models.Model):
     description = models.TextField(blank=True,default='')
     uploadedOn = models.DateTimeField(auto_now_add=True,null=True)
     fileExtension = models.TextField(default='',null=True)
+    private = models.BooleanField(default=False,blank=True)
     

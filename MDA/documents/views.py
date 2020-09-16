@@ -11,26 +11,34 @@ from .forms import DocumentForm
 from django.views.generic.edit import DeleteView 
 import os
 
-'''
-def upload(request):
-    return render(request,'documents/upload.html')
-'''
+def dirDisplay(request):
+    return render(request,'documents/dirDisplay.html')
+
 
 def upload(request,*args):
     if request.method == 'POST':
         form = DocumentForm(request.POST,request.FILES)
         if form.is_valid():
             userdocument = request.user
-            fileName = request.POST['fileName']
+            fileName = request.POST['fileName'].capitalize() 
             uploadFile = request.FILES['uploadFile']
             description = request.POST['description'] 
+            private = request.POST.get('private', False)
+            if private=="on":
+                private = True
+            print(private)
             #print("uploadfile name :",uploadFile.name)
             #print("uploadfile = ",str(uploadFile)[-3:])
             extension = str(uploadFile) 
             index = extension.rfind('.')
             #print("extension=",extension[index+1:])
+
+            if not fileName:
+                fileName = extension[:index].capitalize() 
+
+
             extension = extension[index+1:].lower()
-            obj = Document(fileName=fileName,uploadFile=uploadFile,description=description,fileExtension=extension ,user=userdocument)
+            obj = Document(fileName=fileName,uploadFile=uploadFile,description=description,fileExtension=extension ,private=private,user=userdocument)
             obj.save()
             return redirect('upload')
     else:

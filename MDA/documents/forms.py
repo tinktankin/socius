@@ -5,4 +5,4 @@ from django.forms import ModelForm
 class DocumentForm(ModelForm):
     class Meta:
         model = Document
-        fields = ['fileName','uploadFile','description']
+        fields = ['fileName','uploadFile','description','private']

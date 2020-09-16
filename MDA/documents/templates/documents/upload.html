@@ -105,6 +105,16 @@
                             <div class="row">
                               <div class="col-md-12">
                                   <div class="form-group">
+                                    {{ form.private}}
+                                    <label for="private" class="form-check-label">
+                                      Private
+                                    </label>
+                                  </div>
+                              </div>
+                            </div> 
+                            <div class="row">
+                              <div class="col-md-12">
+                                  <div class="form-group">
                                     {{ form.description|as_crispy_field}}
                                   </div>
                               </div>
@@ -131,43 +141,44 @@
                 <div class="media">
                   <div class="media-body">
                     <!--{{extension}}-->
+                    {% if not file.private%}
+                      <div class="row">
+                        <div class="col-md-6">
+                          {%if file.fileExtension in pdf_ext%}
+                            <i class="fa fa-file-pdf-o fa-2x" style="color:rgb(158, 9, 158)"></i>
 
-                    <div class="row">
-                      <div class="col-md-6">
-                        {%if file.fileExtension in pdf_ext%}
-                          <i class="fa fa-file-pdf-o fa-2x"></i>
+                          <!--word documents icon-->
+                          {% elif file.fileExtension in word_ext %}
+                          <i class="fa fa-file-word-o fa-2x" style="color:rgb(158, 9, 158)"></i>
 
-                        <!--word documents icon-->
-                        {% elif file.fileExtension in word_ext %}
-                        <i class="fa fa-file-word-o fa-2x"></i>
+                          <!--ppt files-->
+                          {% elif file.fileExtension in ppt_ext %}
+                          <i class="fa fa-file-powerpoint-o fa-2x" style="color:rgb(158, 9, 158)"></i>
 
-                        <!--ppt files-->
-                        {% elif file.fileExtension in ppt_ext %}
-                        <i class="fa fa-file-powerpoint-o fa-2x"></i>
+                          <!--excel sheets-->
+                          
+                          {% elif file.fileExtension in excel_ext %}
+                          <i class="fa fa-file-excel-o fa-2x" style="color:rgb(158, 9, 158)"></i>
+                          
+                          {%else%}
+                          <i class="fa fa-file-text-o fa-2x" style="color:rgb(158, 9, 158)"></i>
+                          {%endif%}
 
-                        <!--excel sheets-->
-                        
-                        {% elif file.fileExtension in excel_ext %}
-                        <i class="fa fa-file-excel-o fa-2x"></i>
-                        
-                        {%else%}
-                        <i class="fa fa-file-text-o fa-2x"></i>
-                        {%endif%}
-
-                        <a href="#demo{{file}}" data-toggle="collapse" style="font-weight:bold;font-family:Tahoma;">{{file.fileName}}</a>
-                        <div id="demo{{file}}" class="collapse">
-                          {{file.description}}
+                          <a href="#demo{{file}}" data-toggle="collapse" style="font-weight:bold;font-family:verdana;color:black">{{file.fileName}}</a>
+                          <pre>    <small style="color: black;">{{file.uploadedOn}}</small></pre>
+                          <div id="demo{{file}}" class="collapse">
+                            {{file.description}}
+                          </div>
                         </div>
+                        <div class="col-md-3">                        
+                          <a href="{{file.uploadFile.url}}" target="_blank" ><i class="fa fa-download fa-2x"></i></a>
+                        </div>
+                        <!--a href="/media/{{file.uploadFile}}">Uploaded_file</a-->
                       </div>
-                      <div class="col-md-6">
-                        <a href="{{file.uploadFile.url}}" class="btn btn-primary btn-sm" target="_blank" >download</a>
-                      </div>
-                      <!--a href="/media/{{file.uploadFile}}">Uploaded_file</a-->
-                    </div>
+                      <br>
+                    {%endif%}
                   </div>
                 </div>
-                <hr>
-              <br>
               {% endfor%}
             </div>    
           </div>

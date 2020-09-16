@@ -27,6 +27,14 @@ from .decorators import unauthenticated_user, allowed_users, admin_only
 
 # Create your views here.
 
+def blog(request):
+    return render(request,'socius/blog.html')
+
+
+
+
+
+
 def index1(response):
     
     '''dest1 = Destination()

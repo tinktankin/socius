@@ -29,6 +29,7 @@ from documents import views as vd
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', v.index1, name="index1"),
+    path('blog.html', v.blog, name="blog"),
     path('index1.html', v.index1, name="index1"),
     path('loggedin.html', v.loggedin, name="loggedin"),
     path('user.html', vu.profile, name="profile"),

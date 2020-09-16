@@ -164,7 +164,6 @@ def skillsUpdate(request, id):
     context["form"] = form  
     return render(request, "skillsUpdate.html", context) 
 
-
 def specialityUpdate(request, id): 
     context ={} 
     obj = get_object_or_404(Speciality, id = id) 
@@ -214,3 +213,34 @@ def profilePicUpdate(request, id):
         return HttpResponseRedirect("/"+id+"/profilePicUpdate") 
     context["form"] = form 
     return render(request, "profilePicUpdate.html", context) 
+
+
+
+#####################################################################################################
+#delete functions here#
+def skillsDel(request,id):
+    obj = Skills.objects.filter(id = id)
+    obj.delete()
+    return HttpResponseRedirect("/user.html")
+
+def specialityDel(request,id):
+    obj = Speciality.objects.filter(id = id)
+    obj.delete()
+    return HttpResponseRedirect("/user.html")
+
+def educationDel(request,id):
+    obj = Education.objects.filter(id = id)
+    obj.delete()
+    return HttpResponseRedirect("/user.html")
+
+def certicateDel(request,id):
+    obj = Certificate.objects.filter(id = id)
+    obj.delete()
+    return HttpResponseRedirect("/user.html")
+
+def testimonialDel(request,id):
+    obj = Testimonial.objects.filter(id = id)
+    obj.delete()
+    return HttpResponseRedirect("/user.html")
+
+

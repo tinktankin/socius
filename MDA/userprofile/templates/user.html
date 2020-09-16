@@ -1,4 +1,4 @@
-{{% extends "base.html" %}
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
 {% block content %}
@@ -364,7 +364,9 @@
                         {% for s in s_data%}
                             <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
 
-                            <h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3>
+                            <!--h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3-->
+                            <h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsDel' s.id  %}" data-toggle="tooltip" title="delete" style="color:white">&#10006;</a></span></h3>
+                            
                             <pre>   </pre>
                         {% endfor%}
                         </div>
@@ -417,7 +419,7 @@
                         {% for s in spcl_data%}
                             <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
 
-                            <h3><span class="badge badge-pill badge-secondary">{{s.speciality}}<a href="{% url 'specialityUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3>
+                            <h3><span class="badge badge-pill badge-secondary">{{s.speciality}}<a href="{% url 'specialityDel' s.id  %}" data-toggle="tooltip" title="delete" style="color:white">&#10006;</a></span></h3>
                             <pre>   </pre>
                         {% endfor%}
                         </div>

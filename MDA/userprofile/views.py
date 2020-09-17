@@ -108,6 +108,16 @@ def profile(request,*args):
             messages.success(request, 'Testimonials saved Successfully!!!')
             return redirect('profile') 
 
+
+        if 'skillsUpdate_form' in request.POST:  
+            skill = request.POST['skill']
+            id =  request.POST["id"]
+            print(skill,id)
+            Skills.objects.filter(id=id).update(skill=skill)
+            #obj =  Skills.objects.all().filter(id=id)
+            #obj.skill = skill
+            return redirect('profile') 
+
     else:
         p_form = ProfileForm(instance=request.user)
         e_form = EducationForm(instance=request.user)

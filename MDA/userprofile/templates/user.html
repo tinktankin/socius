@@ -361,16 +361,15 @@
                     <div class="container mt-3">
                       <div class="media-body">
                         <div class="row">
-                        {% for s in s_data%}
+                          {% for s in s_data%}
                             <!--p><a href="{% url 'skillsUpdate' s.id  %}" style='font-size:25px;' data-toggle="tooltip" title="Edit">&#9998;</a></p-->
 
                             <!--h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3-->
                             <h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsDel' s.id  %}" data-toggle="tooltip" title="delete" style="color:white">&#10006;</a></span></h3>
 
-
-                            <!--To check if updation is possible in same page-->
-                            <button data-toggle="modal" data-target="#skillUpdateModal">&#9998;</button>
-                            <div class="modal fade" id="skillUpdateModal" role="dialog">
+                            <button data-toggle="modal" data-target="#skillUpdateModal{{s.id}}">&#9998;</button>
+                            <div class="modal fade" id="skillUpdateModal{{s.id}}" role="dialog">
+                              <!--To check if updation is possible in same page-->
                               <div class="modal-dialog modal-lg">
                                 <!-- Modal content-->
                                 <div class="modal-content">
@@ -401,18 +400,6 @@
                               </div>
                             </div>
                             <!--skill updateion code ends here-->
-
-
-
-
-
-
-
-
-
-
-
-
 
 
                             <pre>   </pre>

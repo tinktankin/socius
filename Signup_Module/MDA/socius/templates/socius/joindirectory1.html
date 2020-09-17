@@ -19,7 +19,7 @@ The above copyright notice and this permission notice shall be included in all c
   <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>
-    Coupon Generation
+    Join Directory
   </title>
   <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
@@ -98,7 +98,7 @@ The above copyright notice and this permission notice shall be included in all c
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="javascript:;">Manage Coupons</a>
+            <a class="navbar-brand" href="javascript:;">Join Directory</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -164,6 +164,13 @@ The above copyright notice and this permission notice shall be included in all c
         <div class="container-fluid">
           <div class="row">
             <div class="col-md-8">
+              <div class="content">
+                <div class="container-fluid">
+                  <div class="row">
+                    <button class="btn btn-primary btn-round" onclick="location.href='{% url 'alldirectories' %}'">Back</button>
+                  </div>
+                </div>
+              </div>
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">Join Directory</h4>

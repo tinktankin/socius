@@ -49,6 +49,7 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('adduser/',v.simple_upload,name='simple_upload'),
     path('active/<uidb64>/<token>/',v.active, name='active'),
+    path('activatemember/<uidb64>/<token>/<DirectoryId>/',v.activatemember, name='activatemember'),
 
     path('createEvent/', ve.createEvent ,name="createEvent"),
     path('eventTable/', ve.events_table, name="eventTable"),

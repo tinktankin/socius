@@ -24,7 +24,7 @@ def login(request):
 
         if user is not None and user.is_active==True:
             auth.login(request, user)
-            return redirect("loggedin")
+            return redirect("dashboard")
         else:
             messages.info(request,'Invalid Credentials')
             return redirect('login')
@@ -57,8 +57,8 @@ def register(request):
             else:
                 user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name)
                 user.is_active=False
-                #group = Group.objects.get(name='admin')
-                #user.groups.add(group)
+                group = Group.objects.get(name='admin')
+                user.groups.add(group)
                 user.save()
                 profile = profile_form.save(commit=False)
                 profile.user = user

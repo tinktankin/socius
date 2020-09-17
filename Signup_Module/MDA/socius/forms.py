@@ -10,4 +10,4 @@ class DirectoryCreationForm(forms.ModelForm):
 class DirectoryjoinForm(forms.ModelForm):
     class Meta:
         model=DirectoryMembers
-        fields=('Name','Bio','DirectoryId')
+        fields=('Bio','DirectoryId')

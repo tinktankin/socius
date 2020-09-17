@@ -89,9 +89,9 @@ WSGI_APPLICATION = 'MDA.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'socius',
+        'NAME': 'socius3',
         'USER': 'postgres',
-        'PASSWORD': 'saidhoni888',
+        'PASSWORD': 'ganesh9553',
         'HOST': 'localhost',
     }
 }
@@ -155,5 +155,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'saikumarar104@gmail.com'
-EMAIL_HOST_PASSWORD = 'saidhoni777'
+EMAIL_HOST_USER = 'singuruabhiram5123@gmail.com'
+EMAIL_HOST_PASSWORD = 'singuru5123'

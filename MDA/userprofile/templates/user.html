@@ -486,9 +486,9 @@
                             <img src="/media/edu.png" height="80" width="80">
                           </div>
                           <div class="media-body">
-                            <!--h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6-->
+                            <a href="#" data-toggle="modal" data-target="#eduUpdateModal{{e.id}}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
                             
-                            <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduUpdateModal{{e.id}}">&#9998;</button>
+                            <!--button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduUpdateModal{{e.id}}">&#9998;</button-->
                             <div class="modal fade" id="eduUpdateModal{{e.id}}" role="dialog">
                               <div class="modal-dialog modal-lg">
                                 <!-- Modal content-->
@@ -618,17 +618,6 @@
                     </div>
                   </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -855,7 +844,136 @@
                             <img src="/media/certificate.png" height="80" width="80">
                           </div>
                           <div class="media-body">
-                            <a href="{% url 'certificateUpdate' c.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                            <a href="#" data-toggle="modal" data-target="#cerUpdateModal{{c.id}}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                            
+                            <!--button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#cerModal{{c.id}}">Add</button-->
+                            <div class="modal fade" id="cerUpdateModal{{c.id}}" role="dialog">
+                              <div class="modal-dialog modal-lg">
+                                <!-- Modal content-->
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h4 class="modal-title">Certificate</h4>
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <form method="POST">
+                                        <input id="{{c.id}}" type="hidden" name="id" value="{{c.id}}">
+                                        <input type="hidden" name="csrfmiddlewaretoken" value="fFEA1JI0RUNREeSzb1UmTFXH6RihQEcaxQHt773VNRLw4iZP3bUFr3NndJjBQKj7">
+                                            <fieldset class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div id="div_id_name" class="form-group bmd-form-group">
+                                                            <label for="id_name" class="requiredField bmd-label-static">
+                                                                Name<span class="asteriskField">*</span>
+                                                            </label>
+                                                            <div class="">
+                                                                <input type="text" name="name" value="{{c.name}}" maxlength="100" class="textinput textInput form-control" required="" id="id_name">              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div id="div_id_issuingOrg" class="form-group bmd-form-group">       
+                                                            <label for="id_issuingOrg" class="requiredField bmd-label-static">
+                                                                Issued Organization<span class="asteriskField">*</span>
+                                                            </label>
+                                                            <div class="">
+                                                                <input type="text" name="issuingOrg" value="{{c.issuingOrg}}" maxlength="100" class="textinput textInput form-control" required="" id="id_issuingOrg">              
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div id="div_id_issuedDate" class="form-group bmd-form-group">   
+                                                            <label for="id_issuedDate" class="requiredField bmd-label-static">
+                                                                Issueddate<span class="asteriskField">*</span>
+                                                            </label>
+                                                            <div class="">
+                                                                <input type="date" name="issuedDate" value="{{c.issuedDate}}" class="dateinput form-control" required="" id="id_issuedDate">                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div id="div_id_expiryDate" class="form-group bmd-form-group">       
+                                                            <label for="id_expiryDate" class="requiredField bmd-label-static">
+                                                                Expirydate<span class="asteriskField">*</span>
+                                                            </label>
+                                                            <div class="">
+                                                                <input type="date" name="expiryDate" value="{{c.expiryDate}}" class="dateinput form-control" required="" id="id_expiryDate">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div id="div_id_credentialId" class="form-group bmd-form-group">  
+                                                            <label for="id_credentialId" class="bmd-label-static">
+                                                                Credential ID
+                                                            </label>
+                                                            <div class="">
+                                                                <input type="text" name="credentialId" value="{{c.credentialId}}" maxlength="100" class="textinput textInput form-control" id="id_credentialId">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <div id="div_id_credentialUrl" class="form-group bmd-form-group">       
+                                                            <label for="id_credentialUrl" class="bmd-label-static">
+                                                                Credential Url
+                                                            </label>
+                                                            <div class="">
+                                                                <input type="url" name="credentialUrl" value="{{c.credentialUrl}}" maxlength="200" class="urlinput form-control" id="id_credentialUrl">{{c.credentialId}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <div class="form-group">
+                                                            <div id="div_id_description" class="form-group bmd-form-group">       
+                                                                <label for="id_description" class="bmd-label-static">
+                                                                    Description
+                                                                </label>
+                                                                <div class="">
+                                                                    <textarea name="description" cols="40" rows="10" class="textarea form-control" id="id_description">{{c.description}}</textarea>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                            <center><button class="btn btn-primary float-right" type="submit" name="CertificateUpdateForm">Update</button></center>
+                                        </div>
+                                    </form>
+                
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
                             <h5 class="media-heading" style="font-weight: bold;">{{c.name}}</h5>
                             <h5 style="font-weight: bold;">Issued By : {{ c.issuingOrg}}</h5>
                             {% if c.issuedDate and c.expiryDate%}
@@ -951,7 +1069,122 @@
                       {% for t in t_data%}
                         <div class="media">
                           <div class="media-body">
-                            <a href="{% url 'testimonialUpdate' t.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                            <a href="#"  data-toggle="modal" data-target="#tUpdateModal{{t.id}}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                            
+                            <!--button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#tModal">Add</button-->
+                    <div class="modal fade" id="tUpdateModal{{t.id}}" role="dialog">
+                      <div class="modal-dialog modal-lg">
+                        <!-- Modal content-->
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h4 class="modal-title">Certificate</h4>
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                              <form method="POST">
+                                <input id="{{t.id}}" type="hidden" name="id" value="{{t.id}}">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="4XH0DQJr5qw6HEuQp6rygKwRqBD7O7aYm8KTJe4m1nuL7IB6hgrRO8mxxtErOdhV">
+                                <fieldset class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div id="div_id_attestant" class="form-group bmd-form-group">
+                                                <label for="id_attestant" class="bmd-label-static">
+                                                Attestant
+                                                </label>
+                                                <div class="">
+                                                    <input type="text" name="attestant" value="{{t.attestant}}" maxlength="30" class="textinput textInput form-control" id="id_attestant">
+                                                </div>
+                                            </div>
+                                         </div>
+                                    </div>    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div id="div_id_designation" class="form-group bmd-form-group">
+                                                <label for="id_designation" class="bmd-label-static">
+                                                Designation
+                                                </label>
+                                                <div class="">
+                                                    <input type="text" name="designation"value="{{t.designation}}" maxlength="50" class="textinput textInput form-control" id="id_designation">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                            
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div id="div_id_services" class="form-group bmd-form-group">
+                                                <label for="id_services" class="bmd-label-static">
+                                                Services
+                                                </label>
+                                                <div class="">
+                                                    <input type="text" name="services" value="{{t.services}}" maxlength="150" class="textinput textInput form-control" id="id_services">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div id="div_id_location" class="form-group bmd-form-group">
+                                                <label for="id_location" class="bmd-label-static">
+                                                Location
+                                                </label>
+                                                <div class="">
+                                                    <input type="text" name="location" value="{{t.location}}" maxlength="150" class="textinput textInput form-control" id="id_location">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div id="div_id_issuedDate" class="form-group bmd-form-group">
+                                                <label for="id_issuedDate" class="requiredField bmd-label-static">
+                                                Issueddate<span class="asteriskField">*</span>
+                                                </label>
+                                                <div class="">
+                                                    <input type="date" name="issuedDate" value="{{t.issuedDate}}" class="dateinput form-control" required="" id="id_issuedDate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <div id="div_id_description" class="form-group bmd-form-group">
+                                                    <label for="id_description" class="bmd-label-static">
+                                                    Description
+                                                    </label>
+                                                    <div class="">
+                                                        <textarea name="description" cols="40" rows="10" class="textarea form-control" id="id_description">{{t.description}}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </fieldset>
+                                <div class="form-group">
+                                    <center><button class="btn btn-primary float-right" type="submit" name="TestUpdateForm">Update</button></center>
+                                </div>
+                            </form>
+                              
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                             <h4 style="font-weight: bold;">{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
                             <h6>
                               Designation :{{t.designation}}<br>

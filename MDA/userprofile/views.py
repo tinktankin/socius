@@ -110,12 +110,35 @@ def profile(request,*args):
 
 ######################################################Update conditions###############################################################
 
+        if 'CertificateUpdateForm' in request.POST:  
+            id =  request.POST["id"] 
+            name = request.POST['name']
+            issuingOrg = request.POST['issuingOrg']
+            issuedDate = request.POST['issuedDate']
+            expiryDate = request.POST['expiryDate']
+            credentialId = request.POST['credentialId']
+            credentialUrl = request.POST['credentialUrl']
+            description = request.POST['description']
+            Certificate.objects.filter(id=id).update(name=name,issuingOrg=issuingOrg,issuedDate=issuedDate,expiryDate=expiryDate,credentialId=credentialId,credentialUrl=credentialUrl,description=description)
+            return redirect('profile') 
+
         if 'SkillsUpdateForm' in request.POST:  
             skill = request.POST['skill']
             id =  request.POST["id"] 
             Skills.objects.filter(id=id).update(skill=skill)
             #obj =  Skills.objects.all().filter(id=id)
             #obj.skill = skill
+            return redirect('profile') 
+        
+        if 'TestUpdateForm' in request.POST:  
+            id =  request.POST["id"] 
+            attestant = request.POST['attestant']
+            issuedDate = request.POST['issuedDate']
+            services = request.POST['services']
+            designation = request.POST['designation']
+            location = request.POST['location']
+            description = request.POST['description']
+            Testimonial.objects.filter(id=id).update(attestant=attestant,issuedDate=issuedDate,services=services,designation=designation,location=location,description=description)
             return redirect('profile') 
         
         if 'EduUpdateForm' in request.POST: 

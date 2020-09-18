@@ -41,7 +41,198 @@
                 <div class="container">
                   {% for p in p_data%}
                   <!--a href="{% url 'profileUpdate' p.id  %}" class="float-right"><button>Edit</button></a-->
-                  <a href="{% url 'profileUpdate' p.id  %}"> <button class="btn btn-primary float-right"> Edit</button></a>
+                  <!--a href="{% url 'profileUpdate' p.id  %}"> <button class="btn btn-primary float-right"> Edit</button></a-->
+
+
+
+                  <button class="btn btn-primary float-right" data-toggle="modal" data-target="#ProfileUpdateModal{{p.id}}">Edit</button>
+                  <div class="modal fade" id="ProfileUpdateModal{{p.id}}" role="dialog">
+                    <!--To check if updation is possible in same page-->
+                    <div class="modal-dialog modal-lg">
+                      <!-- Modal content-->
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h4 class="modal-title">Update your profile</h4>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          <form method="POST">
+                            <input id="{{p.id}}" type="hidden" name="id" value="{{p.id}}">
+                            <input type="hidden" name="csrfmiddlewaretoken" value="8fpKLL5IG7hrQVWfGkoHAbG32pw1Wy6FqqsDR9qDC4f6gZ3vyuo08zwJ9hxlWEdC">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div id="div_id_firstName" class="form-group bmd-form-group is-filled">
+                                    <label for="id_firstName" class="requiredField bmd-label-static">
+                                        First Name<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                      <input type="text" name="firstName" value="{{p.firstName}}" maxlength="20" class="textinput textInput form-control" required="" id="id_firstName">
+                                    </div>   
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div id="div_id_lastName" class="form-group bmd-form-group is-filled">
+                                    <label for="id_lastName" class="requiredField bmd-label-static">
+                                        Last Name<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                        <input type="text" name="lastName" value="{{p.lastName}}" maxlength="20" class="textinput textInput form-control" required="" id="id_lastName">                    
+                                    </div>    
+                                  </div>
+                               </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div id="div_id_email" class="form-group bmd-form-group is-filled">
+                                    <label for="id_email" class="requiredField bmd-label-static">
+                                        Email<span class="asteriskField">*</span>
+                                    </label>
+                                    <div class="">
+                                      <input type="email" name="email" value="{{p.email}}" maxlength="254" class="emailinput form-control" required="" id="id_email">
+                                    </div>  
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <div id="div_id_altEmail" class="form-group bmd-form-group is-filled">
+                                    <label for="id_altEmail" class="bmd-label-static">
+                                        Alternate Email
+                                    </label>
+                                    <div class="">
+                                      <input type="email" name="altEmail" value="{{p.altEmail}}" maxlength="254" class="emailinput form-control" id="id_altEmail">
+                                    </div>   
+                                  </div>
+                               </div>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">                       
+                                  <div id="div_id_phone" class="form-group bmd-form-group is-filled">                           
+                                    <label for="id_phone" class="bmd-label-static">
+                                      Phone number
+                                    </label>
+                                    <div class="">
+                                        <input type="tel" name="phone" value="{{p.phone}}" maxlength="128" class="textinput textInput form-control" id="id_phone">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">                        
+                                  <div id="div_id_altPhone" class="form-group bmd-form-group">                           
+                                    <label for="id_altPhone" class="bmd-label-static">
+                                        Alternate Phone number
+                                    </label>
+                                    <div class="">
+                                      <input type="tel" name="altPhone" value="{{p.altPhone}}" maxlength="128" class="textinput textInput form-control" id="id_altPhone">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <div id="div_id_address" class="form-group bmd-form-group is-filled">
+                                    <label for="id_address" class="bmd-label-static">
+                                      Address
+                                    </label>
+                                    <div class="">
+                                      <input type="text" name="address" value="{{p.address}}" maxlength="150" class="textinput textInput form-control" id="id_address">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div id="div_id_city" class="form-group bmd-form-group is-filled">
+                                    <label for="id_city" class="bmd-label-static">
+                                        City
+                                    </label>
+                                    <div class="">
+                                      <input type="text" name="city" value="{{p.city}}" maxlength="30" class="textinput textInput form-control" id="id_city">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div id="div_id_state" class="form-group bmd-form-group is-filled">
+                                    <label for="id_state" class="bmd-label-static">
+                                      State
+                                    </label>
+                                    <div class="">
+                                        <input type="text" name="state" value="{{p.state}}" maxlength="30" class="textinput textInput form-control" id="id_state">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div id="div_id_country" class="form-group bmd-form-group is-filled">
+                                    <label for="id_country" class="bmd-label-static">
+                                      Country
+                                    </label>
+                                    <div class="">
+                                      <input type="text" name="country" value="{{p.country}}" maxlength="20" class="textinput textInput form-control" id="id_country">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-3">
+                                <div class="form-group">
+                                  <div id="div_id_postalCode" class="form-group bmd-form-group is-filled">
+                                    <label for="id_postalCode" class="bmd-label-static">
+                                        Postal Code
+                                    </label>
+                                    <div class="">
+                                        <input type="number" name="postalCode" value="{{p.postalCode}}" min="0" class="numberinput form-control" id="id_postalCode">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <div class="form-group">
+                                    <div id="div_id_aboutMe" class="form-group bmd-form-group">
+                                      <label for="id_aboutMe" class="bmd-label-static">
+                                          About Me
+                                      </label>
+                                      <div class="">
+                                        <textarea name="aboutMe" cols="40" rows="10" class="textarea form-control" id="id_aboutMe">{{p.aboutMe}}</textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <button class="btn btn-primary" type="submit" value="Update" name="ProfileUpdateForm">Update</button>
+                            <div class="clearfix"></div>
+                            </form>
+                         </div>
+                       </div>
+                    </div>
+                  </div>
+                  <!--Profile updation code ends here-->
                   {% endfor %}
                   <br><br><br>
 
@@ -396,7 +587,7 @@
                                         </div>
                                       </fieldset>
                                       <div class="form-group">
-                                      <center><button class="btn btn-primary float-right" type="submit" name="skillsUpdate_form">Update</button></center>
+                                      <center><button class="btn btn-primary float-right" type="submit" name="SkillsUpdateForm">Update</button></center>
                                       </div>
                                     </form>
                                   </div>

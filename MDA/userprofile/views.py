@@ -108,14 +108,31 @@ def profile(request,*args):
             messages.success(request, 'Testimonials saved Successfully!!!')
             return redirect('profile') 
 
+######################################################Update conditions###############################################################
 
-        if 'skillsUpdate_form' in request.POST:  
+        if 'SkillsUpdateForm' in request.POST:  
             skill = request.POST['skill']
             id =  request.POST["id"] 
-            print(skill,id)
             Skills.objects.filter(id=id).update(skill=skill)
             #obj =  Skills.objects.all().filter(id=id)
             #obj.skill = skill
+            return redirect('profile') 
+
+        if 'ProfileUpdateForm' in request.POST:  
+            id =  request.POST["id"] 
+            firstName = request.POST['firstName']
+            lastName = request.POST['lastName']
+            email = request.POST['email']
+            altEmail = request.POST['altEmail']
+            phone = request.POST['phone']
+            altPhone = request.POST['altPhone']
+            address = request.POST['address']
+            city = request.POST['city']
+            state = request.POST['state']
+            country = request.POST['country']
+            postalCode = request.POST['postalCode']
+            aboutMe = request.POST['aboutMe']
+            Profile.objects.filter(id=id).update(firstName=firstName, lastName=lastName,email=email,altEmail=altEmail,phone=phone,altPhone=altPhone,address=address,city=city,state=state,country=country,postalCode=postalCode,aboutMe=aboutMe)
             return redirect('profile') 
 
     else:

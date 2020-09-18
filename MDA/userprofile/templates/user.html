@@ -208,7 +208,6 @@
                               </div>
                             </div>
 
-
                             <div class="row">
                               <div class="col-md-12">
                                 <div class="form-group">
@@ -409,85 +408,204 @@
 
 
 
-              <div class="tab-pane" id="education">
-                <div class="container">
+                <div class="tab-pane" id="education">
+                  <div class="container">
                     <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduModal">Add</button>
                     <div class="modal fade" id="eduModal" role="dialog">
                       <div class="modal-dialog modal-lg">
                         <!-- Modal content-->
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h4 class="modal-title">Education</h4>
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body">
-                              <form method="POST">
-                                {% csrf_token %}
-                                  <fieldset class="form-group">
-                                    <div class="row">
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                          {{ e_form.institute|as_crispy_field}}
-                                        </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                        <div class="form-group">
-                                          {{ e_form.degree|as_crispy_field}}
-                                        </div>
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Education</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            <form method="POST">
+                              {% csrf_token %}
+                                <fieldset class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        {{ e_form.institute|as_crispy_field}}
                                       </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            {{ e_form.branch|as_crispy_field}}
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            {{ e_form.grade|as_crispy_field }}
-                                          </div>
-                                        </div>
+                                    <div class="col-md-6">
+                                      <div class="form-group">
+                                        {{ e_form.degree|as_crispy_field}}
+                                      </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            {{ e_form.startDate|as_crispy_field }}
-                                          </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                          <div class="form-group">
-                                            {{ e_form.endDate|as_crispy_field }}
-                                          </div>
-                                        </div>
-                                    </div>   
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                          <div class="form-group">
-                                            <div class="form-group">
-                                              {{ e_form.description|as_crispy_field  }}
-                                            </div>
-                                          </div>
-                                        </div>
-                                    </div>
-                                  </fieldset>
-                                  <div class="form-group">
-                                    <center><button class="btn btn-primary float-left" type="submit" name="education_form">ADD</button></center>
                                   </div>
-                              </form>
-                            </div>
-                          </div>         
-                        </div>
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ e_form.branch|as_crispy_field}}
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ e_form.grade|as_crispy_field }}
+                                        </div>
+                                      </div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ e_form.startDate|as_crispy_field }}
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="form-group">
+                                          {{ e_form.endDate|as_crispy_field }}
+                                        </div>
+                                      </div>
+                                  </div>   
+                                  <div class="row">
+                                      <div class="col-md-12">
+                                        <div class="form-group">
+                                          <div class="form-group">
+                                            {{ e_form.description|as_crispy_field  }}
+                                          </div>
+                                        </div>
+                                      </div>
+                                  </div>
+                                </fieldset>
+                                <div class="form-group">
+                                  <center><button class="btn btn-primary float-left" type="submit" name="education_form">ADD</button></center>
+                                </div>
+                            </form>
+                          </div>
+                        </div>         
+                      </div>
                     </div>
                     <br><br>
                   
                     <div class="container mt-3">
                       {% for e in e_data%}
                         <div class="media">
-                        <div class="media-left">
-                          <img src="/media/edu.png" height="80" width="80">
-                        </div>
-                        <div class="media-body">
-                            <h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6>
+                          <div class="media-left">
+                            <img src="/media/edu.png" height="80" width="80">
+                          </div>
+                          <div class="media-body">
+                            <!--h6><a href="{% url 'educationUpdate' e.id  %}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a></h6-->
+                            
+                            <button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduUpdateModal{{e.id}}">&#9998;</button>
+                            <div class="modal fade" id="eduUpdateModal{{e.id}}" role="dialog">
+                              <div class="modal-dialog modal-lg">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Education</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  </div>
+                                  <div class="modal-body"> 
+                                    <form method="POST">
+                                      <input id="{{e.id}}" type="hidden" name="id" value="{{e.id}}">
+                                      <input type="hidden" name="csrfmiddlewaretoken" value="Q6lLw2ZSR8FnkC3H3iMgxY2ySAwLtaaI8hoECqkNN5D2KGaXVsMz5mSeZsx5tghF">
+                                        <fieldset class="form-group">
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <div id="div_id_institute" class="form-group bmd-form-group">
+                                                  <label for="id_institute" class="requiredField bmd-label-static">
+                                                    Institute<span class="asteriskField">*</span>
+                                                  </label>
+                                                  <div class="">
+                                                    <input type="text" name="institute" value="{{e.institute}}" maxlength="150" class="textinput textInput form-control" required="" id="id_institute">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <div id="div_id_degree" class="form-group bmd-form-group">
+                                                  <label for="id_degree" class="bmd-label-static">
+                                                    Degree
+                                                  </label>
+                                                  <div class="">
+                                                    <input type="text" name="degree" value="{{e.degree}}" maxlength="50" class="textinput textInput form-control" id="id_degree">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <div id="div_id_branch" class="form-group bmd-form-group">
+                                                  <label for="id_branch" class="bmd-label-static">
+                                                    Branch
+                                                  </label>
+                                                  <div class="">
+                                                    <input type="text" name="branch" value="{{e.branch}}" maxlength="30" class="textinput textInput form-control" id="id_branch">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <div id="div_id_grade" class="form-group bmd-form-group">
+                                                  <label for="id_grade" class="bmd-label-static">
+                                                    CGPA/Percentage
+                                                  </label>
+                                                  <div class="">
+                                                    <input type="number" name="grade" value="{{e.grade}}" step="any" class="numberinput form-control" id="id_grade">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="row">
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <div id="div_id_startDate" class="form-group bmd-form-group">              
+                                                  <label for="id_startDate" class="requiredField bmd-label-static">
+                                                      Startdate<span class="asteriskField">*</span>
+                                                  </label>
+                                                  <div class="">
+                                                    <input type="date" name="startDate" value="{{e.startDate}}" class="dateinput form-control" required="" id="id_startDate">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                              <div class="form-group">
+                                                <div id="div_id_endDate" class="form-group bmd-form-group"> 
+                                                  <label for="id_endDate" class="requiredField bmd-label-static">
+                                                      Enddate<span class="asteriskField">*</span>
+                                                  </label>
+                                                  <div class="">
+                                                    <input type="date" name="endDate" value="{{e.endDate}}" class="dateinput form-control" required="" id="id_endDate">
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>   
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                              <div class="form-group">
+                                                <div class="form-group">
+                                                  <div id="div_id_description" class="form-group bmd-form-group">
+                                                    <label for="id_description" class="bmd-label-static">
+                                                        Description
+                                                    </label>
+                                                    <div class="">
+                                                      <textarea name="description" cols="40" rows="10" class="textarea form-control" id="id_description">{{e.description}}</textarea>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                          <center><button class="btn btn-primary float-left" type="submit" name="EduUpdateForm">Update</button></center>
+                                        </div>
+                                    </form>
+                                  </div>
+                                </div>         
+                              </div>
+                            </div>
+
                             <h5 class="media-heading" style="font-weight: bold;">{{e.institute}}</h5> 
                             <h6>{% if e.degree%}{{e.degree}} |{% endif %}    {% if e.branch%}{{e.branch}} |{% endif %} {{e.grade}}</h6>
                             <h6>{{e.startDate}} - {{e.endDate}}</h6>   
@@ -495,10 +613,9 @@
                           </div>
                         </div>
                         <hr>
-                      <br>
+                        <br>
                       {% endfor%}
                     </div>
-
                   </div>
                 </div>
 

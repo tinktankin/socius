@@ -117,6 +117,18 @@ def profile(request,*args):
             #obj =  Skills.objects.all().filter(id=id)
             #obj.skill = skill
             return redirect('profile') 
+        
+        if 'EduUpdateForm' in request.POST: 
+            id =  request.POST["id"] 
+            institute = request.POST['institute']
+            degree = request.POST['degree']
+            branch = request.POST['branch']
+            grade = request.POST['grade']
+            startDate = request.POST['startDate']
+            endDate = request.POST['endDate']
+            description = request.POST['description']
+            Education.objects.filter(id=id).update(institute=institute,degree=degree,branch=branch,grade=grade,startDate=startDate,endDate=endDate,description=description)      
+            return redirect('profile') 
 
         if 'ProfileUpdateForm' in request.POST:  
             id =  request.POST["id"] 

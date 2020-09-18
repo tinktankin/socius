@@ -664,11 +664,11 @@
                             <!--h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsUpdate' s.id  %}" data-toggle="tooltip" title="Edit" style="color:white">&#9998;</a></span></h3-->
                             <h3><span class="badge badge-pill badge-secondary">{{s.skill}}<a href="{% url 'skillsDel' s.id  %}" data-toggle="tooltip" title="delete" style="color:white">&#10006;</a></span></h3>
 
+
+                            <!-- Skills updation
                             <button data-toggle="modal" data-target="#skillUpdateModal{{s.id}}">&#9998;</button>
                             <div class="modal fade" id="skillUpdateModal{{s.id}}" role="dialog">
-                              <!--To check if updation is possible in same page-->
                               <div class="modal-dialog modal-lg">
-                                <!-- Modal content-->
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <h4 class="modal-title">Update Skills</h4>
@@ -681,12 +681,10 @@
                                         <div class="row">
                                           <div class="col-md-6">
                                             <div class="form-group">
-                                              <!--{{ s_form.skill|as_crispy_field}}-->
                                               <label for="id_skill" class="bmd-label-static">
                                                 Skill
                                             </label>
                                               <input type="text" name="skill" maxlength="100" class="textinput textInput form-control form-control" id="id_skill" value="{{s.skill}}">
-                                              <!--input type="text" name="skill" value="{{s.skill}}"-->
                                               <input id="{{s.id}}" type="hidden" name="id" value="{{s.id}}">
                                             </div>
                                           </div>
@@ -700,7 +698,7 @@
                                </div>
                               </div>
                             </div>
-                            <!--skill updation code ends here-->
+                          -->
 
 
                             <pre>   </pre>

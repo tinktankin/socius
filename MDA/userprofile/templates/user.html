@@ -1258,8 +1258,6 @@
                     </div>
                   </div>
               </div>
-
-
             </div>
           </div>
         {% endif %}
@@ -1280,77 +1278,8 @@
                 {{p.tagLine}}
               </p>
               <!--a href="javascript:;" class="btn btn-primary btn-round">Follow</a-->
-              <a href="#" data-toggle="modal" data-target="#profilePicUpdateModal{{p.id}}"> <button class="btn btn-primary btn-round">Edit</button></a>
-
-              <!--button type="button" class="btn btn-primary btn-round" data-toggle="modal" data-target="#profilePicModal">Add</button-->
-              <div class="modal fade" id="profilePicUpdateModal{{p.id}}" role="dialog">
-                <div class="modal-dialog modal-lg">
-                  <!-- Modal content-->
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Update profile picture</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                      </div>
-                      <div class="modal-body">
-                        <form method="POST" enctype="multipart/form-data">
-                          <input id="{{p.id}}" type="hidden" name="id" value="{{p.id}}">
-                          <input type="hidden" name="csrfmiddlewaretoken" value="sDgYh2MDlgbSDvS7IlNrRULrG4fSkvd9KOjRnq7yhd9x3zZnAvNKpiB7NWgckBk6">
-                          <fieldset class="form-group">
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <div id="div_id_image" class="form-group">
-                                              <label for="id_image" class=" requiredField">
-                                              upload picture<span class="asteriskField">*</span>
-                                              </label>
-                                              <div class="">
-                                                      Currently: <a href="{{p.image}}">{{p.image}}</a><br>
-                                                  Change:
-                                                  <input type="file" name="image" accept="image/*" class="clearablefileinput form-control-file" id="id_image">
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <div id="div_id_status" class="form-group bmd-form-group is-filled">
-                                              <label for="id_status" class="bmd-label-static">
-                                              Status
-                                              </label>
-                                              <div class="">
-                                                  <input type="text" name="status" value="{{p.status}}" maxlength="200" class="textinput textInput form-control" id="id_status">
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="row">
-                                  <div class="col-md-6">
-                                      <div class="form-group">
-                                          <div id="div_id_tagLine" class="form-group bmd-form-group is-filled">
-                                              <label for="id_tagLine" class="bmd-label-static">
-                                              Tag Line
-                                              </label>
-                                              <div class="">
-                                                  <input type="text" name="tagLine" value="{{p.tagLine}}" maxlength="100" class="textinput textInput form-control" id="id_tagLine">
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </fieldset>
-                          <button class="btn btn-primary" type="submit" value="Update" name="ProfilePicUpdate">Update</button>
-                          <div class="clearfix"></div>
-                      </form>
-
-                      </div>
-                    </div>
-                  </div>
-              </div>
-
-
+              <a href="{% url 'profilePicUpdate' p.id  %}"> <button class="btn btn-primary btn-round">Edit</button></a>
+              
             </div>
           </div>
         {% endfor %}

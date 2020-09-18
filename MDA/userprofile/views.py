@@ -130,6 +130,14 @@ def profile(request,*args):
             #obj.skill = skill
             return redirect('profile') 
         
+        if 'ProfilePicUpdate' in request.POST:  
+            id =  request.POST["id"] 
+            image = request.FILES['image']
+            status = request.POST['status']
+            tagLine = request.POST['tagLine']
+            profilePic.objects.filter(id=id).update(image=image,status=status,tagLine=tagLine)
+            return redirect('profile') 
+        
         if 'TestUpdateForm' in request.POST:  
             id =  request.POST["id"] 
             attestant = request.POST['attestant']

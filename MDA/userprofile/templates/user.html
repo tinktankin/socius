@@ -385,7 +385,11 @@
                                           <div class="col-md-6">
                                             <div class="form-group">
                                               <!--{{ s_form.skill|as_crispy_field}}-->
-                                              <input type="text" name="skill" value="{{s.skill}}">
+                                              <label for="id_skill" class="bmd-label-static">
+                                                Skill
+                                            </label>
+                                              <input type="text" name="skill" maxlength="100" class="textinput textInput form-control form-control" id="id_skill" value="{{s.skill}}">
+                                              <!--input type="text" name="skill" value="{{s.skill}}"-->
                                               <input id="{{s.id}}" type="hidden" name="id" value="{{s.id}}">
                                             </div>
                                           </div>
@@ -399,7 +403,7 @@
                                </div>
                               </div>
                             </div>
-                            <!--skill updateion code ends here-->
+                            <!--skill updation code ends here-->
 
 
                             <pre>   </pre>

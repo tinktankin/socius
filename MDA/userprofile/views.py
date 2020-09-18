@@ -111,7 +111,7 @@ def profile(request,*args):
 
         if 'skillsUpdate_form' in request.POST:  
             skill = request.POST['skill']
-            id =  request.POST["id"]
+            id =  request.POST["id"] 
             print(skill,id)
             Skills.objects.filter(id=id).update(skill=skill)
             #obj =  Skills.objects.all().filter(id=id)

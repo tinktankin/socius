@@ -213,7 +213,7 @@ def profile(request,*args):
         't_data':t_data
     }
     return render(request, 'user.html', context)
-
+ 
 
 def profileUpdate(request, id): 
     context ={} 

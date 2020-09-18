@@ -482,12 +482,13 @@
                     <div class="container mt-3">
                       {% for e in e_data%}
                         <div class="media">
+                          <a href="#" data-toggle="modal" data-target="#eduUpdateModal{{e.id}}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
                           <div class="media-left">
                             <img src="/media/edu.png" height="80" width="80">
                           </div>
                           <div class="media-body">
-                            <a href="#" data-toggle="modal" data-target="#eduUpdateModal{{e.id}}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
-                            
+                            <a href="{% url 'educationDel' e.id  %}"   class="float-right" data-toggle="tooltip" title="delete" style="font-size:30px;color:black">&#10006;</a>
+
                             <!--button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#eduUpdateModal{{e.id}}">&#9998;</button-->
                             <div class="modal fade" id="eduUpdateModal{{e.id}}" role="dialog">
                               <div class="modal-dialog modal-lg">
@@ -839,11 +840,14 @@
                       {% for c in c_data%}
                        <div class="media">
                           <div class="media-left">
+                            <a href="#" data-toggle="modal" data-target="#cerUpdateModal{{c.id}}" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
+                            <p></p>
+                            <p></p>
                             <img src="/media/certificate.png" height="80" width="80">
                           </div>
                           <div class="media-body">
-                            <a href="#" data-toggle="modal" data-target="#cerUpdateModal{{c.id}}" class="float-right" style='font-size:30px;color:black' data-toggle="tooltip" title="Edit">&#9998;</a>
-                            
+                        <a href="{% url 'certicateDel' c.id  %}"   class="float-right" data-toggle="tooltip" title="delete" style="font-size:30px;color:black">&#10006;</a>
+
                             <!--button type="button" class="btn btn-primary float-right"  data-toggle="modal" data-target="#cerModal{{c.id}}">Add</button-->
                             <div class="modal fade" id="cerUpdateModal{{c.id}}" role="dialog">
                               <div class="modal-dialog modal-lg">
@@ -1008,6 +1012,7 @@
                               <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
+                              
                               <form method="POST">
                                 {% csrf_token %}
                                   <fieldset class="form-group">
@@ -1182,7 +1187,8 @@
                             
                             
                             
-                            
+                    <a href="{% url 'testimonialDel' t.id  %}" data-toggle="tooltip" title="delete" style="font-size:30px;color:black">&#10006;</a>
+
                             <h4 style="font-weight: bold;">{{t.attestant}}<small><i> {{t.issuedDate}}</i></small></h4>
                             <h6>
                               Designation :{{t.designation}}<br>

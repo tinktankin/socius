@@ -185,18 +185,23 @@ def dashboard(request,*args):
                 user=User.objects.filter(is_superuser='True').first()
                 current_site = get_current_site(request)
                 #mail_subject = 'Invite to Socius'
-                message = render_to_string('socius/invite.html', {
-                    'user': user,
-                    'domain': current_site.domain,
-                    'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                    'token': default_token_generator.make_token(user),
+                #message = render_to_string('socius/invite.html', {
+                    #'user': user,
+                    #'domain': current_site.domain,
+                    #'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                    #'token': default_token_generator.make_token(user),
                     
-                })
+                #})
+                html_content = render_to_string("socius/invite.html",{'user':user,'domain': current_site.domain,'uid': urlsafe_base64_encode(force_bytes(user.pk)),'token': default_token_generator.make_token(user)})
+                text_content = strip_tags(html_content)
                 for i in range(len(l)):
                     #reciever_list.append(i['email'])
-                    to_email = l[i]
-                    email = EmailMessage(
-                        'Invite to Socius'+":"+"DirectoryId "+c[i], message, to=[to_email]
+                    to_email = [l[i]]
+                    email = EmailMultiAlternatives(
+                        'Invite to Socius'+":"+"DirectoryId "+c[i],
+                        text_content,
+                        settings.EMAIL_HOST_USER,
+                        to_email
                     )
                     email.send()
                 return redirect('dashboard')
@@ -229,7 +234,7 @@ def dashboard(request,*args):
         current_user = request.user 
         current_user_id = current_user.id 
         createddir = memberdirectory.objects.filter(user_id=current_user_id).all()
-        print(createddir) 
+        #print(createddir) 
         return render(request,'socius/dashboard.html',{'dir':dir,'k':k,'createddir':createddir})
 
 
@@ -409,10 +414,10 @@ def joindirectory(request):
 
 def joined(request):
     if request.method=='POST':
-        print("i AM in Joined ")
+        #print("i AM in Joined ")
         form=DirectoryjoinForm(request.POST)
         if form.is_valid():
-            print("Join Form is valid ")
+            #print("Join Form is valid ")
             user=request.user.id
             #Name=request.POST['Name']
             #Email=request.POST['email']
